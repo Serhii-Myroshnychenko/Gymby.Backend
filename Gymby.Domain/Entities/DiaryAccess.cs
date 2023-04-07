@@ -7,4 +7,5 @@ public class DiaryAccess
     public int UserId { get; set; }
     public int DiaryId { get; set; }
     public AccessType Type { get; set; }
+    public Diary Diary { get; set; } = null!;
 }

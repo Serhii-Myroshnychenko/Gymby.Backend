@@ -7,4 +7,5 @@ public class Approach
     public double Weight { get; set; }
     public bool IsDone { get; set; }
     public DateTime CreationDate { get; set; }
+    public Exercise Exercise { get; set; } = null!;
 }

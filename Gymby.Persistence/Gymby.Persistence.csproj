@@ -14,8 +14,4 @@
     <ProjectReference Include="..\Gymby.Application\Gymby.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EntityTypeConfigurations\" />
-  </ItemGroup>
-
 </Project>

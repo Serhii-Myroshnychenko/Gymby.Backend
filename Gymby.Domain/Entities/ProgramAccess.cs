@@ -8,4 +8,5 @@ public class ProgramAccess
     public int ProgramId { get; set; }
     public AccessType Type { get; set; }
     public bool IsFavorite { get; set; }
+    public Program Program { get; set; } = null!;
 }

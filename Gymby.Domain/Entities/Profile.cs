@@ -1,4 +1,6 @@
-﻿namespace Gymby.Domain.Entities;
+﻿using Gymby.Domain.Enums;
+
+namespace Gymby.Domain.Entities;
 
 public class Profile
 {
@@ -11,4 +13,5 @@ public class Profile
     public string? InstagramUrl { get; set; }
     public string? FacebookUrl { get; set; }
     public string? TelegramUsername { get; set; }
+    public Role Role { get; set; }
 }

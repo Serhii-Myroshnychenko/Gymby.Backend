@@ -10,5 +10,4 @@ public class Measurement
     public MeasurementType Type { get; set; }
     public double Value { get; set; }
     public Units Unit { get; set; }
-
 }

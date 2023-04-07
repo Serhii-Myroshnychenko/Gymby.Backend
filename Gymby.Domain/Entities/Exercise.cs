@@ -7,4 +7,8 @@ public class Exercise
     public int? ProgramDayId { get; set; }
     public DateTime? Date { get; set; }
     public string Name { get; set; } = null!;
+    public DiaryDay? DiaryDay { get; set; }
+    public ExercisePrototype ExercisePrototype { get; set; } = null!;
+    public ProgramDay? ProgramDay { get; set; }
+    public ICollection<Approach> Approaches { get; set; } = null!;
 }
