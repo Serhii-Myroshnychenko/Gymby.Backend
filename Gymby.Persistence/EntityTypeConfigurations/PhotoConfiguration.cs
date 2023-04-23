@@ -9,12 +9,16 @@ public class PhotoConfiguration : IEntityTypeConfiguration<Photo>
     {
         builder.ToTable("Photo");
 
+        builder.HasKey(p => p.Id);
+
         builder.Property(p => p.Id)
-            .UseHiLo("photo_hilo")
             .IsRequired();
 
         builder.Property(p => p.UserId)
              .IsRequired();
+
+        builder.Property(p => p.PhotoPath)
+            .IsRequired();
 
         builder.Property(p => p.IsMeasurement)
             .IsRequired();

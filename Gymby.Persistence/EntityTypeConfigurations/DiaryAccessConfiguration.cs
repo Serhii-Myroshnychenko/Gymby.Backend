@@ -10,8 +10,9 @@ namespace Gymby.Persistence.EntityTypeConfigurations
         {
             builder.ToTable("DiaryAccess");
 
-            builder.Property(m => m.Id)
-                .UseHiLo("DiaryAccess_hilo")
+            builder.HasKey(da => da.Id);
+
+            builder.Property(da => da.Id)
                 .IsRequired();
 
             builder.Property(m => m.UserId)
@@ -22,6 +23,11 @@ namespace Gymby.Persistence.EntityTypeConfigurations
 
             builder.Property(m => m.Type)
                 .IsRequired();
+
+            builder.HasOne(diaryAccess => diaryAccess.Diary)
+                .WithMany(diary => diary.DiaryAccesses)
+                .HasForeignKey(diaryAccess => diaryAccess.DiaryId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

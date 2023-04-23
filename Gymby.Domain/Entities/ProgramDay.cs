@@ -1,8 +1,8 @@
 ﻿namespace Gymby.Domain.Entities;
 public class ProgramDay
 {
-    public int Id { get; set; }
-    public int ProgramId { get; set; }
+    public string Id { get; set; } = null!;
+    public string ProgramId { get; set; } = null!;
     public string Name { get; set; } = null!;
     public Program Program { get; set; } = null!;
     public ICollection<Exercise>? Exercises { get; set; }

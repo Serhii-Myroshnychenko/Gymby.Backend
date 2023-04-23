@@ -11,8 +11,9 @@ namespace Gymby.Persistence.EntityTypeConfigurations
         {
             builder.ToTable("Measurement");
 
+            builder.HasKey(m => m.Id);
+
             builder.Property(m => m.Id)
-                .UseHiLo("Measurement_hilo")
                 .IsRequired();
 
             builder.Property(m => m.UserId)

@@ -9,8 +9,9 @@ public class FriendConfiguration : IEntityTypeConfiguration<Friend>
     {
         builder.ToTable("Friend");
 
-        builder.Property(m => m.Id)
-            .UseHiLo("Friend_hilo")
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Id)
             .IsRequired();
 
         builder.Property(m => m.SenderId)

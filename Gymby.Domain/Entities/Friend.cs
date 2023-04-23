@@ -4,8 +4,8 @@ namespace Gymby.Domain.Entities;
 
 public class Friend
 {
-    public int Id { get; set; }
-    public int SenderId { get; set; }
-    public int ReceiverId { get; set; }
+    public string Id { get; set; } = null!;
+    public string SenderId { get; set; } = null!;
+    public string ReceiverId { get; set; } = null!;
     public Status Status { get; set; }
 }

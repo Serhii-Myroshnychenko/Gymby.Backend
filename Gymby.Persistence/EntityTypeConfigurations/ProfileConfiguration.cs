@@ -9,23 +9,21 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
     {
         builder.ToTable("Profile");
 
-        builder.Property(p => p.Id)
-            .UseHiLo("profile_hilo")
+        builder.HasKey(pr => pr.Id);
+
+        builder.Property(pr => pr.Id)
             .IsRequired();
 
         builder.Property(p => p.UserId)
             .IsRequired();
 
         builder.Property(p => p.FirstName)
-            .IsRequired()
             .HasMaxLength(50);
 
         builder.Property(p => p.LastName)
-            .IsRequired()
             .HasMaxLength(100);
 
-        builder.Property(p => p.Description)
-            .HasMaxLength(150);
+        builder.Property(p => p.Description);
 
         builder.Property(p => p.PhotoAvatarPath)
             .HasMaxLength(50);
@@ -39,7 +37,10 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
         builder.Property(p => p.TelegramUsername)
             .HasMaxLength(255);
 
-        builder.Property(p => p.Role)
+        builder.Property(p => p.Email)
+            .IsRequired();
+
+        builder.Property(p => p.Username)
             .IsRequired();
     }
 }

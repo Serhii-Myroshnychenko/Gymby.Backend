@@ -9,6 +9,5 @@ public enum MeasurementType
     Сhest,
     Waist,
     Thigh,
-    Hand, 
-    Photos
+    Hand
 }
