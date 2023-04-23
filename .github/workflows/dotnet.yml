@@ -3,7 +3,11 @@
 
 name: .NET
 
-on: workflow_dispatch
+on: 
+  push:
+    branches: [ "Dev" ]
+  pull_request:
+    branches: [ "Dev" ]
 
 jobs:
   build:
