@@ -3,7 +3,11 @@
 
 name: .NET
 
-on: workflow_dispatch
+on: 
+  push:
+    branches: [ "Dev" ]
+  pull_request:
+    branches: [ "Dev" ]
 
 jobs:
   build:
@@ -18,7 +22,10 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
+      working-directory: ./Gymby.Backend
     - name: Build
       run: dotnet build --no-restore
+      working-directory: ./Gymby.Backend
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      working-directory: ./Gymby.Backend
