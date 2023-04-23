@@ -6,9 +6,9 @@ namespace Gymby.Tests
         public void MyTestMethod_Success()
         {
             // Arrange
-            var expected = 4;
+            var expected = 5;
             var a = 2;
-            var b = 2;
+            var b = 3;
 
             // Act
             var result = a + b;
