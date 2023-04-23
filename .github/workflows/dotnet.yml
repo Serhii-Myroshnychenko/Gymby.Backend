@@ -24,4 +24,4 @@ jobs:
       working-directory: ./Gymby.Backend
     - name: Test
       run: dotnet test --no-build --verbosity normal
-      working-directory: ./Gymby.Tests
+      working-directory: ./Gymby.Backend
