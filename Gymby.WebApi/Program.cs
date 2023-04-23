@@ -17,7 +17,7 @@ builder.Services.AddAutoMapper(config =>
     config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
     config.AddProfile(new AssemblyMappingProfile(typeof(IApplicationDbContext).Assembly));
 });
-builder.Services.AddApplication();
+//builder.Services.AddApplication();
 builder.Services.AddPersistence(configuration);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
