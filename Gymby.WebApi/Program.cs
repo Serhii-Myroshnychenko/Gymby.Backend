@@ -1,8 +1,11 @@
 using Gymby.Application.Common.Mappings;
+using Gymby.Application.Config;
 using Gymby.Application.DI;
 using Gymby.Application.Interfaces;
 using Gymby.Persistence.Data;
 using Gymby.Persistence.DI;
+using Gymby.WebApi.Middleware;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
 
@@ -11,13 +14,15 @@ var configuration = GetConfiguration();
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
+builder.Services.Configure<AppConfig>(configuration);
+
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(config =>
 {
     config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
     config.AddProfile(new AssemblyMappingProfile(typeof(IApplicationDbContext).Assembly));
 });
-//builder.Services.AddApplication();
+builder.Services.AddApplication();
 builder.Services.AddPersistence(configuration);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -30,6 +35,17 @@ builder.Services.AddCors(options =>
         policy.AllowAnyOrigin();
         policy.AllowAnyMethod();
     });
+});
+
+builder.Services.AddAuthentication(config =>
+{
+    config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer("Bearer", options =>
+{
+    options.Authority = "https://localhost:44351/";
+    options.Audience = "GymbyWebAPI";
+    options.RequireHttpsMetadata = false;
 });
 
 var app = builder.Build();
@@ -55,6 +71,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCustomExceptionHandler();
+
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(Path.Combine(Environment.CurrentDirectory,"Images")),
@@ -64,6 +82,8 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseHttpsRedirection();
 
 app.UseCors("Default");
+
+app.UseAuthorization();
 
 app.UseAuthorization();
 

@@ -20,7 +20,7 @@ public class UpdateProfileHandler
         CancellationToken cancellationToken)
     {
         var entity = await _dbContext.Profiles
-            .FirstOrDefaultAsync(p => p.Username == updateProfile.Username, cancellationToken);
+            .FirstOrDefaultAsync(p => p.UserId == updateProfile.UserId && p.Username == updateProfile.Username, cancellationToken);
 
         if(entity == null)
         {
@@ -29,7 +29,7 @@ public class UpdateProfileHandler
 
         if(updateProfile.Avatar != null)
         {
-            var path = Path.Combine(updateProfile.Path!, updateProfile.ProfileId);
+            var path = Path.Combine(Path.Combine(updateProfile.Options.Value.Path!, updateProfile.Options.Value.Profile),updateProfile.ProfileId);
 
             DirectoryInfo directory = new (path);
 
@@ -59,6 +59,14 @@ public class UpdateProfileHandler
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        return _mapper.Map<ProfileVm>(entity);
+        var result = _mapper.Map<ProfileVm>(entity);
+
+        if (result.PhotoAvatarPath != null)
+        {
+            result.PhotoAvatarPath = Path.Combine(Path.Combine(updateProfile.Options.Value.Host, updateProfile.Options.Value.Profile),
+            Path.Combine(result.ProfileId, result.PhotoAvatarPath));
+        }
+
+        return result;
     }
 }

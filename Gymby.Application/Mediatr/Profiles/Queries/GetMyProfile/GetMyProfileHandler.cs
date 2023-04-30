@@ -25,6 +25,14 @@ public class GetMyProfileHandler
             throw new NotFoundEntityException(query.UserId, nameof(Domain.Entities.Profile));
         }
         
-        return _mapper.Map<ProfileVm>(profile);
+        var result = _mapper.Map<ProfileVm>(profile);
+
+        if(result.PhotoAvatarPath != null)
+        {
+            result.PhotoAvatarPath = Path.Combine(Path.Combine(query.Options.Value.Host, query.Options.Value.Profile),
+                Path.Combine(result.ProfileId, result.PhotoAvatarPath));
+        }
+
+        return result;
     }
 }

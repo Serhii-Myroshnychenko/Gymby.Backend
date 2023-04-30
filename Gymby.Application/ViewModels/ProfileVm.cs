@@ -5,7 +5,6 @@ namespace Gymby.Application.ViewModels;
 
 public class ProfileVm : IMapWith<Profile>
 {
-
     public string ProfileId { get; set; } = null!;
     public string Username { get; set; } = null!;
     public string? FirstName { get; set; }
@@ -43,9 +42,11 @@ public class ProfileVm : IMapWith<Profile>
                 vm => vm.MapFrom(v => v.IsCoach))
             .ForMember(p => p.Email,
                 vm => vm.MapFrom(v => v.Email))
-            .ForMember(p => p.PhotoAvatarPath, vm => vm.MapFrom(v =>
-            string.IsNullOrEmpty(v.PhotoAvatarPath)
-                ? null
-                : $"https://localhost:7120/Images/Profile/{v.PhotoAvatarPath}"));
+            .ForMember(p => p.PhotoAvatarPath,
+                vm => vm.MapFrom(v => v.PhotoAvatarPath));
+            //.ForMember(p => p.PhotoAvatarPath, vm => vm.MapFrom(v =>
+            //string.IsNullOrEmpty(v.PhotoAvatarPath)
+            //    ? null
+            //    : $"https://localhost:7120/Images/Profile/{v.PhotoAvatarPath}"));
     }
 }
