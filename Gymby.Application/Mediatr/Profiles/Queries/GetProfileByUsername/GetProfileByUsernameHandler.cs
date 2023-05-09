@@ -25,12 +25,18 @@ public class GetProfileByUsernameHandler
             throw new NotFoundEntityException(request.Username, nameof(Domain.Entities.Profile));
         }
 
+        var photos = await _dbContext.Photos.Where(p => p.UserId == profile.UserId).ToListAsync();
         var result = _mapper.Map<ProfileVm>(profile);
 
         if (result.PhotoAvatarPath != null)
         {
             result.PhotoAvatarPath = Path.Combine(Path.Combine(request.Options.Value.Host, request.Options.Value.Profile),
             Path.Combine(result.ProfileId, result.PhotoAvatarPath));
+        }
+        if(photos != null)
+        {
+            result.Photos = photos.Select(c => c.PhotoPath = Path.Combine(Path.Combine(request.Options.Value.Host, request.Options.Value.Profile),
+                Path.Combine(profile.UserId, c.PhotoPath))).ToList();
         }
 
         return result;

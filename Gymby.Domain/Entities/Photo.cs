@@ -1,5 +1,4 @@
-﻿
-namespace Gymby.Domain.Entities;
+﻿namespace Gymby.Domain.Entities;
 public class Photo
 {
     public string Id { get; set; } = null!;

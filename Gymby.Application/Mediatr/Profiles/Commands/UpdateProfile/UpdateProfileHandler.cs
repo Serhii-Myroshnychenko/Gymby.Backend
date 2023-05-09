@@ -29,7 +29,7 @@ public class UpdateProfileHandler
 
         if(updateProfile.Avatar != null)
         {
-            var path = Path.Combine(Path.Combine(updateProfile.Options.Value.Path!, updateProfile.Options.Value.Profile),updateProfile.ProfileId);
+            var path = Path.Combine(Path.Combine(updateProfile.Options.Value.Path!, updateProfile.Options.Value.Profile),updateProfile.UserId);
 
             DirectoryInfo directory = new (path);
 
@@ -64,7 +64,7 @@ public class UpdateProfileHandler
         if (result.PhotoAvatarPath != null)
         {
             result.PhotoAvatarPath = Path.Combine(Path.Combine(updateProfile.Options.Value.Host, updateProfile.Options.Value.Profile),
-            Path.Combine(result.ProfileId, result.PhotoAvatarPath));
+                Path.Combine(updateProfile.UserId, result.PhotoAvatarPath));
         }
 
         return result;

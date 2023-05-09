@@ -13,7 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Images\Profile\" />
+    <Folder Include="Images\Profiles\" />
+    <Folder Include="Images\Measurements\" />
   </ItemGroup>
 
   <ItemGroup>

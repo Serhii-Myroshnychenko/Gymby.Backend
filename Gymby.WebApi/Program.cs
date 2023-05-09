@@ -81,8 +81,6 @@ app.UseStaticFiles(new StaticFileOptions
 
 app.UseHttpsRedirection();
 
-app.UseCors("Default");
-
 app.UseAuthorization();
 
 app.UseAuthorization();

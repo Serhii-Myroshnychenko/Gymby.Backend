@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Gymby.Application.Common.Mappings;
 using Gymby.Application.Mediatr.Profiles.Commands.UpdateProfile;
-using System.Text.Json.Serialization;
 
 namespace Gymby.WebApi.Models;
 

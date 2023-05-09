@@ -1,5 +1,6 @@
 ﻿using Gymby.Application.Common.Mappings;
 using Gymby.Domain.Entities;
+using System.Text.Json.Serialization;
 
 namespace Gymby.Application.ViewModels;
 
@@ -7,6 +8,8 @@ public class ProfileVm : IMapWith<Profile>
 {
     public string ProfileId { get; set; } = null!;
     public string Username { get; set; } = null!;
+    [JsonIgnore]
+    public string UserId { get; set; } = null!;
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
     public string? Description { get; set; }
@@ -16,6 +19,7 @@ public class ProfileVm : IMapWith<Profile>
     public string? TelegramUsername { get; set; }
     public bool IsCoach { get; set; }
     public string Email { get; set; } = null!;
+    public List<string>? Photos { get; set; }
 
     public void Mapping(AutoMapper.Profile profile)
     {
@@ -42,11 +46,9 @@ public class ProfileVm : IMapWith<Profile>
                 vm => vm.MapFrom(v => v.IsCoach))
             .ForMember(p => p.Email,
                 vm => vm.MapFrom(v => v.Email))
+            .ForMember(p => p.UserId,
+                vm => vm.MapFrom(v => v.UserId))
             .ForMember(p => p.PhotoAvatarPath,
                 vm => vm.MapFrom(v => v.PhotoAvatarPath));
-            //.ForMember(p => p.PhotoAvatarPath, vm => vm.MapFrom(v =>
-            //string.IsNullOrEmpty(v.PhotoAvatarPath)
-            //    ? null
-            //    : $"https://localhost:7120/Images/Profile/{v.PhotoAvatarPath}"));
     }
 }

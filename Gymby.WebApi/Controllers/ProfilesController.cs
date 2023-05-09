@@ -14,12 +14,12 @@ namespace Gymby.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProfileController : BaseController
+    public class ProfilesController : BaseController
     {
         private readonly IMapper _mapper;
         private readonly IOptions<AppConfig> _config;
 
-        public ProfileController(IMapper mapper, IOptions<AppConfig> config) =>
+        public ProfilesController(IMapper mapper, IOptions<AppConfig> config) =>
             (_mapper,_config) = (mapper,config);
 
         [Authorize]
@@ -40,6 +40,7 @@ namespace Gymby.WebApi.Controllers
             var query = new GetMyProfileQuery(_config)
             {
                 UserId = UserId.ToString(),
+                Email = Email,
             };
 
             return Ok(await Mediator.Send(query));
