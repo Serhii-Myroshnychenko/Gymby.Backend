@@ -40,7 +40,6 @@ public class MeasurementsController : BaseController
 
         return Ok(await Mediator.Send(command));
     }
-
     [Authorize]
     [HttpPost("photo/create")]
     public async Task<IActionResult> AddMeasurementPhoto([FromBody]MeasurementPhotoDto measurement)

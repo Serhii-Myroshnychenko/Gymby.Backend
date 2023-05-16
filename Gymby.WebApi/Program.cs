@@ -79,6 +79,8 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/Images"
 });
 
+app.UseCors("Default");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
