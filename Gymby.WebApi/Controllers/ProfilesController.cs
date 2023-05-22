@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using Gymby.Application.Config;
-using Gymby.Application.Mediatr.Profiles.Commands.CreateProfile;
 using Gymby.Application.Mediatr.Profiles.Commands.UpdateProfile;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
 using Gymby.Application.Mediatr.Profiles.Queries.GetProfileByUsername;
 using Gymby.Application.ViewModels;
 using Gymby.WebApi.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -44,15 +42,6 @@ namespace Gymby.WebApi.Controllers
             };
 
             return Ok(await Mediator.Send(query));
-        }
-        
-        [HttpPost("create")]
-        public async Task<ActionResult<ProfileVm>> CreateProfile([FromBody] CreateProfileDto createProfile)
-        {
-            var command = _mapper.Map<CreateProfileCommand>(createProfile);
-            command.UserId = "guid";
-
-            return Ok(await Mediator.Send(command));
         }
         
         [HttpPost("update")]

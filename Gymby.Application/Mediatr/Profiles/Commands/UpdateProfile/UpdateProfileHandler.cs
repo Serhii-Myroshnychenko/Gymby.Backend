@@ -23,14 +23,18 @@ public class UpdateProfileHandler
         var entity = await _dbContext.Profiles
             .FirstOrDefaultAsync(p => p.UserId == updateProfile.UserId, cancellationToken);
 
-        if(entity == null)
+        var photos = await _dbContext.Photos
+            .Where(p => p.UserId == updateProfile.UserId && p.IsMeasurement == false)
+            .ToListAsync(cancellationToken);
+
+        if (entity == null)
         {
             throw new NotFoundEntityException(updateProfile.Username!, nameof(Domain.Entities.Profile));
         }
 
-        if(updateProfile.Avatar != null)
+        if (updateProfile.Avatar != null)
         {
-            if(entity.PhotoAvatarPath != null)
+            if (entity.PhotoAvatarPath != null)
             {
                 await _fileService.DeletePhotoAsync(updateProfile.Options.Value.ContainerName, updateProfile.UserId, updateProfile.Options.Value.Avatar);
             }
@@ -57,6 +61,11 @@ public class UpdateProfileHandler
             result.PhotoAvatarPath = await _fileService.GetPhotoAsync(updateProfile.Options.Value.ContainerName, updateProfile.UserId, updateProfile.Options.Value.Avatar, result.PhotoAvatarPath);
         }
 
+        if (photos.Any())
+        {
+            result.Photos = await _fileService.GetListOfPhotos(updateProfile.Options.Value.ContainerName, updateProfile.UserId, updateProfile.Options.Value.Profile);
+        }
+      
         return result;
     }
 }

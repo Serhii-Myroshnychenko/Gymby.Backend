@@ -1,5 +1,6 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 
@@ -39,9 +40,19 @@ public class FileService : IFileService
         }
     }
 
-    public Task<List<string>> GetListOfPhotos(string containerName, string userId, string folderName)
+    public async Task<List<string>> GetListOfPhotos(string containerName, string userId, string folderName)
     {
-        throw new NotImplementedException();
+        var photos = new List<string>();
+
+        BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+
+        string folderPath = $"{userId}/{folderName}";
+
+        await foreach(var file in containerClient.GetBlobsAsync(prefix: folderPath))
+        {
+            photos.Add($"{containerClient.Uri}/{file.Name}");
+        }
+        return photos;
     }
 
     public async Task<string> GetPhotoAsync(string containerName, string userId, string folderName, string fileName)
@@ -57,6 +68,6 @@ public class FileService : IFileService
             return folderBlobClient.Uri.ToString();
         }
 
-        return null;
+        throw new NotFoundEntityException(userId, nameof(BlobClient));
     }
 }
