@@ -1,7 +1,6 @@
 global using Xunit;
 global using Gymby.Persistence.Data;
 global using Gymby.Application.Mediatr.Profiles.Commands.UpdateProfile;
-global using Gymby.Application.Mediatr.Profiles.Commands.CreateProfile;
 global using Microsoft.EntityFrameworkCore;
 global using Gymby.Domain;
 global using System;
