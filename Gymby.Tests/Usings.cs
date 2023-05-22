@@ -1,1 +1,14 @@
 global using Xunit;
+global using Gymby.Persistence.Data;
+global using Gymby.Application.Mediatr.Profiles.Commands.UpdateProfile;
+global using Gymby.Application.Mediatr.Profiles.Commands.CreateProfile;
+global using Microsoft.EntityFrameworkCore;
+global using Gymby.Domain;
+global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Text;
+global using System.Threading.Tasks;
+global using Gymby.Domain.Entities;
+global using Gymby.Application.Interfaces;
+global using Gymby.UnitTests.Common;

@@ -21,7 +21,7 @@ public class UpdateProfileHandler
         CancellationToken cancellationToken)
     {
         var entity = await _dbContext.Profiles
-            .FirstOrDefaultAsync(p => p.UserId == updateProfile.UserId && p.Username == updateProfile.Username, cancellationToken);
+            .FirstOrDefaultAsync(p => p.UserId == updateProfile.UserId, cancellationToken);
 
         if(entity == null)
         {
