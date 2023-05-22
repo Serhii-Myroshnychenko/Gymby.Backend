@@ -22,7 +22,7 @@ namespace Gymby.WebApi.Controllers
         public ProfilesController(IMapper mapper, IOptions<AppConfig> config) =>
             (_mapper,_config) = (mapper,config);
 
-        [Authorize]
+        
         [HttpGet("{username}")]
         public async Task<ActionResult<ProfileVm>> GetProfileByUsername(string username)
         {
@@ -33,32 +33,32 @@ namespace Gymby.WebApi.Controllers
 
             return Ok(await Mediator.Send(query));
         }
-        [Authorize]
+        
         [HttpGet]
         public async Task<ActionResult<ProfileVm>> GetMyProfile()
         {
             var query = new GetMyProfileQuery(_config)
             {
-                UserId = UserId.ToString(),
+                UserId = "guid",
                 Email = Email,
             };
 
             return Ok(await Mediator.Send(query));
         }
-        [Authorize]
+        
         [HttpPost("create")]
         public async Task<ActionResult<ProfileVm>> CreateProfile([FromBody] CreateProfileDto createProfile)
         {
             var command = _mapper.Map<CreateProfileCommand>(createProfile);
-            command.UserId = UserId.ToString();
+            command.UserId = "guid";
 
             return Ok(await Mediator.Send(command));
         }
-        [Authorize]
+        
         [HttpPost("update")]
-        public async Task<ActionResult<ProfileVm>> UpdateProfile([FromBody] UpdateProfileDto updateProfile)
+        public async Task<ActionResult<ProfileVm>> UpdateProfile([FromForm] UpdateProfileDto updateProfile)
         {
-            var command = new UpdateProfileCommand(_config) { ProfileId = updateProfile.ProfileId, UserId = UserId.ToString(), Username = updateProfile.Username, Email = updateProfile.Email, FirstName = updateProfile.FirstName, LastName = updateProfile.LastName, Description = updateProfile.Description, Avatar = updateProfile.Avatar, InstagramUrl = updateProfile.InstagramUrl, FacebookUrl = updateProfile.FacebookUrl, TelegramUsername = updateProfile.TelegramUsername };
+            var command = new UpdateProfileCommand(_config) { ProfileId = updateProfile.ProfileId, UserId = "guid", Username = updateProfile.Username, Email = updateProfile.Email, FirstName = updateProfile.FirstName, LastName = updateProfile.LastName, Description = updateProfile.Description, Avatar = updateProfile.Avatar, InstagramUrl = updateProfile.InstagramUrl, FacebookUrl = updateProfile.FacebookUrl, TelegramUsername = updateProfile.TelegramUsername };
 
             return Ok(await Mediator.Send(command));
         }

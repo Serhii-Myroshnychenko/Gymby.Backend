@@ -14,7 +14,7 @@ public class AddMeasurementPhotoHandler
 
     public async Task<string> Handle(AddMeasurementPhotoCommand request, CancellationToken cancellationToken)
     {
-        var path = Path.Combine(Path.Combine(request.Options.Value.Path!, request.Options.Value.Measurement), request.UserId);
+        var path = Path.Combine(Path.Combine(request.Options.Value.DirectoryPath!, request.Options.Value.Measurement), request.UserId);
 
         using (var fileStream = new FileStream(Path.Combine(path, request.File.FileName), FileMode.Create))
         {

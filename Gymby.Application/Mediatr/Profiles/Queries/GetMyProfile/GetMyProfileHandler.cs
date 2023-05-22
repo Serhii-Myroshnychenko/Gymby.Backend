@@ -3,7 +3,6 @@ using Gymby.Application.Interfaces;
 using Gymby.Application.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
-using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Utils;
 
 namespace Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
@@ -13,11 +12,10 @@ public class GetMyProfileHandler
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
+    private readonly IFileService _fileService;
 
-    public GetMyProfileHandler(IApplicationDbContext dbContext, IMapper mapper) =>
-        (_dbContext, _mapper) = (dbContext, mapper);
-    
-    // Пофиксить логику фоток   
+    public GetMyProfileHandler(IApplicationDbContext dbContext, IMapper mapper, IFileService fileService) =>
+        (_dbContext, _mapper, _fileService) = (dbContext, mapper, fileService);
     
     public async Task<ProfileVm> Handle(GetMyProfileQuery query, CancellationToken cancellationToken)
     {
@@ -55,8 +53,7 @@ public class GetMyProfileHandler
 
         if(result.PhotoAvatarPath != null)
         {
-            result.PhotoAvatarPath = Path.Combine(Path.Combine(query.Options.Value.Host, query.Options.Value.Profile),
-                Path.Combine(query.UserId, result.PhotoAvatarPath));
+            result.PhotoAvatarPath = await _fileService.GetPhotoAsync(query.Options.Value.ContainerName, query.UserId, query.Options.Value.Avatar, result.PhotoAvatarPath);
         }
 
         if(photos != null)

@@ -12,9 +12,10 @@ public class UpdateProfileHandler
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
+    private readonly IFileService _fileService;
 
-    public UpdateProfileHandler(IApplicationDbContext dbContext, IMapper mapper) =>
-        (_dbContext, _mapper) = (dbContext, mapper);
+    public UpdateProfileHandler(IApplicationDbContext dbContext, IMapper mapper, IFileService fileService) =>
+        (_dbContext, _mapper, _fileService) = (dbContext, mapper, fileService);
 
     public async Task<ProfileVm> Handle(UpdateProfileCommand updateProfile,
         CancellationToken cancellationToken)
@@ -29,21 +30,11 @@ public class UpdateProfileHandler
 
         if(updateProfile.Avatar != null)
         {
-            var path = Path.Combine(Path.Combine(updateProfile.Options.Value.Path!, updateProfile.Options.Value.Profile),updateProfile.UserId);
-
-            DirectoryInfo directory = new (path);
-
-            FileInfo[] files = directory.GetFiles();
-
-            foreach (FileInfo file in files)
+            if(entity.PhotoAvatarPath != null)
             {
-                await Task.Run(() => file.Delete(), cancellationToken);
+                await _fileService.DeletePhotoAsync(updateProfile.Options.Value.ContainerName, updateProfile.UserId, updateProfile.Options.Value.Avatar);
             }
-
-            using (var fileStream = new FileStream(Path.Combine(path,updateProfile.Avatar.FileName), FileMode.Create))
-            {
-                await updateProfile.Avatar.CopyToAsync(fileStream, cancellationToken);
-            }
+            await _fileService.AddPhotoAsync(updateProfile.Options.Value.ContainerName, updateProfile.UserId, updateProfile.Options.Value.Avatar, updateProfile.Avatar);
 
             entity.PhotoAvatarPath = updateProfile.Avatar.FileName;
         }
@@ -63,8 +54,7 @@ public class UpdateProfileHandler
 
         if (result.PhotoAvatarPath != null)
         {
-            result.PhotoAvatarPath = Path.Combine(Path.Combine(updateProfile.Options.Value.Host, updateProfile.Options.Value.Profile),
-                Path.Combine(updateProfile.UserId, result.PhotoAvatarPath));
+            result.PhotoAvatarPath = await _fileService.GetPhotoAsync(updateProfile.Options.Value.ContainerName, updateProfile.UserId, updateProfile.Options.Value.Avatar, result.PhotoAvatarPath);
         }
 
         return result;
