@@ -11,3 +11,8 @@ global using System.Threading.Tasks;
 global using Gymby.Domain.Entities;
 global using Gymby.Application.Interfaces;
 global using Gymby.UnitTests.Common;
+global using Microsoft.Extensions.Options;
+global using Gymby.Application.ViewModels;
+global using Gymby.Application.Config;
+global using Shouldly;
+global using Gymby.Application.Common.Exceptions;

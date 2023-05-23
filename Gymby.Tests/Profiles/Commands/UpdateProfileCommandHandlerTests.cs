@@ -1,13 +1,4 @@
 ﻿using AutoMapper;
-using Gymby.Application.Common.Exceptions;
-using Gymby.Application.Config;
-using Gymby.Application.Mediatr.Profiles.Commands.UpdateProfile;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gymby.UnitTests.Profiles.Commands
 {
@@ -26,7 +17,7 @@ namespace Gymby.UnitTests.Profiles.Commands
         }
 
         [Fact]
-        public async Task UpdateProfileCommandHandler_Success()
+        public async Task UpdateProfileHandler_Success()
         {
             // Arrange
             var handler = new UpdateProfileHandler(Context, Mapper, FileService);
@@ -66,7 +57,7 @@ namespace Gymby.UnitTests.Profiles.Commands
         }
 
         [Fact]
-        public async Task UpdateNoteCommandHandler_FailOnWrongUserId()
+        public async Task UpdateProfileHandler_FailOnWrongUserId()
         {
             // Arrange
             var handler = new UpdateProfileHandler(Context, Mapper, FileService);

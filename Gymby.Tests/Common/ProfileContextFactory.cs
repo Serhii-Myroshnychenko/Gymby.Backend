@@ -1,14 +1,4 @@
-﻿using Gymby.Persistence.Data;
-using Microsoft.EntityFrameworkCore;
-using Gymby.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Gymby.Domain.Entities;
-
-namespace Gymby.UnitTests
+﻿namespace Gymby.UnitTests
 {
     public class ProfileContextFactory
     {
