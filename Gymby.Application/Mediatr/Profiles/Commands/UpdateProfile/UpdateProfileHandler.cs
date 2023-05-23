@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
+using Gymby.Application.Utils;
 using Gymby.Application.ViewModels;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gymby.Application.Mediatr.Profiles.Commands.UpdateProfile;
@@ -34,13 +36,15 @@ public class UpdateProfileHandler
 
         if (updateProfile.Avatar != null)
         {
+            var newPhotoName = Guid.NewGuid().ToString() + Path.GetExtension(updateProfile.Avatar.FileName);
+
             if (entity.PhotoAvatarPath != null)
             {
                 await _fileService.DeletePhotoAsync(updateProfile.Options.Value.ContainerName, updateProfile.UserId, updateProfile.Options.Value.Avatar);
             }
-            await _fileService.AddPhotoAsync(updateProfile.Options.Value.ContainerName, updateProfile.UserId, updateProfile.Options.Value.Avatar, updateProfile.Avatar);
+            await _fileService.AddPhotoAsync(updateProfile.Options.Value.ContainerName, updateProfile.UserId, updateProfile.Options.Value.Avatar, updateProfile.Avatar, newPhotoName);
 
-            entity.PhotoAvatarPath = updateProfile.Avatar.FileName;
+            entity.PhotoAvatarPath = newPhotoName;
         }
 
         entity.Username = updateProfile.Username;
@@ -63,7 +67,12 @@ public class UpdateProfileHandler
 
         if (photos.Any())
         {
-            result.Photos = await _fileService.GetListOfPhotos(updateProfile.Options.Value.ContainerName, updateProfile.UserId, updateProfile.Options.Value.Profile);
+            result.Photos = _mapper.Map<List<PhotoVm>>(photos);
+
+            foreach (var elem in result.Photos)
+            {
+                elem.PhotoPath = await _fileService.GetPhotoAsync(updateProfile.Options.Value.ContainerName, elem.UserId, updateProfile.Options.Value.Profile, elem.PhotoPath);
+            }
         }
       
         return result;
