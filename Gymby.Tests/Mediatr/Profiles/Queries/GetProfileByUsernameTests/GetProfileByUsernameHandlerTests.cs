@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Gymby.Application.Mediatr.Profiles.Queries.GetProfileByUsername;
 
-namespace Gymby.UnitTests.Mediatr.Profiles.Queries
+namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetProfileByUsernameTests
 {
     public class GetProfileByUsernameHandlerTests
     {
@@ -18,7 +18,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries
         }
 
         [Fact]
-        public async Task GetProfileByUsernameHandler_GetProfileDetails_Success()
+        public async Task GetProfileByUsernameHandler_ShouldGetProfileDetails()
         {
             // Arrange
             var handler = new GetProfileByUsernameHandler(Context, Mapper, FileService);
@@ -47,7 +47,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries
         }
 
         [Fact]
-        public async Task GetProfileByUsernameHandler_FailOnWrongUsername()
+        public async Task GetProfileByUsernameHandler_ShouldBeFailOnWrongUsername()
         {
             // Arrange
             var handler = new GetProfileByUsernameHandler(Context, Mapper, FileService);

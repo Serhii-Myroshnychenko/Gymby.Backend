@@ -1,0 +1,67 @@
+﻿using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
+
+namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetMyProfileTests
+{
+    public class GetMyProfileValidatorTests
+    {
+        [Fact]
+        public void GetMyProfileValidator_ShouldHaveErrorWhenUserIdIsNull()
+        {
+            // Arrange
+            var validator = new GetMyProfileValidator();
+            var appConfig = new AppConfig();
+            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
+            var query = new GetMyProfileQuery(appConfigOptions)
+            {
+                UserId = null
+            };
+
+            // Act
+            var result = validator.Validate(query);
+
+            // Assert
+            Assert.False(result.IsValid);
+            Assert.Contains(result.Errors, error => error.PropertyName == nameof(query.UserId));
+        }
+
+        [Fact]
+        public void GetMyProfileValidator_ShouldHaveErrorWhenUserIdIsEmpty()
+        {
+            // Arrange
+            var validator = new GetMyProfileValidator();
+            var appConfig = new AppConfig();
+            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
+            var query = new GetMyProfileQuery(appConfigOptions)
+            {
+                UserId = string.Empty
+            };
+
+            // Act
+            var result = validator.Validate(query);
+
+            // Assert
+            Assert.False(result.IsValid);
+            Assert.Contains(result.Errors, error => error.PropertyName == nameof(query.UserId));
+        }
+
+        [Fact]
+        public void GetMyProfileValidator_ShouldNotHaveErrorWhenUserIdIsProvided()
+        {
+            // Arrange
+            var validator = new GetMyProfileValidator();
+            var appConfig = new AppConfig();
+            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
+            var query = new GetMyProfileQuery(appConfigOptions)
+            {
+                UserId = "userId"
+            };
+
+            // Act
+            var result = validator.Validate(query);
+
+            // Assert
+            Assert.True(result.IsValid);
+            Assert.DoesNotContain(result.Errors, error => error.PropertyName == nameof(query.UserId));
+        }
+    }
+}

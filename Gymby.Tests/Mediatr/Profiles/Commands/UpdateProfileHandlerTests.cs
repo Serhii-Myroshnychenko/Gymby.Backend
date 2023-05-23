@@ -2,13 +2,13 @@
 
 namespace Gymby.UnitTests.Mediatr.Profiles.Commands
 {
-    public class UpdateProfileCommandHandlerTests
+    public class UpdateProfileHandlerTests
     {
         private readonly ApplicationDbContext Context;
         private readonly IMapper Mapper;
         private readonly IFileService FileService;
 
-        public UpdateProfileCommandHandlerTests()
+        public UpdateProfileHandlerTests()
         {
             CommandTestFixture fixture = new CommandTestFixture();
             Context = fixture.Context;
@@ -17,7 +17,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands
         }
 
         [Fact]
-        public async Task UpdateProfileHandler_Success()
+        public async Task UpdateProfileHandler_ShouldBeSuccess()
         {
             // Arrange
             var handler = new UpdateProfileHandler(Context, Mapper, FileService);
@@ -57,7 +57,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands
         }
 
         [Fact]
-        public async Task UpdateProfileHandler_FailOnWrongUserId()
+        public async Task UpdateProfileHandler_ShouldBeFailOnWrongUserId()
         {
             // Arrange
             var handler = new UpdateProfileHandler(Context, Mapper, FileService);

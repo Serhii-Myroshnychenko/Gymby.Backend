@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
 
-namespace Gymby.UnitTests.Mediatr.Profiles.Queries
+namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetMyProfileTests
 {
     public class GetMyProfileHandlerTests
     {
@@ -18,7 +18,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries
         }
 
         [Fact]
-        public async Task GetMyProfileHandler_GetProfileDetails_Success()
+        public async Task GetMyProfileHandler_ShouldGetProfileDetails()
         {
             // Arrange
             var handler = new GetMyProfileHandler(Context, Mapper, FileService);
@@ -48,7 +48,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries
         }
 
         [Fact]
-        public async Task GetMyProfileHandler_NonExistingProfile_CreatesNewProfile_Success()
+        public async Task GetMyProfileHandler_ShouldCreatesNewProfile()
         {
             // Arrange
             var handler = new GetMyProfileHandler(Context, Mapper, FileService);
