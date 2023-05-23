@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 
-namespace Gymby.UnitTests.Profiles.Commands
+namespace Gymby.UnitTests.Mediatr.Profiles.Commands
 {
-    public class UpdateProfileCommandHandlerTests 
+    public class UpdateProfileCommandHandlerTests
     {
         private readonly ApplicationDbContext Context;
         private readonly IMapper Mapper;
@@ -51,9 +51,9 @@ namespace Gymby.UnitTests.Profiles.Commands
 
             // Assert
             var a = await Context.Profiles.ToListAsync();
-                Assert.NotNull(await Context.Profiles.SingleOrDefaultAsync(profile => 
-                profile.Id == updateProfileId &&
-                profile.Username == updateUsername && profile.Email == updateEmail));
+            Assert.NotNull(await Context.Profiles.SingleOrDefaultAsync(profile =>
+            profile.Id == updateProfileId &&
+            profile.Username == updateUsername && profile.Email == updateEmail));
         }
 
         [Fact]

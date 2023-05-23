@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
 
-namespace Gymby.UnitTests.Profiles.Queries
+namespace Gymby.UnitTests.Mediatr.Profiles.Queries
 {
     public class GetMyProfileHandlerTests
     {
