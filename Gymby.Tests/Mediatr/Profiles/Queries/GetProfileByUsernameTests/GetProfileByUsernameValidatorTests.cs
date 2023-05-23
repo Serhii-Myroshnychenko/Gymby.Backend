@@ -5,7 +5,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetProfileByUsernameTests
     public class GetProfileByUsernameValidatorTests
     {
         [Fact]
-        public void GetProfileByUsernameValidator_ShouldHaveErrorWhenUsernameIsNull()
+        public async Task GetProfileByUsernameValidator_ShouldHaveErrorWhenUsernameIsNull()
         {
             // Arrange
             var validator = new GetProfileByUsernameValidator();
@@ -17,7 +17,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetProfileByUsernameTests
             };
 
             // Act
-            var result = validator.Validate(query);
+            var result = await validator.ValidateAsync(query);
 
             // Assert
             Assert.False(result.IsValid);
@@ -25,7 +25,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetProfileByUsernameTests
         }
 
         [Fact]
-        public void GetProfileByUsernameValidator_ShouldHaveErrorWhenUsernameIsEmpty()
+        public async Task GetProfileByUsernameValidator_ShouldHaveErrorWhenUsernameIsEmpty()
         {
             // Arrange
             var validator = new GetProfileByUsernameValidator();
@@ -37,7 +37,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetProfileByUsernameTests
             };
 
             // Act
-            var result = validator.Validate(query);
+            var result = await validator.ValidateAsync(query);
 
             // Assert
             Assert.False(result.IsValid);
@@ -45,7 +45,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetProfileByUsernameTests
         }
 
         [Fact]
-        public void GetProfileByUsernameValidator_ShouldNotHaveErrorWhenUsernameIsProvided()
+        public async Task GetProfileByUsernameValidator_ShouldNotHaveErrorWhenUsernameIsProvided()
         {
             // Arrange
             var validator = new GetProfileByUsernameValidator();
@@ -57,7 +57,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetProfileByUsernameTests
             };
 
             // Act
-            var result = validator.Validate(query);
+            var result = await validator.ValidateAsync(query);
 
             // Assert
             Assert.True(result.IsValid);

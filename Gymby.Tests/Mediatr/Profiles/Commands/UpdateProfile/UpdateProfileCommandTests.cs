@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gymby.UnitTests.Mediatr.Profiles.Commands
+namespace Gymby.UnitTests.Mediatr.Profiles.Commands.UpdateProfile
 {
     public class UpdateProfileCommandTests
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gymby.UnitTests.Mediatr.Profiles.Commands
+namespace Gymby.UnitTests.Mediatr.Profiles.Commands.UpdateProfile
 {
     public class UpdateProfileValidatorTests
     {
@@ -16,7 +16,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands
         }
 
         [Fact]
-        public void UpdateProfileValidator_ShouldValidateCorrectCommand()
+        public async Task UpdateProfileValidator_ShouldValidateCorrectCommand()
         {
             // Arrange
             var appConfig = new AppConfig();
@@ -29,14 +29,14 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands
             };
 
             // Act
-            var validationResult = _validator.Validate(command);
+            var validationResult = await _validator.ValidateAsync(command);
 
             // Assert
             Assert.True(validationResult.IsValid);
         }
 
         [Fact]
-        public void UpdateProfileValidator_ShouldFailValidationWhenProfileIdIsNull()
+        public async Task UpdateProfileValidator_ShouldFailValidationWhenProfileIdIsNull()
         {
             // Arrange
             var appConfig = new AppConfig();
@@ -49,7 +49,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands
             };
 
             // Act
-            var validationResult = _validator.Validate(command);
+            var validationResult = await _validator.ValidateAsync(command);
 
             // Assert
             Assert.False(validationResult.IsValid);
@@ -57,7 +57,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands
         }
 
         [Fact]
-        public void UpdateProfileValidator_ShouldFailValidationWhenUserIdIsEmpty()
+        public async Task UpdateProfileValidator_ShouldFailValidationWhenUserIdIsEmpty()
         {
             // Arrange
             var appConfig = new AppConfig();
@@ -70,7 +70,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands
             };
 
             // Act
-            var validationResult = _validator.Validate(command);
+            var validationResult = await _validator.ValidateAsync(command);
 
             // Assert
             Assert.False(validationResult.IsValid);
@@ -78,7 +78,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands
         }
 
         [Fact]
-        public void UpdateProfileValidator_ShouldFailValidationWhenEmailIsNull()
+        public async Task UpdateProfileValidator_ShouldFailValidationWhenEmailIsNull()
         {
             // Arrange
             var appConfig = new AppConfig();
@@ -91,7 +91,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands
             };
 
             // Act
-            var validationResult = _validator.Validate(command);
+            var validationResult = await _validator.ValidateAsync(command);
 
             // Assert
             Assert.False(validationResult.IsValid);

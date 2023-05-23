@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Gymby.UnitTests.Mediatr.Profiles.Commands
+namespace Gymby.UnitTests.Mediatr.Profiles.Commands.UpdateProfile
 {
     public class UpdateProfileHandlerTests
     {

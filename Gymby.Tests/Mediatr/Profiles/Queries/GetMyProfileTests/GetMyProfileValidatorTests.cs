@@ -5,7 +5,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetMyProfileTests
     public class GetMyProfileValidatorTests
     {
         [Fact]
-        public void GetMyProfileValidator_ShouldHaveErrorWhenUserIdIsNull()
+        public async Task GetMyProfileValidator_ShouldHaveErrorWhenUserIdIsNull()
         {
             // Arrange
             var validator = new GetMyProfileValidator();
@@ -17,7 +17,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetMyProfileTests
             };
 
             // Act
-            var result = validator.Validate(query);
+            var result = await validator.ValidateAsync(query);
 
             // Assert
             Assert.False(result.IsValid);
@@ -25,7 +25,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetMyProfileTests
         }
 
         [Fact]
-        public void GetMyProfileValidator_ShouldHaveErrorWhenUserIdIsEmpty()
+        public async Task GetMyProfileValidator_ShouldHaveErrorWhenUserIdIsEmpty()
         {
             // Arrange
             var validator = new GetMyProfileValidator();
@@ -37,7 +37,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetMyProfileTests
             };
 
             // Act
-            var result = validator.Validate(query);
+            var result = await validator.ValidateAsync(query);
 
             // Assert
             Assert.False(result.IsValid);
@@ -45,7 +45,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetMyProfileTests
         }
 
         [Fact]
-        public void GetMyProfileValidator_ShouldNotHaveErrorWhenUserIdIsProvided()
+        public async Task GetMyProfileValidator_ShouldNotHaveErrorWhenUserIdIsProvided()
         {
             // Arrange
             var validator = new GetMyProfileValidator();
@@ -57,7 +57,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetMyProfileTests
             };
 
             // Act
-            var result = validator.Validate(query);
+            var result = await validator.ValidateAsync(query);
 
             // Assert
             Assert.True(result.IsValid);
