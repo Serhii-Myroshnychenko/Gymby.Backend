@@ -3,7 +3,6 @@ using Gymby.Application.Config;
 using Gymby.Application.Mediatr.Photos.Commands.AddPhoto;
 using Gymby.Application.Mediatr.Photos.Commands.DeletePhoto;
 using Gymby.WebApi.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
