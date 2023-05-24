@@ -18,23 +18,32 @@ public class InviteFriendHandler
     public InviteFriendHandler(IApplicationDbContext dbContext) =>
         (_dbContext) = (dbContext);
 
-    public async Task<string> Handle(InviteFriendCommand command, 
+    public async Task<string> Handle(InviteFriendCommand command,
         CancellationToken cancellationToken)
     {
         var profile = await _dbContext.Profiles
             .Where(p => p.Username == command.Username)
             .FirstOrDefaultAsync(cancellationToken);
 
-        if(profile == null)
+        if (profile == null)
         {
             throw new NotFoundEntityException(command.Username, nameof(Domain.Entities.Profile));
+        }
+
+        var friendship = await _dbContext.Friends
+            .Where(f => ((f.ReceiverId == profile.UserId && f.SenderId == command.UserId) || (f.ReceiverId == command.UserId && f.SenderId == profile.UserId)))
+            .FirstOrDefaultAsync(cancellationToken);
+
+        if(friendship != null)
+        {
+            throw new InviteFriendException();
         }
 
         var friend = new Friend()
         {
             Id = Guid.NewGuid().ToString(),
             SenderId = command.UserId,
-            ReceiverId = profile.Id,
+            ReceiverId = profile.UserId,
             Status = Status.Pending
         };
 
