@@ -19,7 +19,7 @@ public class ProfileVm : IMapWith<Profile>
     public string? TelegramUsername { get; set; }
     public bool IsCoach { get; set; }
     public string Email { get; set; } = null!;
-    public List<string>? Photos { get; set; }
+    public List<PhotoVm>? Photos { get; set; }
 
     public void Mapping(AutoMapper.Profile profile)
     {

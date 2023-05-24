@@ -40,8 +40,9 @@ public class GetPendingFriendsListHandler
             var currentFriendPhotos = friendsPhotos.Where(p => p.UserId == result[i].UserId).ToList();
             if (currentFriendPhotos != null && currentFriendPhotos.Count > 0)
             {
-                result[i].Photos = currentFriendPhotos.Select(c => c.PhotoPath = Path.Combine(Path.Combine(request.Options.Value.Host, request.Options.Value.Profile),
-                    Path.Combine(result[i].UserId, c.PhotoPath))).ToList();
+                // пофикстить
+                //result[i].Photos = currentFriendPhotos.Select(c => c.PhotoPath = Path.Combine(Path.Combine(request.Options.Value.Host, request.Options.Value.Profile),
+                //    Path.Combine(result[i].UserId, c.PhotoPath))).ToList();
             }
         }
 

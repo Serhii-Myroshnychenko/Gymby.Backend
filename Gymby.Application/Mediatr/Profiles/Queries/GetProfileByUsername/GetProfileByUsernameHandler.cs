@@ -39,7 +39,12 @@ public class GetProfileByUsernameHandler
         }
         if(photos.Any())
         {
-            result.Photos = await _fileService.GetListOfPhotos(request.Options.Value.ContainerName, profile.UserId, request.Options.Value.Profile);
+            result.Photos = _mapper.Map<List<PhotoVm>>(photos);
+
+            foreach (var elem in result.Photos)
+            {
+                elem.PhotoPath = await _fileService.GetPhotoAsync(request.Options.Value.ContainerName, elem.UserId, request.Options.Value.Profile, elem.PhotoPath);
+            }
         }
 
         return result;

@@ -14,11 +14,11 @@ public class FileService : IFileService
     {
         _blobServiceClient = blobServiceClient;
     }
-    public async Task AddPhotoAsync(string containerName, string userId, string folderName, IFormFile file)
+    public async Task AddPhotoAsync(string containerName, string userId, string folderName, IFormFile file, string newFileName)
     {
         BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
 
-        string folderPath = $"{userId}/{folderName}/{file.FileName}";
+        string folderPath = $"{userId}/{folderName}/{newFileName}";
 
         BlobClient folderBlobClient = containerClient.GetBlobClient(folderPath);
 
@@ -36,6 +36,25 @@ public class FileService : IFileService
             {
                 BlobClient blobClient = containerClient.GetBlobClient(blob.Name);
                 await blobClient.DeleteIfExistsAsync();
+            }
+        }
+    }
+
+    public async Task DeleteSelectedPhoto(string containerName, string userId, string folderName, string fileName)
+    {
+        BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+
+        string folderPath = $"{userId}/{folderName}";
+
+        await foreach (BlobItem blobItem in containerClient.GetBlobsAsync(prefix: folderPath))
+        {
+            if (blobItem is BlobItem blob)
+            {
+                if(blob.Name == fileName)
+                {
+                    BlobClient blobClient = containerClient.GetBlobClient(blob.Name);
+                    await blobClient.DeleteIfExistsAsync();
+                }
             }
         }
     }
