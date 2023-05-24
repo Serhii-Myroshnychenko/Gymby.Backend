@@ -18,34 +18,39 @@ public class MeasurementsController : BaseController
     public MeasurementsController(IOptions<AppConfig> config, IMapper mapper) =>
         (_config, _mapper) = (config, mapper);
 
-    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetMyMeasurements()
     {
         var query = new GetMyMeasurementsQuery(_config)
         {
-            UserId = UserId.ToString()
+            //UserId = UserId.ToString()
+            UserId = "guid",
         };
 
         return Ok(await Mediator.Send(query));
     }
-    [Authorize]
+
     [HttpPost("create")]
-    public async Task<IActionResult> AddMeasurement([FromBody]MeasurementDto measurement)
+    public async Task<IActionResult> AddMeasurement([FromForm]MeasurementDto measurement)
     {
         var command = _mapper.Map<AddMeasurementCommand>(measurement);
 
-        command.UserId = UserId.ToString();
+        //command.UserId = UserId.ToString();
+        command.Options = _config;
+        command.UserId = "guid";
 
         return Ok(await Mediator.Send(command));
     }
-    [Authorize]
-    [HttpPost("delete")]
-    public async Task<IActionResult> DeleteMeasurement([FromBody] DeleteMeasurementDto measurement)
-    {
-        var command = _mapper.Map<DeleteMeasurementCommand>(measurement);
 
-        command.UserId = UserId.ToString();
+    [HttpPost("delete")]
+    public async Task<IActionResult> DeleteMeasurement([FromForm] DeleteMeasurementDto measurement)
+    {
+        var command = new DeleteMeasurementCommand(_config)
+        {
+            Id = measurement.Id,
+            //UserId = UserId.ToString()
+            UserId = "guid",
+        };
 
         return Ok(await Mediator.Send(command));
     }
