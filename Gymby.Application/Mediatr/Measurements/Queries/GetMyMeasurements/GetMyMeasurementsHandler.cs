@@ -11,9 +11,10 @@ public class GetMyMeasurementsHandler
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
+    private readonly IFileService _fileService;
 
-    public GetMyMeasurementsHandler(IApplicationDbContext dbContext, IMapper mapper) =>
-        (_dbContext,_mapper) = (dbContext,mapper);
+    public GetMyMeasurementsHandler(IApplicationDbContext dbContext, IMapper mapper, IFileService fileService) =>
+        (_dbContext, _mapper, _fileService) = (dbContext, mapper, fileService);
 
     public async Task<MeasurementsList> Handle(GetMyMeasurementsQuery request, CancellationToken cancellationToken)
     {
@@ -29,8 +30,7 @@ public class GetMyMeasurementsHandler
         {
             for(int i = 0; i < photos.Count; i++)
             {
-                photos[i].PhotoPath = Path.Combine(Path.Combine(request.Options.Value.Host, request.Options.Value.Measurement),
-                    Path.Combine(photos[i].UserId, photos[i].PhotoPath));
+                photos[i].PhotoPath = await _fileService.GetPhotoAsync(request.Options.Value.ContainerName, request.UserId, request.Options.Value.Measurement, photos[i].PhotoPath);
             }
         }
 
