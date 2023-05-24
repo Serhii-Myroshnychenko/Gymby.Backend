@@ -37,6 +37,9 @@ public class ExceptionHandlerMiddleware
             case NotFoundEntityException:
                 code = HttpStatusCode.NotFound;
                 break;
+            case InviteFriendException:
+                code = HttpStatusCode.BadRequest;
+                break;
         }
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)code;

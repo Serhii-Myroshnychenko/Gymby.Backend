@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Gymby.Application.Config;
+﻿using Gymby.Application.Config;
 using Gymby.Application.Mediatr.Friends.Commands.AcceptFriendship;
 using Gymby.Application.Mediatr.Friends.Commands.InviteFriend;
 using Gymby.Application.Mediatr.Friends.Commands.RejectFriendship;
@@ -14,11 +13,10 @@ namespace Gymby.WebApi.Controllers;
 
 public class FriendsController : BaseController
 {
-    private readonly IMapper _mapper;
     private readonly IOptions<AppConfig> _config;
 
-    public FriendsController(IMapper mapper, IOptions<AppConfig> config) =>
-        (_mapper, _config) = (mapper, config);
+    public FriendsController(IOptions<AppConfig> config) =>
+        (_config) = (config);
 
     [Authorize]
     [HttpGet("pending-friends")]
