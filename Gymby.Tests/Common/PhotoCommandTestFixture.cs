@@ -4,15 +4,15 @@ using Gymby.UnitTests.Services;
 
 namespace Gymby.UnitTests.Common
 {
-    public  class CommandTestFixture : IDisposable
+    public class PhotoCommandTestFixture : IDisposable
     {
         public ApplicationDbContext Context;
         public IMapper Mapper;
         public IFileService FileService;
 
-        public CommandTestFixture()
+        public PhotoCommandTestFixture()
         {
-            Context = ProfileContextFactory.Create();
+            Context = PhotoContextFactory.Create();
             FileService = new FileService();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
@@ -24,10 +24,7 @@ namespace Gymby.UnitTests.Common
 
         public void Dispose()
         {
-            ProfileContextFactory.Destroy(Context);
+            PhotoContextFactory.Destroy(Context);
         }
     }
-
-    //[CollectionDefinition("CommandCollection")]
-    //public class CommandCollection : ICollectionFixture<CommandTestFixture> { }
 }

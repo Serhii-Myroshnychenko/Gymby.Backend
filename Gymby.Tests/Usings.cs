@@ -15,3 +15,4 @@ global using Shouldly;
 global using Gymby.Application.Common.Exceptions;
 global using Gymby.Application.Utils;
 global using Moq;
+global using Microsoft.AspNetCore.Http;
