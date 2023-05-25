@@ -20,5 +20,4 @@ public abstract class BaseController : ControllerBase
     internal string Email => User.Identity!.IsAuthenticated
         ? string.Empty
         : User.FindFirst(ClaimTypes.Email)!.Value;
-
 }

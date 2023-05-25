@@ -2,8 +2,10 @@
 
 public static class ExceptionHandlerMiddlewareExtensions
 {
-    public static IApplicationBuilder UseCustomExceptionHandler(this IApplicationBuilder applicationBuilder)
+    public static IApplicationBuilder UseCustomMiddlewareHandler(this IApplicationBuilder applicationBuilder)
     {
-        return applicationBuilder.UseMiddleware<ExceptionHandlerMiddleware>();
+        applicationBuilder.UseMiddleware<PersonalAccountMiddleware>();
+        applicationBuilder.UseMiddleware<ExceptionHandlerMiddleware>();
+        return applicationBuilder;
     }
 }

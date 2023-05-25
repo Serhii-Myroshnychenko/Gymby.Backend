@@ -6,13 +6,11 @@ using Gymby.Persistence.Data;
 using Gymby.Persistence.DI;
 using Gymby.WebApi.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.FileProviders;
 using System.Reflection;
 
 var configuration = GetConfiguration();
 
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
 builder.Services.Configure<AppConfig>(configuration);
 
 builder.Services.AddControllers();
@@ -21,9 +19,8 @@ builder.Services.AddAutoMapper(config =>
     config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
     config.AddProfile(new AssemblyMappingProfile(typeof(IApplicationDbContext).Assembly));
 });
-builder.Services.AddApplication(configuration["AzureBlobStorage"]!);
 builder.Services.AddPersistence(configuration);
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddApplication(configuration["AzureBlobStorage"]!);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
@@ -70,13 +67,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCustomExceptionHandler();
-
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(Path.Combine(Environment.CurrentDirectory,"Images")),
-    RequestPath = "/Images"
-});
+app.UseCustomMiddlewareHandler();
 
 app.UseCors("Default");
 
