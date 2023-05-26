@@ -2,11 +2,6 @@
 using Gymby.Application.Mediatr.Photos.Commands.AddPhoto;
 using Gymby.Application.Mediatr.Photos.Commands.DeletePhoto;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gymby.UnitTests.Mediatr.Photos.Commands.DeletePhoto
 {
@@ -32,38 +27,82 @@ namespace Gymby.UnitTests.Mediatr.Photos.Commands.DeletePhoto
             var handlerDeletePhoto = new DeletePhotoHandler(Context, Mapper, FileService);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
 
-            // Act
             var appConfigOptionsProfile = Options.Create(new AppConfig());
+            var appConfigOptionsPhoto = Options.Create(new AppConfig());
+            var photoMock = new Mock<IFormFile>();
+            photoMock.Setup(p => p.FileName).Returns("path/photoD1.jpg");
+            var photo = photoMock.Object;
+
+            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Email = "user-b@gmail.com"
             }, CancellationToken.None);
 
-            var appConfigOptions = Options.Create(new AppConfig());
-            var photoMock = new Mock<IFormFile>();
-            photoMock.Setup(p => p.FileName).Returns("path/photoD1.jpg");
-            var photo = photoMock.Object;
-
-            var photoId = await handlerAddPhoto.Handle(new AddPhotoCommand(appConfigOptions, appConfigOptions.Value.Profile)
+            var addPhotoResult = await handlerAddPhoto.Handle(new AddPhotoCommand(appConfigOptionsPhoto, appConfigOptionsPhoto.Value.Profile)
             {
                 Photo = photo,
                 UserId = PhotoContextFactory.UserBId.ToString()
-            },
-                CancellationToken.None);
-            
-            photoId = await handlerDeletePhoto.Handle(new DeletePhotoCommand(appConfigOptions, appConfigOptions.Value.Profile)
+            }, CancellationToken.None);
+
+            var photoId = addPhotoResult.First().Id;
+
+            await handlerDeletePhoto.Handle(new DeletePhotoCommand(appConfigOptionsPhoto, appConfigOptionsPhoto.Value.Profile)
             {
-                PhotoId = "photoD1",
+                PhotoId = photoId,
                 UserId = PhotoContextFactory.UserBId.ToString()
-            },
-                CancellationToken.None);
+            }, CancellationToken.None);
 
             // Assert
             Assert.Null(Context.Photos.SingleOrDefault(photo =>
-               photo.Id == "photoD1"));
-        }  
+               photo.Id == photoId));
+        }
 
-        
+        [Fact]
+        public async Task DeleteNoteCommandHandler_ShouldBeFailOnWrongPhotoId()
+        {
+            // Arrange
+            var handlerDeletePhoto = new DeletePhotoHandler(Context, Mapper, FileService);
+            var appConfigOptionsPhoto = Options.Create(new AppConfig());
+
+            // Act
+            // Assert
+            await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
+                await handlerDeletePhoto.Handle(new DeletePhotoCommand(appConfigOptionsPhoto, appConfigOptionsPhoto.Value.Profile)
+                    {
+                        PhotoId = Guid.NewGuid().ToString(),
+                        UserId = PhotoContextFactory.UserBId.ToString()
+                }, CancellationToken.None));
+        }
+
+        [Fact]
+        public async Task DeleteNoteCommandHandler_ShouldBeFailOnWrongUserId()
+        {
+            // Arrange
+            var handlerDeletePhoto = new DeletePhotoHandler(Context, Mapper, FileService);
+            var handlerAddPhoto = new AddPhotoHandler(Context, Mapper, FileService);
+
+            var appConfigOptionsPhoto = Options.Create(new AppConfig());
+            var photoMock = new Mock<IFormFile>();
+            var photo = photoMock.Object;
+
+            // Act
+            var addPhotoResult = await handlerAddPhoto.Handle(new AddPhotoCommand(appConfigOptionsPhoto, appConfigOptionsPhoto.Value.Profile)
+            {
+                Photo = photo,
+                UserId = PhotoContextFactory.UserBId.ToString()
+            }, CancellationToken.None);
+
+            var photoId = addPhotoResult.First().Id;
+
+            // Assert
+            await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
+                await handlerDeletePhoto.Handle(new DeletePhotoCommand(appConfigOptionsPhoto, appConfigOptionsPhoto.Value.Profile)
+                {
+                    PhotoId = photoId,
+                    UserId = Guid.NewGuid().ToString()
+                }, CancellationToken.None));
+        }
     }
 }

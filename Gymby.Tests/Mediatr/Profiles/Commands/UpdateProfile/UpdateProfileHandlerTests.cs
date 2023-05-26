@@ -10,7 +10,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands.UpdateProfile
 
         public UpdateProfileHandlerTests()
         {
-            CommandTestFixture fixture = new CommandTestFixture();
+            ProfileCommandTestFixture fixture = new ProfileCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
             FileService = fixture.FileService;
@@ -31,10 +31,9 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands.UpdateProfile
             var updatedFacebookUrl = "facebook-user-b-edit";
             var updatedTelegramUsername = "telegram-user-b-edit";
 
-            // Act
-            var appConfig = new AppConfig();
-            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
+            var appConfigOptions = Options.Create(new AppConfig());
 
+            // Act
             await handler.Handle(new UpdateProfileCommand(appConfigOptions)
             {
                 ProfileId = updateProfileId,
@@ -63,11 +62,10 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands.UpdateProfile
             var handler = new UpdateProfileHandler(Context, Mapper, FileService);
             var updateUserId = "userB1";
 
+            var appConfigOptions = Options.Create(new AppConfig());
+
             // Act
             // Assert
-            var appConfig = new AppConfig();
-            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
-
             await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
                 await handler.Handle(
                     new UpdateProfileCommand(appConfigOptions)

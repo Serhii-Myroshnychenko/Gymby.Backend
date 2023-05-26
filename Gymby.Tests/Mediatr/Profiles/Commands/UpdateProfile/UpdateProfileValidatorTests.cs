@@ -19,8 +19,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands.UpdateProfile
         public async Task UpdateProfileValidator_ShouldValidateCorrectCommand()
         {
             // Arrange
-            var appConfig = new AppConfig();
-            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
+            var appConfigOptions = Options.Create(new AppConfig());
             var command = new UpdateProfileCommand(appConfigOptions)
             {
                 ProfileId = "profileId",
@@ -39,8 +38,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands.UpdateProfile
         public async Task UpdateProfileValidator_ShouldFailValidationWhenProfileIdIsNull()
         {
             // Arrange
-            var appConfig = new AppConfig();
-            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
+            var appConfigOptions = Options.Create(new AppConfig());
             var command = new UpdateProfileCommand(appConfigOptions)
             {
                 ProfileId = null,
@@ -60,8 +58,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands.UpdateProfile
         public async Task UpdateProfileValidator_ShouldFailValidationWhenUserIdIsEmpty()
         {
             // Arrange
-            var appConfig = new AppConfig();
-            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
+            var appConfigOptions = Options.Create(new AppConfig());
             var command = new UpdateProfileCommand(appConfigOptions)
             {
                 ProfileId = "profileId",
@@ -81,8 +78,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands.UpdateProfile
         public async Task UpdateProfileValidator_ShouldFailValidationWhenEmailIsNull()
         {
             // Arrange
-            var appConfig = new AppConfig();
-            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
+            var appConfigOptions = Options.Create(new AppConfig());
             var command = new UpdateProfileCommand(appConfigOptions)
             {
                 ProfileId = "profileId",

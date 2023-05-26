@@ -8,12 +8,14 @@
         {
             Context = ProfileContextFactory.Create();
             Context = PhotoContextFactory.Create();
+            Context = MeasurementContextFactory.Create();
         } 
 
         public void Dispose()
         {
             ProfileContextFactory.Destroy(Context);
             PhotoContextFactory.Destroy(Context);
+            MeasurementContextFactory.Destroy(Context);
         }
     }
 }

@@ -1,16 +1,14 @@
 ﻿using AutoMapper;
 using Gymby.Application.Common.Mappings;
-using Gymby.UnitTests.Services;
-
 namespace Gymby.UnitTests.Common
 {
-    public  class CommandTestFixture : IDisposable
+    public  class ProfileCommandTestFixture : IDisposable
     {
         public ApplicationDbContext Context;
         public IMapper Mapper;
         public IFileService FileService;
 
-        public CommandTestFixture()
+        public ProfileCommandTestFixture()
         {
             Context = ProfileContextFactory.Create();
             FileService = new FileService();

@@ -16,3 +16,5 @@ global using Gymby.Application.Common.Exceptions;
 global using Gymby.Application.Utils;
 global using Moq;
 global using Microsoft.AspNetCore.Http;
+global using Gymby.Domain.Enums;
+global using Gymby.UnitTests.Services;

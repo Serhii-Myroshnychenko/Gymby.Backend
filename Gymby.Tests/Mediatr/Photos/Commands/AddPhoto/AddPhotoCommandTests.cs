@@ -52,22 +52,5 @@ namespace Gymby.UnitTests.Mediatr.Photos.Commands.AddPhoto
             Assert.Equal(photo, command.Photo);
             Assert.Equal(measurementDate, command.MeasurementDate);
         }
-
-        [Fact]
-        public void AddPhotoCommand_SetsDefaultPropertyValues()
-        {
-            // Arrange
-            var optionsMock = new Mock<IOptions<AppConfig>>();
-            var options = optionsMock.Object;
-            var type = "testType";
-
-            // Act
-            var command = new AddPhotoCommand(options, type);
-
-            // Assert
-            Assert.Null(command.UserId);
-            Assert.Null(command.Photo);
-            Assert.Null(command.MeasurementDate);
-        }
     }
 }

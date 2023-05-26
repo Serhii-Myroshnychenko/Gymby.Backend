@@ -9,8 +9,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetProfileByUsernameTests
         {
             // Arrange
             var validator = new GetProfileByUsernameValidator();
-            var appConfig = new AppConfig();
-            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
+            var appConfigOptions = Options.Create(new AppConfig());
             var query = new GetProfileByUsernameQuery(appConfigOptions)
             {
                 Username = null
@@ -29,8 +28,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetProfileByUsernameTests
         {
             // Arrange
             var validator = new GetProfileByUsernameValidator();
-            var appConfig = new AppConfig();
-            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
+            var appConfigOptions = Options.Create(new AppConfig());
             var query = new GetProfileByUsernameQuery(appConfigOptions)
             {
                 Username = string.Empty
@@ -49,8 +47,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetProfileByUsernameTests
         {
             // Arrange
             var validator = new GetProfileByUsernameValidator();
-            var appConfig = new AppConfig();
-            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
+            var appConfigOptions = Options.Create(new AppConfig());
             var query = new GetProfileByUsernameQuery(appConfigOptions)
             {
                 Username = "testuser"

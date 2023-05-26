@@ -5,7 +5,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetProfileByUsernameTests
     public class GetProfileByUsernameQueryTests
     {
         [Fact]
-        public void GetProfileByUsernameQuery_ShouldSetOptions()
+        public void GetProfileByUsernameQuery_ShouldBeSetOptions()
         {
             // Arrange
             var optionsMock = new Mock<IOptions<AppConfig>>();
@@ -19,7 +19,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetProfileByUsernameTests
         }
 
         [Fact]
-        public void GetProfileByUsernameQuery_ShouldSetUsername()
+        public void GetProfileByUsernameQuery_ShouldBeSetUsername()
         {
             // Arrange
             var optionsMock = new Mock<IOptions<AppConfig>>();

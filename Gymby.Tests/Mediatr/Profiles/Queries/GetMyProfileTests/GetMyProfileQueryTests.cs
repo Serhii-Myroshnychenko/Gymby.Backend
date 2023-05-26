@@ -5,21 +5,21 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetMyProfileTests
     public class GetMyProfileQueryTests
     {
         [Fact]
-        public void GetMyProfileQuery_ShouldSetOptions()
+        public void GetMyProfileQuery_ShouldBeSetOptions()
         {
             // Arrange
             var optionsMock = new Mock<IOptions<AppConfig>>();
             var options = optionsMock.Object;
 
             // Act
-            var query = new GetMyProfileQuery(options);
+            var result = new GetMyProfileQuery(options);
 
             // Assert
-            Assert.Same(options, query.Options);
+            Assert.Same(options, result.Options);
         }
 
         [Fact]
-        public void GetMyProfileQuery_ShouldSetProperties()
+        public void GetMyProfileQuery_ShouldBeSetProperties()
         {
             // Arrange
             var optionsMock = new Mock<IOptions<AppConfig>>();
@@ -28,15 +28,16 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetMyProfileTests
             var email = "test@example.com";
 
             // Act
-            var query = new GetMyProfileQuery(options)
+            var result = new GetMyProfileQuery(options)
             {
                 UserId = userId,
                 Email = email
             };
 
             // Assert
-            Assert.Equal(userId, query.UserId);
-            Assert.Equal(email, query.Email);
+            Assert.NotNull(result);
+            Assert.Equal(userId, result.UserId);
+            Assert.Equal(email, result.Email);
         }
     }
 }

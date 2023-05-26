@@ -11,7 +11,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetProfileByUsernameTests
 
         public GetProfileByUsernameHandlerTests()
         {
-            CommandTestFixture fixture = new CommandTestFixture();
+            ProfileCommandTestFixture fixture = new ProfileCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
             FileService = fixture.FileService;
@@ -22,17 +22,14 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetProfileByUsernameTests
         {
             // Arrange
             var handler = new GetProfileByUsernameHandler(Context, Mapper, FileService);
+            var appConfigOptions = Options.Create(new AppConfig());
 
             // Act
-            var appConfig = new AppConfig();
-            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
-
             var result = await handler.Handle(
                 new GetProfileByUsernameQuery(appConfigOptions)
                 {
                     Username = "user-alex",
-                },
-                CancellationToken.None);
+                }, CancellationToken.None);
 
             // Assert
             Assert.NotNull(result);
@@ -62,8 +59,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetProfileByUsernameTests
                 new GetProfileByUsernameQuery(appConfigOptions)
                 {
                     Username = "user-alex-wrong",
-                },
-                 CancellationToken.None));
+                }, CancellationToken.None));
         }
     }
 }

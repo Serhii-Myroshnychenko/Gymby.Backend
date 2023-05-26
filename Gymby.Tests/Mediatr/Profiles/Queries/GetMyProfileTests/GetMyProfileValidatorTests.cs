@@ -9,8 +9,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetMyProfileTests
         {
             // Arrange
             var validator = new GetMyProfileValidator();
-            var appConfig = new AppConfig();
-            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
+            var appConfigOptions = Options.Create(new AppConfig());
             var query = new GetMyProfileQuery(appConfigOptions)
             {
                 UserId = null
@@ -29,8 +28,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetMyProfileTests
         {
             // Arrange
             var validator = new GetMyProfileValidator();
-            var appConfig = new AppConfig();
-            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
+            var appConfigOptions = Options.Create(new AppConfig());
             var query = new GetMyProfileQuery(appConfigOptions)
             {
                 UserId = string.Empty
@@ -49,8 +47,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetMyProfileTests
         {
             // Arrange
             var validator = new GetMyProfileValidator();
-            var appConfig = new AppConfig();
-            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
+            var appConfigOptions = Options.Create(new AppConfig());
             var query = new GetMyProfileQuery(appConfigOptions)
             {
                 UserId = "userId"

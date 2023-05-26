@@ -3,15 +3,15 @@ using Gymby.Application.Common.Mappings;
 
 namespace Gymby.UnitTests.Common
 {
-    public class PhotoCommandTestFixture : IDisposable
+    public class MeasurementCommandTestFixture : IDisposable
     {
         public ApplicationDbContext Context;
         public IMapper Mapper;
         public IFileService FileService;
 
-        public PhotoCommandTestFixture()
+        public MeasurementCommandTestFixture()
         {
-            Context = PhotoContextFactory.Create();
+            Context = MeasurementContextFactory.Create();
             FileService = new FileService();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
@@ -23,7 +23,7 @@ namespace Gymby.UnitTests.Common
 
         public void Dispose()
         {
-            PhotoContextFactory.Destroy(Context);
+            MeasurementContextFactory.Destroy(Context);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetMyProfileTests
 
         public GetMyProfileHandlerTests()
         {
-            CommandTestFixture fixture = new CommandTestFixture();
+            ProfileCommandTestFixture fixture = new ProfileCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
             FileService = fixture.FileService;
@@ -22,18 +22,15 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetMyProfileTests
         {
             // Arrange
             var handler = new GetMyProfileHandler(Context, Mapper, FileService);
+            var appConfigOptions = Options.Create(new AppConfig());
 
             // Act
-            var appConfig = new AppConfig();
-            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
-
             var result = await handler.Handle(
                 new GetMyProfileQuery(appConfigOptions)
                 {
                     UserId = ProfileContextFactory.UserBId.ToString(),
                     Email = "user-b@gmail.com"
-                },
-                CancellationToken.None);
+                }, CancellationToken.None);
 
             // Assert
             Assert.NotNull(result);
@@ -52,11 +49,9 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.GetMyProfileTests
         {
             // Arrange
             var handler = new GetMyProfileHandler(Context, Mapper, FileService);
+            var appConfigOptions = Options.Create(new AppConfig());
 
             // Act
-            var appConfig = new AppConfig();
-            IOptions<AppConfig> appConfigOptions = Options.Create(appConfig);
-
             var result = await handler.Handle(
                 new GetMyProfileQuery(appConfigOptions)
                 {
