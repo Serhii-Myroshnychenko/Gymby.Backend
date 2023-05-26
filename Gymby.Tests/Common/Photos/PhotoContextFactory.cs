@@ -1,4 +1,4 @@
-﻿namespace Gymby.UnitTests.Common
+﻿namespace Gymby.UnitTests.Common.Photos
 {
     public class PhotoContextFactory
     {

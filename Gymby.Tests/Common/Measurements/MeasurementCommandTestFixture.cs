@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
 using Gymby.Application.Common.Mappings;
-namespace Gymby.UnitTests.Common
+
+namespace Gymby.UnitTests.Common.Measurements
 {
-    public  class ProfileCommandTestFixture : IDisposable
+    public class MeasurementCommandTestFixture : IDisposable
     {
         public ApplicationDbContext Context;
         public IMapper Mapper;
         public IFileService FileService;
 
-        public ProfileCommandTestFixture()
+        public MeasurementCommandTestFixture()
         {
-            Context = ProfileContextFactory.Create();
+            Context = MeasurementContextFactory.Create();
             FileService = new FileService();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
@@ -22,10 +23,7 @@ namespace Gymby.UnitTests.Common
 
         public void Dispose()
         {
-            ProfileContextFactory.Destroy(Context);
+            MeasurementContextFactory.Destroy(Context);
         }
     }
-
-    //[CollectionDefinition("CommandCollection")]
-    //public class CommandCollection : ICollectionFixture<CommandTestFixture> { }
 }

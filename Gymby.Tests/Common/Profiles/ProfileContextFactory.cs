@@ -1,4 +1,4 @@
-﻿namespace Gymby.UnitTests
+﻿namespace Gymby.UnitTests.Common.Profiles
 {
     public class ProfileContextFactory
     {

@@ -2,11 +2,6 @@
 using Gymby.Application.Mediatr.Measurements.Commands.AddMeasuement;
 using Gymby.Application.Mediatr.Photos.Commands.AddPhoto;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gymby.UnitTests.Mediatr.Measurements.Commands.AddMeasurement
 {

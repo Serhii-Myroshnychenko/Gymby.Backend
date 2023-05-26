@@ -1,9 +1,4 @@
 ﻿using Gymby.Application.Mediatr.Measurements.Commands.AddMeasuement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gymby.UnitTests.Mediatr.Measurements.Commands.AddMeasurement
 {
