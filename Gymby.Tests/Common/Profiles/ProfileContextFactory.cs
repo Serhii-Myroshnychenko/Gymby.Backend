@@ -8,6 +8,8 @@
         public static Guid ProfileIdForDelete = Guid.NewGuid();
         public static Guid ProfileIdForUpdate = Guid.NewGuid();
 
+        public static string usernameFriend = "user-bill";
+
         public static ApplicationDbContext Create()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
