@@ -2,7 +2,7 @@
 
 namespace Gymby.UnitTests.Mediatr.Profiles.Commands.UpdateProfile
 {
-    public class UpdateProfileHandlerTests
+    public class UpdateProfileHandlerTests 
     {
         private readonly ApplicationDbContext Context;
         private readonly IMapper Mapper;

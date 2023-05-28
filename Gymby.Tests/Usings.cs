@@ -21,3 +21,4 @@ global using Moq;
 global using Microsoft.AspNetCore.Http;
 global using Gymby.Domain.Enums;
 global using Gymby.UnitTests.Services;
+global using MediatR;
