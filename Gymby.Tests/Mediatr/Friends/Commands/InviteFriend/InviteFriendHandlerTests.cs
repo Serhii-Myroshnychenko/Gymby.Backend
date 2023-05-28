@@ -23,7 +23,7 @@ namespace Gymby.UnitTests.Mediatr.Friends.Commands.InviteFriend
             var result = await handler.Handle(new InviteFriendCommand()
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),
-                Username = ProfileContextFactory.usernameFriend
+                Username = ProfileContextFactory.FriendUsernameForInvite
             }, CancellationToken.None);
 
             var savedFriendship = await Context.Friends.FirstOrDefaultAsync(f => f.Id == result);
@@ -63,7 +63,7 @@ namespace Gymby.UnitTests.Mediatr.Friends.Commands.InviteFriend
             await handler.Handle(new InviteFriendCommand()
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),
-                Username = ProfileContextFactory.usernameFriend
+                Username = ProfileContextFactory.FriendUsernameForInvite
             }, CancellationToken.None);
 
             // Assert
@@ -71,7 +71,7 @@ namespace Gymby.UnitTests.Mediatr.Friends.Commands.InviteFriend
             await handler.Handle(new InviteFriendCommand()
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),
-                Username = ProfileContextFactory.usernameFriend
+                Username = ProfileContextFactory.FriendUsernameForInvite
             }, CancellationToken.None));
         }
     }

@@ -31,8 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mediatr\Friends\Commands\AcceptFriendship\" />
-    <Folder Include="Mediatr\Friends\Commands\RejectFriendship\" />
     <Folder Include="Mediatr\Friends\Queries\GetMyFriendsList\" />
     <Folder Include="Mediatr\Friends\Queries\GetPendingFriendsList\" />
   </ItemGroup>
