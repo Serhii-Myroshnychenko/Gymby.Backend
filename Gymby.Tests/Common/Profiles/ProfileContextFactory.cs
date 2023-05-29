@@ -4,11 +4,13 @@
     {
         public static Guid UserAId = Guid.NewGuid();
         public static Guid UserBId = Guid.NewGuid();
+        public static Guid UserDId = Guid.NewGuid();
 
         public static Guid ProfileIdForDelete = Guid.NewGuid();
         public static Guid ProfileIdForUpdate = Guid.NewGuid();
 
         public static string FriendUsernameForInvite = "user-bill";
+        public static string FriendUsernameForInvite2 = "user-den";
         public static string FriendUsernameForAcceptOrReject = "user-alex";
 
         public static ApplicationDbContext Create()
@@ -70,14 +72,29 @@
                     FirstName = "UserD",
                     LastName = "Den",
                     Email = "user-d@gmail.com",
-                    Username = "user-den",
+                    Username = "user-den1",
                     IsCoach = true,
                     Description = "UserB Den test",
                     PhotoAvatarPath = "https://user4.azurewebsites.net",
                     InstagramUrl = "instagram-user-d",
                     FacebookUrl = "facebook-user-d",
                     TelegramUsername = "telegram-user-d",
-                    UserId = UserBId.ToString()
+                    UserId = ProfileIdForUpdate.ToString()
+                },
+                new Profile
+                {
+                    Id = UserDId.ToString(),
+                    FirstName = "UserD",
+                    LastName = "Den",
+                    Email = "user-d@gmail.com",
+                    Username = "user-den",
+                    IsCoach = true,
+                    Description = "User Den test",
+                    PhotoAvatarPath = "https://user4.azurewebsites.net",
+                    InstagramUrl = "instagram-user-d",
+                    FacebookUrl = "facebook-user-d",
+                    TelegramUsername = "telegram-user-d",
+                    UserId = UserDId.ToString()
                 }
                 );
             context.SaveChanges();

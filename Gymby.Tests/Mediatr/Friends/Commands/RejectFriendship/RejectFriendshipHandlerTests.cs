@@ -1,10 +1,5 @@
 ﻿using Gymby.Application.Mediatr.Friends.Commands.InviteFriend;
 using Gymby.Application.Mediatr.Friends.Commands.RejectFriendship;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gymby.UnitTests.Mediatr.Friends.Commands.RejectFriendship
 {
