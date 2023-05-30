@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 
 namespace Gymby.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/photo")]
 [ApiController]
 public class PhotosController : BaseController
 {
@@ -19,28 +19,28 @@ public class PhotosController : BaseController
 
     [Authorize]
     [HttpPost("profile")]
-    public async Task<IActionResult> AddPhotoInProfile([FromForm] AddPhotoDto request)
+    public async Task<IActionResult> AddPhotoInProfile([FromBody] AddPhotoDto request)
     {
         var command = new AddPhotoCommand(_config, _config.Value.Profile) { Photo = request.Photo, MeasurementDate = request.MeasurementDate, UserId = UserId.ToString() };
         return Ok(await Mediator.Send(command));
     }
     [Authorize]
     [HttpPost("measurement")]
-    public async Task<IActionResult> AddPhotoInMeasurement([FromForm] AddPhotoDto request)
+    public async Task<IActionResult> AddPhotoInMeasurement([FromBody] AddPhotoDto request)
     {
         var command = new AddPhotoCommand(_config, _config.Value.Measurement) { Photo = request.Photo, MeasurementDate = request.MeasurementDate, UserId = UserId.ToString() };
         return Ok(await Mediator.Send(command));
     }
     [Authorize]
     [HttpPost("profile/delete")]
-    public async Task<IActionResult> DeletePhotoFromProfile([FromForm] DeletePhotoDto request)
+    public async Task<IActionResult> DeletePhotoFromProfile([FromBody] DeletePhotoDto request)
     {
         var command = new DeletePhotoCommand(_config, _config.Value.Profile) { PhotoId = request.PhotoId, UserId = UserId.ToString() };
         return Ok(await Mediator.Send(command));
     }
     [Authorize]
     [HttpPost("measurement/delete")]
-    public async Task<IActionResult> DeleteMeasurementFromProfile([FromForm] DeletePhotoDto request)
+    public async Task<IActionResult> DeleteMeasurementFromProfile([FromBody] DeletePhotoDto request)
     {
         var command = new DeletePhotoCommand(_config, _config.Value.Measurement) { PhotoId = request.PhotoId, UserId = UserId.ToString() };
         return Ok(await Mediator.Send(command));

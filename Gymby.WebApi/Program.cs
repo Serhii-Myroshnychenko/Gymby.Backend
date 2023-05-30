@@ -28,7 +28,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("Default", policy =>
     {
         policy.AllowAnyHeader();
-        policy.AllowAnyOrigin();
+        policy.WithOrigins("http://localhost:3000","https://gymby-web.azurewebsites.net");
         policy.AllowAnyMethod();
     });
 });
@@ -39,7 +39,7 @@ builder.Services.AddAuthentication(config =>
     config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer("Bearer", options =>
 {
-    options.Authority = "https://localhost:44351/";
+    options.Authority = "https://gymby-auth.azurewebsites.net";
     options.Audience = "GymbyWebAPI";
     options.RequireHttpsMetadata = false;
 });
@@ -60,7 +60,6 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -73,7 +72,7 @@ app.UseCors("Default");
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseAuthentication();
 
 app.UseAuthorization();
 
@@ -81,8 +80,7 @@ app.MapControllers();
 
 app.Run();
 
-
-IConfiguration GetConfiguration()
+static IConfiguration GetConfiguration()
 {
     var builder = new ConfigurationBuilder()
         .SetBasePath(Directory.GetCurrentDirectory())

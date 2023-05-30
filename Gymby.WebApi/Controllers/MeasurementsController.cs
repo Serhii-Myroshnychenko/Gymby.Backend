@@ -10,6 +10,8 @@ using Microsoft.Extensions.Options;
 
 namespace Gymby.WebApi.Controllers;
 
+[Route("api/measurement")]
+[ApiController]
 public class MeasurementsController : BaseController
 {
     private readonly IOptions<AppConfig> _config;
@@ -31,7 +33,7 @@ public class MeasurementsController : BaseController
     }
     [Authorize]
     [HttpPost("create")]
-    public async Task<IActionResult> AddMeasurement([FromForm]MeasurementDto measurement)
+    public async Task<IActionResult> AddMeasurement([FromBody] MeasurementDto measurement)
     {
         var command = _mapper.Map<AddMeasurementCommand>(measurement);
 
@@ -42,7 +44,7 @@ public class MeasurementsController : BaseController
     }
     [Authorize]
     [HttpPost("delete")]
-    public async Task<IActionResult> DeleteMeasurement([FromForm] DeleteMeasurementDto measurement)
+    public async Task<IActionResult> DeleteMeasurement([FromBody] DeleteMeasurementDto measurement)
     {
         var command = new DeleteMeasurementCommand(_config)
         {

@@ -11,6 +11,8 @@ using Microsoft.Extensions.Options;
 
 namespace Gymby.WebApi.Controllers;
 
+[Route("api/friend")]
+[ApiController]
 public class FriendsController : BaseController
 {
     private readonly IOptions<AppConfig> _config;
@@ -42,7 +44,7 @@ public class FriendsController : BaseController
     }
     [Authorize]
     [HttpPost("invite")]
-    public async Task<IActionResult> InviteFriend([FromBody]FriendDto request)
+    public async Task<IActionResult> InviteFriend([FromBody] FriendDto request)
     {
         var command = new InviteFriendCommand()
         {
@@ -55,7 +57,7 @@ public class FriendsController : BaseController
 
     [Authorize]
     [HttpPost("accept-request")]
-    public async Task<IActionResult> AcceptFriendship([FromBody]FriendDto request)
+    public async Task<IActionResult> AcceptFriendship([FromBody] FriendDto request)
     {
         var command = new AcceptFriendshipCommand()
         {
@@ -68,7 +70,7 @@ public class FriendsController : BaseController
 
     [Authorize]
     [HttpPost("reject-request")]
-    public async Task<IActionResult> RejectFriendship([FromBody]FriendDto request)
+    public async Task<IActionResult> RejectFriendship([FromBody] FriendDto request)
     {
         var command = new RejectFriendshipCommand()
         {
