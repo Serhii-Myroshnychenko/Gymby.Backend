@@ -1,0 +1,60 @@
+{
+  "name": "Program Name",
+  "description": "Program Description",
+  "level": 1,
+  "type": 1,
+  "programDays": [
+    {
+      "name": "Day 1",
+      "exercises": [
+        {
+          "name": "Exercise 1",
+          "exercisePrototypeId": "5224eb66-74df-4632-a43b-eaf561f33319",
+          "approaches": [
+            {
+              "repeats": 10,
+              "weight": 20.5
+            },
+            {
+              "repeats": 8,
+              "weight": 22.5
+            }
+          ]
+        },
+        {
+          "name": "Exercise 2",
+          "exercisePrototypeId": "5224eb66-74df-4632-a43b-eaf561f33319",
+          "approaches": [
+            {
+              "repeats": 12,
+              "weight": 15.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Day 2",
+      "exercises": [
+        {
+          "name": "Exercise 3",
+          "exercisePrototypeId": "5224eb66-74df-4632-a43b-eaf561f33319",
+          "approaches": [
+            {
+              "repeats": 10,
+              "weight": 30.0
+            },
+            {
+              "repeats": 8,
+              "weight": 35.0
+            },
+            {
+              "repeats": 6,
+              "weight": 40.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
