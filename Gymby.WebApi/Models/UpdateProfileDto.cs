@@ -12,7 +12,7 @@ public class UpdateProfileDto : IMapWith<UpdateProfileCommand>
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
     public string? Description { get; set; }
-    public IFormFile? Avatar { get; set; }
+    public IFormFile? PhotoAvatarPath { get; set; }
     public string? InstagramUrl { get; set; }
     public string? FacebookUrl { get; set; }
     public string? TelegramUsername { get; set; }
@@ -32,8 +32,8 @@ public class UpdateProfileDto : IMapWith<UpdateProfileCommand>
                 pt => pt.MapFrom(dt => dt.LastName))
             .ForMember(p => p.Description,
                 pt => pt.MapFrom(dt => dt.Description))
-            .ForMember(p => p.Avatar,
-                pt => pt.MapFrom(dt => dt.Avatar))
+            .ForMember(p => p.PhotoAvatarPath,
+                pt => pt.MapFrom(dt => dt.PhotoAvatarPath))
             .ForMember(p => p.InstagramUrl,
                 pt => pt.MapFrom(dt => dt.InstagramUrl))
             .ForMember(p => p.FacebookUrl,

@@ -1,5 +1,4 @@
-﻿
-using Gymby.Application.Mediatr.Profiles.Commands.CreateProfile;
+﻿using Gymby.Application.Mediatr.Profiles.Commands.CreateProfile;
 using MediatR;
 using System.Security.Claims;
 

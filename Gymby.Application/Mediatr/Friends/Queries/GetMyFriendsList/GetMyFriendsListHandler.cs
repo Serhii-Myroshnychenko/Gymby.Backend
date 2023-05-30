@@ -24,8 +24,6 @@ public class GetMyFriendsListHandler
             .Join(_dbContext.Profiles, f => f.SenderId == request.UserId ? f.ReceiverId : f.SenderId, p => p.UserId, (f, p) => p)
             .ToListAsync(cancellationToken);
 
-        var photos = await _dbContext.Photos.Where(p => p.UserId == request.UserId && p.IsMeasurement == false).ToListAsync(cancellationToken);
-
         for(int i = 0; i < friendProfiles.Count; i++)
         {
             if (friendProfiles[i].PhotoAvatarPath != null)

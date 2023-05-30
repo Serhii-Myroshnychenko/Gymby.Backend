@@ -5,7 +5,7 @@ public enum MeasurementType
     FatPercentage,
     Neck,
     Shoulders,
-    Forearm,
+    Forearms,
     Сhest,
     Waist,
     Thigh,

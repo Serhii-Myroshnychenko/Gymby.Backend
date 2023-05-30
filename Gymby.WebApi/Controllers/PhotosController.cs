@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 
 namespace Gymby.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/photo")]
 [ApiController]
 public class PhotosController : BaseController
 {
