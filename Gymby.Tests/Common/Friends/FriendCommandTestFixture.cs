@@ -1,24 +1,16 @@
 ﻿using AutoMapper;
-using Azure.Storage.Blobs;
 using Gymby.Application.Common.Mappings;
-using Gymby.UnitTests.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Gymby.UnitTests.Common
+namespace Gymby.UnitTests.Common.Friends
 {
-    public  class CommandTestFixture : IDisposable
+    public class FriendCommandTestFixture : IDisposable
     {
         public ApplicationDbContext Context;
         public IMapper Mapper;
         public IFileService FileService;
 
-        public CommandTestFixture()
+        public FriendCommandTestFixture()
         {
-            Context = ProfileContextFactory.Create();
+            Context = FriendContextFactory.Create();
             FileService = new FileService();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
@@ -30,10 +22,7 @@ namespace Gymby.UnitTests.Common
 
         public void Dispose()
         {
-            ProfileContextFactory.Destroy(Context);
+            FriendContextFactory.Destroy(Context);
         }
     }
-
-    [CollectionDefinition("CommandCollection")]
-    public class CommandCollection : ICollectionFixture<CommandTestFixture> { }
 }

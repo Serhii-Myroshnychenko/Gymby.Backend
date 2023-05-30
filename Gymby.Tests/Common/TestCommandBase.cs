@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 
 namespace Gymby.UnitTests
 {
@@ -13,11 +9,15 @@ namespace Gymby.UnitTests
         public TestCommandBase()
         {
             Context = ProfileContextFactory.Create();
+            Context = PhotoContextFactory.Create();
+            Context = MeasurementContextFactory.Create();
         } 
 
         public void Dispose()
         {
             ProfileContextFactory.Destroy(Context);
+            PhotoContextFactory.Destroy(Context);
+            MeasurementContextFactory.Destroy(Context);
         }
     }
 }
