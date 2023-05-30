@@ -1,7 +1,9 @@
 ﻿using FluentValidation;
 using Gymby.Application.Common.Exceptions;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Text.Json;
+using ValidationException = FluentValidation.ValidationException;
 
 namespace Gymby.WebApi.Middleware;
 
@@ -34,11 +36,17 @@ public class ExceptionHandlerMiddleware
                 code = HttpStatusCode.BadRequest;
                 result = JsonSerializer.Serialize(validationException.Errors);
                 break;
-            case NotFoundEntityException:
+            case NotFoundEntityException notFoundEntityException:
                 code = HttpStatusCode.NotFound;
+                result = JsonSerializer.Serialize(notFoundEntityException.Message);
                 break;
-            case InviteFriendException:
+            case InvalidUsernameException invalidUsernameException:
                 code = HttpStatusCode.BadRequest;
+                result = JsonSerializer.Serialize(invalidUsernameException.Message);
+                break;
+            case InviteFriendException inviteFriendException:
+                code = HttpStatusCode.BadRequest;
+                result = JsonSerializer.Serialize(inviteFriendException.Message);
                 break;
         }
         context.Response.ContentType = "application/json";

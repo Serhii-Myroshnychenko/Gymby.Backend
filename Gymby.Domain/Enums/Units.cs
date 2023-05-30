@@ -3,5 +3,5 @@ public enum Units
 {
     Kg,
     Cm,
-    M
+    Percents
 }

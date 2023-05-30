@@ -34,20 +34,35 @@ public class UpdateProfileHandler
             throw new NotFoundEntityException(updateProfile.Username!, nameof(Domain.Entities.Profile));
         }
 
-        if (updateProfile.Avatar != null)
+        if (updateProfile.PhotoAvatarPath != null)
         {
-            var newPhotoName = Guid.NewGuid().ToString() + Path.GetExtension(updateProfile.Avatar.FileName);
+            var newPhotoName = Guid.NewGuid().ToString() + Path.GetExtension(updateProfile.PhotoAvatarPath.FileName);
 
             if (entity.PhotoAvatarPath != null)
             {
                 await _fileService.DeletePhotoAsync(updateProfile.Options.Value.ContainerName, updateProfile.UserId, updateProfile.Options.Value.Avatar);
             }
-            await _fileService.AddPhotoAsync(updateProfile.Options.Value.ContainerName, updateProfile.UserId, updateProfile.Options.Value.Avatar, updateProfile.Avatar, newPhotoName);
+            await _fileService.AddPhotoAsync(updateProfile.Options.Value.ContainerName, updateProfile.UserId, updateProfile.Options.Value.Avatar, updateProfile.PhotoAvatarPath, newPhotoName);
 
             entity.PhotoAvatarPath = newPhotoName;
         }
 
-        entity.Username = updateProfile.Username;
+        if(updateProfile.Username != null)
+        {
+            var entityWithGivenUsername = await _dbContext.Profiles
+                .Where(p => p.Username == updateProfile.Username && p.Id != updateProfile.ProfileId)
+                .FirstOrDefaultAsync(cancellationToken);
+            if (entityWithGivenUsername == null)
+            {
+                entity.Username = updateProfile.Username;
+            }
+            else
+            {
+                throw new InvalidUsernameException("Invalid Username");
+            }
+        }
+
+        
         entity.FirstName = updateProfile.FirstName;
         entity.LastName = updateProfile.LastName;
         entity.Description = updateProfile.Description;

@@ -1,10 +1,11 @@
 ﻿using Gymby.Application.CommandModels;
+using Gymby.Application.ViewModels;
 using Gymby.Domain.Enums;
 using MediatR;
 
 namespace Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
 
-public class CreateProgramCommand : IRequest<Unit>
+public class CreateProgramCommand : IRequest<ProgramVm>
 {
     public string UserId { get; set; } = null!;
     public string Name { get; set; } = null!;

@@ -65,6 +65,10 @@ public class GetMyProfileHandler
                 elem.PhotoPath = await _fileService.GetPhotoAsync(query.Options.Value.ContainerName, query.UserId, query.Options.Value.Profile, elem.PhotoPath);
             }
         }
+        else
+        {
+            result.Photos = new List<PhotoVm>();
+        }
 
         return result;
     }

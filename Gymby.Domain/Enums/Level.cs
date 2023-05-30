@@ -1,7 +1,7 @@
 ﻿namespace Gymby.Domain.Enums;
 public enum Level
 {
-    Entry,
-    Middle,
+    Beginner,
+    Intermediate,
     Advanced
 }

@@ -44,9 +44,9 @@ public class ProfilesController : BaseController
     }
     [Authorize]
     [HttpPost("update")]
-    public async Task<ActionResult<ProfileVm>> UpdateProfile([FromBody] UpdateProfileDto updateProfile)
+    public async Task<ActionResult<ProfileVm>> UpdateProfile([FromForm] UpdateProfileDto updateProfile)
     {
-        var command = new UpdateProfileCommand(_config) { ProfileId = updateProfile.ProfileId, UserId = UserId.ToString(), Username = updateProfile.Username, Email = updateProfile.Email, FirstName = updateProfile.FirstName, LastName = updateProfile.LastName, Description = updateProfile.Description, Avatar = updateProfile.Avatar, InstagramUrl = updateProfile.InstagramUrl, FacebookUrl = updateProfile.FacebookUrl, TelegramUsername = updateProfile.TelegramUsername };
+        var command = new UpdateProfileCommand(_config) { ProfileId = updateProfile.ProfileId, UserId = UserId.ToString(), Username = updateProfile.Username, Email = updateProfile.Email, FirstName = updateProfile.FirstName, LastName = updateProfile.LastName, Description = updateProfile.Description, PhotoAvatarPath = updateProfile.PhotoAvatarPath, InstagramUrl = updateProfile.InstagramUrl, FacebookUrl = updateProfile.FacebookUrl, TelegramUsername = updateProfile.TelegramUsername };
 
         return Ok(await Mediator.Send(command));
     }
