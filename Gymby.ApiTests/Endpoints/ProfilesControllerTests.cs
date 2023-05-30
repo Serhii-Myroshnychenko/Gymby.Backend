@@ -1,7 +1,4 @@
-﻿using System.Text;
-using System.Text.Json;
-
-namespace Gymby.ApiTests.Endpoints
+﻿namespace Gymby.ApiTests.Endpoints
 {
     public class ProfilesControllerTests
     {

@@ -3,3 +3,7 @@ global using IdentityModel.Client;
 global using Newtonsoft.Json.Linq;
 global using System.Net;
 global using Gymby.ApiTests.Utils;
+global using Gymby.Domain.Enums;
+global using Gymby.WebApi.Models.CreateProgramDtos;
+global using Newtonsoft.Json;
+global using System.Text;
