@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Gymby.Application.Config;
+﻿using Gymby.Application.Config;
 using Gymby.Application.Mediatr.Friends.Commands.AcceptFriendship;
 using Gymby.Application.Mediatr.Friends.Commands.InviteFriend;
 using Gymby.Application.Mediatr.Friends.Commands.RejectFriendship;
@@ -12,13 +11,14 @@ using Microsoft.Extensions.Options;
 
 namespace Gymby.WebApi.Controllers;
 
+[Route("api/friend")]
+[ApiController]
 public class FriendsController : BaseController
 {
-    private readonly IMapper _mapper;
     private readonly IOptions<AppConfig> _config;
 
-    public FriendsController(IMapper mapper, IOptions<AppConfig> config) =>
-        (_mapper, _config) = (mapper, config);
+    public FriendsController(IOptions<AppConfig> config) =>
+        (_config) = (config);
 
     [Authorize]
     [HttpGet("pending-friends")]
@@ -44,7 +44,7 @@ public class FriendsController : BaseController
     }
     [Authorize]
     [HttpPost("invite")]
-    public async Task<IActionResult> InviteFriend([FromBody]FriendDto request)
+    public async Task<IActionResult> InviteFriend([FromBody] FriendDto request)
     {
         var command = new InviteFriendCommand()
         {
@@ -57,7 +57,7 @@ public class FriendsController : BaseController
 
     [Authorize]
     [HttpPost("accept-request")]
-    public async Task<IActionResult> AcceptFriendship([FromBody]FriendDto request)
+    public async Task<IActionResult> AcceptFriendship([FromBody] FriendDto request)
     {
         var command = new AcceptFriendshipCommand()
         {
@@ -70,7 +70,7 @@ public class FriendsController : BaseController
 
     [Authorize]
     [HttpPost("reject-request")]
-    public async Task<IActionResult> RejectFriendship([FromBody]FriendDto request)
+    public async Task<IActionResult> RejectFriendship([FromBody] FriendDto request)
     {
         var command = new RejectFriendshipCommand()
         {

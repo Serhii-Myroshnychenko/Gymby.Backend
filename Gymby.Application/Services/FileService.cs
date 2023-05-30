@@ -1,5 +1,6 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 
@@ -13,11 +14,11 @@ public class FileService : IFileService
     {
         _blobServiceClient = blobServiceClient;
     }
-    public async Task AddPhotoAsync(string containerName, string userId, string folderName, IFormFile file)
+    public async Task AddPhotoAsync(string containerName, string userId, string folderName, IFormFile file, string newFileName)
     {
         BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
 
-        string folderPath = $"{userId}/{folderName}/{file.FileName}";
+        string folderPath = $"{userId}/{folderName}/{newFileName}";
 
         BlobClient folderBlobClient = containerClient.GetBlobClient(folderPath);
 
@@ -39,9 +40,38 @@ public class FileService : IFileService
         }
     }
 
-    public Task<List<string>> GetListOfPhotos(string containerName, string userId, string folderName)
+    public async Task DeleteSelectedPhoto(string containerName, string userId, string folderName, string fileName)
     {
-        throw new NotImplementedException();
+        BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+
+        string folderPath = $"{userId}/{folderName}";
+
+        await foreach (BlobItem blobItem in containerClient.GetBlobsAsync(prefix: folderPath))
+        {
+            if (blobItem is BlobItem blob)
+            {
+                if(blob.Name == fileName)
+                {
+                    BlobClient blobClient = containerClient.GetBlobClient(blob.Name);
+                    await blobClient.DeleteIfExistsAsync();
+                }
+            }
+        }
+    }
+
+    public async Task<List<string>> GetListOfPhotos(string containerName, string userId, string folderName)
+    {
+        var photos = new List<string>();
+
+        BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+
+        string folderPath = $"{userId}/{folderName}";
+
+        await foreach(var file in containerClient.GetBlobsAsync(prefix: folderPath))
+        {
+            photos.Add($"{containerClient.Uri}/{file.Name}");
+        }
+        return photos;
     }
 
     public async Task<string> GetPhotoAsync(string containerName, string userId, string folderName, string fileName)
@@ -57,6 +87,6 @@ public class FileService : IFileService
             return folderBlobClient.Uri.ToString();
         }
 
-        return null;
+        throw new NotFoundEntityException(userId, nameof(BlobClient));
     }
 }

@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gymby.Persistence", "..\Gym
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gymby.WebApi", "..\Gymby.WebApi\Gymby.WebApi.csproj", "{617FE2EE-560F-4B67-97F1-D01A4E4628F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymby.Tests", "..\Gymby.Tests\Gymby.Tests.csproj", "{F6D999C2-BFFF-4E1F-BC3E-18652F6117CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gymby.UnitTests", "..\Gymby.Tests\Gymby.UnitTests.csproj", "{F6D999C2-BFFF-4E1F-BC3E-18652F6117CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

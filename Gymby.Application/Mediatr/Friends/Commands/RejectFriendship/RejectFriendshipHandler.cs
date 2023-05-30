@@ -26,7 +26,7 @@ public class RejectFriendshipHandler : IRequestHandler<RejectFriendshipCommand, 
         }
 
         var friendship = await _dbContext.Friends
-            .Where(f => f.SenderId == profile.Id && f.ReceiverId == command.UserId)
+            .Where(f => f.SenderId == profile.UserId && f.ReceiverId == command.UserId && f.Status == Status.Pending)
             .FirstOrDefaultAsync(cancellationToken);
 
         if (friendship == null)

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Gymby.Application.Config;
 using Gymby.Application.Mediatr.Measurements.Commands.AddMeasuement;
-using Gymby.Application.Mediatr.Measurements.Commands.AddMeasurementPhoto;
 using Gymby.Application.Mediatr.Measurements.Commands.DeleteMeasurement;
 using Gymby.Application.Mediatr.Measurements.Queries.GetMyMeasurements;
 using Gymby.WebApi.Models;
@@ -11,6 +10,8 @@ using Microsoft.Extensions.Options;
 
 namespace Gymby.WebApi.Controllers;
 
+[Route("api/measurement")]
+[ApiController]
 public class MeasurementsController : BaseController
 {
     private readonly IOptions<AppConfig> _config;
@@ -32,21 +33,12 @@ public class MeasurementsController : BaseController
     }
     [Authorize]
     [HttpPost("create")]
-    public async Task<IActionResult> AddMeasurement([FromBody]MeasurementDto measurement)
+    public async Task<IActionResult> AddMeasurement([FromBody] MeasurementDto measurement)
     {
         var command = _mapper.Map<AddMeasurementCommand>(measurement);
 
         command.UserId = UserId.ToString();
-
-        return Ok(await Mediator.Send(command));
-    }
-    [Authorize]
-    [HttpPost("photo/create")]
-    public async Task<IActionResult> AddMeasurementPhoto([FromBody]MeasurementPhotoDto measurement)
-    {
-        var command = _mapper.Map<AddMeasurementPhotoCommand>(measurement);
-
-        command.UserId = UserId.ToString();
+        command.Options = _config;
 
         return Ok(await Mediator.Send(command));
     }
@@ -54,9 +46,11 @@ public class MeasurementsController : BaseController
     [HttpPost("delete")]
     public async Task<IActionResult> DeleteMeasurement([FromBody] DeleteMeasurementDto measurement)
     {
-        var command = _mapper.Map<DeleteMeasurementCommand>(measurement);
-
-        command.UserId = UserId.ToString();
+        var command = new DeleteMeasurementCommand(_config)
+        {
+            Id = measurement.Id,
+            UserId = UserId.ToString()
+        };
 
         return Ok(await Mediator.Send(command));
     }

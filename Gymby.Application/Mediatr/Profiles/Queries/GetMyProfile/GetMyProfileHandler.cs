@@ -56,10 +56,14 @@ public class GetMyProfileHandler
             result.PhotoAvatarPath = await _fileService.GetPhotoAsync(query.Options.Value.ContainerName, query.UserId, query.Options.Value.Avatar, result.PhotoAvatarPath);
         }
 
-        if(photos != null)
+        if(photos.Any())
         {
-            result.Photos = photos.Select(c => c.PhotoPath = Path.Combine(Path.Combine(query.Options.Value.Host, query.Options.Value.Profile),
-                Path.Combine(query.UserId, c.PhotoPath))).ToList();
+            result.Photos = _mapper.Map<List<PhotoVm>>(photos);
+
+            foreach(var elem in result.Photos)
+            {
+                elem.PhotoPath = await _fileService.GetPhotoAsync(query.Options.Value.ContainerName, query.UserId, query.Options.Value.Profile, elem.PhotoPath);
+            }
         }
 
         return result;

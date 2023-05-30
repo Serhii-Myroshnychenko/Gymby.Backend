@@ -17,12 +17,7 @@ public abstract class BaseController : ControllerBase
         ? Guid.Empty 
         : Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
-    //internal string Email => User.Identity!.IsAuthenticated
-    //    ? string.Empty
-    //    : User.FindFirst(ClaimTypes.Email)!.Value;
-
-
-
-    internal string Email => "email";
-
+    internal string Email => User.Identity!.IsAuthenticated
+        ? string.Empty
+        : User.FindFirst(ClaimTypes.Email)!.Value;
 }

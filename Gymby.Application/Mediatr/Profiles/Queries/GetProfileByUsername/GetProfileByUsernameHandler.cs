@@ -12,31 +12,39 @@ public class GetProfileByUsernameHandler
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
+    private readonly IFileService _fileService;
 
-    public GetProfileByUsernameHandler(IApplicationDbContext dbContext, IMapper mapper) =>
-        (_dbContext, _mapper) = (dbContext, mapper);
+    public GetProfileByUsernameHandler(IApplicationDbContext dbContext, IMapper mapper, IFileService fileService) =>
+        (_dbContext, _mapper, _fileService) = (dbContext, mapper, fileService);
 
     public async Task<ProfileVm> Handle(GetProfileByUsernameQuery request, CancellationToken cancellationToken)
     {
-        var profile = await _dbContext.Profiles.FirstOrDefaultAsync(p => p.Username == request.Username, cancellationToken);
+        var profile = await _dbContext.Profiles
+            .FirstOrDefaultAsync(p => p.Username == request.Username, cancellationToken);
 
         if(profile == null)
         {
             throw new NotFoundEntityException(request.Username, nameof(Domain.Entities.Profile));
         }
 
-        var photos = await _dbContext.Photos.Where(p => p.UserId == profile.UserId).ToListAsync();
+        var photos = await _dbContext.Photos
+            .Where(p => p.UserId == profile.UserId)
+            .ToListAsync(cancellationToken);
+
         var result = _mapper.Map<ProfileVm>(profile);
 
         if (result.PhotoAvatarPath != null)
         {
-            result.PhotoAvatarPath = Path.Combine(Path.Combine(request.Options.Value.Host, request.Options.Value.Profile),
-            Path.Combine(result.ProfileId, result.PhotoAvatarPath));
+            result.PhotoAvatarPath = await _fileService.GetPhotoAsync(request.Options.Value.ContainerName, profile.UserId, request.Options.Value.Avatar, result.PhotoAvatarPath);
         }
-        if(photos != null)
+        if(photos.Any())
         {
-            result.Photos = photos.Select(c => c.PhotoPath = Path.Combine(Path.Combine(request.Options.Value.Host, request.Options.Value.Profile),
-                Path.Combine(profile.UserId, c.PhotoPath))).ToList();
+            result.Photos = _mapper.Map<List<PhotoVm>>(photos);
+
+            foreach (var elem in result.Photos)
+            {
+                elem.PhotoPath = await _fileService.GetPhotoAsync(request.Options.Value.ContainerName, elem.UserId, request.Options.Value.Profile, elem.PhotoPath);
+            }
         }
 
         return result;
