@@ -1,0 +1,14 @@
+{
+  "profileId": "9ede3d99-cca8-49b3-b58c-c46e2a764bc8",
+  "username": "@test-user-profile",
+  "firstName": "Test",
+  "lastName": "User",
+  "description": "I am a test user",
+  "photoAvatarPath": "https://gymbystorage.blob.core.windows.net/pictures/6854f2d6-09a1-4ec6-8f22-e168d81ec36a/Avatar/ea6c158c-f0d3-42eb-a5f7-b6d20aecae00.png",
+  "instagramUrl": "https://www.instagram.com/",
+  "facebookUrl": "https://uk-ua.facebook.com/",
+  "telegramUsername": "@test-user-profile",
+  "isCoach": false,
+  "email": "userfortestprofile@gmail.com",
+  "photos": null
+}

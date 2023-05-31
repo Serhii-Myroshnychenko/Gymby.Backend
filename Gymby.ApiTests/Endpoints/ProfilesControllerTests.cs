@@ -8,11 +8,11 @@
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
             var accessToken = await authorization.GetAccessTokenAsync();
-
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
-            // Act
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile";
+
+            // Act
             var response = await httpClient.GetAsync(apiEndpoint);
             var responseContent = await response.Content.ReadAsStringAsync();
 
@@ -26,17 +26,31 @@
         }
 
         [Fact]
+        public async Task ProfilesControllerTests_GetMyProfile_WithoutAuthorization_ShouldBeUnauthorized()
+        {
+            // Arrange
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient("test");
+
+            var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile";
+
+            // Act
+            var response = await httpClient.GetAsync(apiEndpoint);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+        }
+
+        [Fact]
         public async Task ProfilesControllerTests_UpdateProfile_ShouldBeSuccess()
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
             var accessToken = await authorization.GetAccessTokenAsync();
-
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
-            // Act
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/update";
 
+            // Act
             var content = new MultipartFormDataContent();
             content.Add(new StringContent("9b306443-455b-444f-a7b3-5465d8cdc563"), "profileId");
             content.Add(new StringContent("@test-user"), "username");
@@ -54,6 +68,48 @@
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task ProfilesControllerTests_GetProfileByUsername_ShouldBeSuccess()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync();
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var username = "@test-user-profile";
+            var apiEndpoint = $"https://gymby-api.azurewebsites.net//api/profile/{username}";
+
+            // Act
+            var response = await httpClient.GetAsync(apiEndpoint);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetPathToJson("UsernameTestProfile.json"));
+            var expectedObject = JObject.Parse(expectedJson);
+            var responseObject = JObject.Parse(responseContent);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(responseObject, expectedObject);
+        }
+
+        [Fact]
+        public async Task ProfilesControllerTests_GetProfileByUsername_NonexistentUsername_ShouldBeFail()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync();
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var username = "@test";
+            var apiEndpoint = $"https://gymby-api.azurewebsites.net//api/profile/{username}";
+
+            // Act
+            var response = await httpClient.GetAsync(apiEndpoint);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
     }
 }

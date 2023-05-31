@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Folder Include="Mediatr\Friends\Queries\GetPendingFriendsList\" />
+    <Folder Include="Mediatr\Program\Queries\" />
   </ItemGroup>
 
 </Project>
