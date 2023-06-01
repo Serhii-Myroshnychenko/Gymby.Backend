@@ -30,10 +30,17 @@ public class GetPendingFriendsListHandler
         {
             if (friendsProfiles[i].PhotoAvatarPath != null)
             {
-                friendsProfiles[i].PhotoAvatarPath = await _fileService.GetPhotoAsync(request.Options.Value.ContainerName, request.UserId, request.Options.Value.Avatar, friendsProfiles[i].PhotoAvatarPath!);
+                friendsProfiles[i].PhotoAvatarPath = await _fileService.GetPhotoAsync(request.Options.Value.ContainerName, friendsProfiles[i].UserId, request.Options.Value.Avatar, friendsProfiles[i].PhotoAvatarPath!);
             }
         }
 
-        return _mapper.Map<List<ProfileVm>>(friendsProfiles);
+        var result =  _mapper.Map<List<ProfileVm>>(friendsProfiles);
+
+        foreach(var profileVm in result)
+        {
+            profileVm.Photos = new List<PhotoVm>();
+        }
+
+        return result;
     }
 }

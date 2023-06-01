@@ -1,21 +1,26 @@
 ﻿using Gymby.Application.Interfaces;
-using Gymby.Application.Mediatr.Friends.Commands.InviteFriend;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 using Gymby.Application.Common.Exceptions;
 using Gymby.Domain.Enums;
+using Gymby.Application.ViewModels;
+using Azure.Core;
+using Gymby.Application.Services;
+using AutoMapper;
 
 namespace Gymby.Application.Mediatr.Friends.Commands.AcceptFriendship;
 
 public class AcceptFriendshipHandler
-    : IRequestHandler<AcceptFriendshipCommand, string>
+    : IRequestHandler<AcceptFriendshipCommand, List<ProfileVm>>
 {
     private readonly IApplicationDbContext _dbContext;
+    private readonly IMapper _mapper;
+    private readonly IFileService _fileService;
 
-    public AcceptFriendshipHandler(IApplicationDbContext dbContext) =>
-        _dbContext = dbContext;
+    public AcceptFriendshipHandler(IApplicationDbContext dbContext, IMapper mapper, IFileService fileService) =>
+        (_dbContext, _mapper, _fileService) = (dbContext, mapper, fileService);
 
-    public async Task<string> Handle(AcceptFriendshipCommand command, 
+    public async Task<List<ProfileVm>> Handle(AcceptFriendshipCommand command, 
         CancellationToken cancellationToken)
     {
         var profile = await _dbContext.Profiles
@@ -40,6 +45,28 @@ public class AcceptFriendshipHandler
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        return friendship.Id;
+        var list = await _dbContext.Friends.Where(c => c.ReceiverId == command.UserId && c.Status == Status.Pending).ToListAsync(cancellationToken);
+
+        var profiles = list.Select(f => f.SenderId).ToList();
+
+        List<Domain.Entities.Profile> friendsProfiles = await _dbContext.Profiles
+            .Where(p => profiles.Contains(p.UserId))
+            .ToListAsync(cancellationToken);
+
+        for (int i = 0; i < friendsProfiles.Count; i++)
+        {
+            if (friendsProfiles[i].PhotoAvatarPath != null)
+            {
+                friendsProfiles[i].PhotoAvatarPath = await _fileService.GetPhotoAsync(command.Options.Value.ContainerName, command.UserId, command.Options.Value.Avatar, friendsProfiles[i].PhotoAvatarPath!);
+            }
+        }
+        var result = _mapper.Map<List<ProfileVm>>(friendsProfiles);
+        
+        foreach (var profileVm in result)
+        {
+            profileVm.Photos = new List<PhotoVm>();
+        }
+
+        return result;
     }
 }

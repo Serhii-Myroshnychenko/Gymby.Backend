@@ -2,6 +2,7 @@
 using Gymby.Application.Config;
 using Gymby.Application.Mediatr.Measurements.Commands.AddMeasuement;
 using Gymby.Application.Mediatr.Measurements.Commands.DeleteMeasurement;
+using Gymby.Application.Mediatr.Measurements.Commands.EditMeasurement;
 using Gymby.Application.Mediatr.Measurements.Queries.GetMyMeasurements;
 using Gymby.WebApi.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -51,6 +52,17 @@ public class MeasurementsController : BaseController
             Id = measurement.Id,
             UserId = UserId.ToString()
         };
+
+        return Ok(await Mediator.Send(command));
+    }
+    [Authorize]
+    [HttpPost("edit")]
+    public async Task<IActionResult> EditMeasurement([FromBody] EditMeasurementDto measurement)
+    {
+        var command = _mapper.Map<EditMeasurementCommand>(measurement);
+
+        command.UserId = UserId.ToString();
+        command.Options = _config;
 
         return Ok(await Mediator.Send(command));
     }

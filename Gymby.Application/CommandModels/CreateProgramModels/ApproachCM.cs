@@ -1,4 +1,4 @@
-﻿namespace Gymby.Application.CommandModels;
+﻿namespace Gymby.Application.CommandModels.CreateProgramModels;
 
 public class ApproachCM
 {

@@ -60,7 +60,7 @@ public class CreateProgramHandler
                     Id = programDayId,
                     ProgramId = programId,
                     Name = programDayRequest.Name,
-                    Program = program
+                    Program = program,
                 };
                 programDays.Add(programDay);
 
@@ -107,6 +107,7 @@ public class CreateProgramHandler
         await _dbContext.ProgramDays.AddRangeAsync(programDays, cancellationToken);
         await _dbContext.Exercises.AddRangeAsync(exercises, cancellationToken);
         await _dbContext.Approaches.AddRangeAsync(approaches, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
 
         return _mapper.Map<ProgramVm>(program);
     }

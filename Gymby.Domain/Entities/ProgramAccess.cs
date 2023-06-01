@@ -9,5 +9,5 @@ public class ProgramAccess
     public string ProgramId { get; set; } = null!;
     public AccessType Type { get; set; }
     public bool IsFavorite { get; set; }
-    public Program Program { get; set; } = null!;
+    public virtual Program Program { get; set; } = null!;
 }
