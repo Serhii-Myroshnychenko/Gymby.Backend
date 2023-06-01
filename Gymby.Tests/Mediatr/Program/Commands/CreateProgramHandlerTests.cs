@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Gymby.Application.CommandModels;
+using Gymby.Application.CommandModels.CreateProgramModels;
 using Gymby.Application.Mediatr.Measurements.Commands.AddMeasuement;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;

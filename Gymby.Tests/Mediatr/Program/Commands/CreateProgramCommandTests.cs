@@ -1,4 +1,5 @@
 ﻿using Gymby.Application.CommandModels;
+using Gymby.Application.CommandModels.CreateProgramModels;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
 using System;
 using System.Collections.Generic;

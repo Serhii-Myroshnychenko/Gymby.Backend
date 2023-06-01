@@ -26,7 +26,7 @@ namespace Gymby.UnitTests.Mediatr.Friends.Queries.GetMyFriendsList
         {
             // Arrange
             var handler = new GetMyFriendsListHandler(Context, Mapper, FileService);
-            var handlerForAccept = new AcceptFriendshipHandler(Context);
+            var handlerForAccept = new AcceptFriendshipHandler(Context, Mapper, FileService);
             var handlerForInvite = new InviteFriendHandler(Context);
             var appConfigOptionsFriend= Options.Create(new AppConfig());
 
