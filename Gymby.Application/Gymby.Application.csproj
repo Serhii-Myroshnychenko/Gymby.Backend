@@ -28,6 +28,7 @@
 	</ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Mediatr\Exercises\Queries\" />
     <Folder Include="Mediatr\Photos\Queries\" />
     <Folder Include="Mediatr\Programs\Queries\" />
   </ItemGroup>

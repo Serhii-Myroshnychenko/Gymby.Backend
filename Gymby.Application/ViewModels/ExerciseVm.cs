@@ -12,6 +12,7 @@ public class ExerciseVm : IMapWith<Exercise>
     public string? ProgramDayId { get; set; }
     public DateTime? Date { get; set; }
     public string Name { get; set; } = null!;
+    public ExercisePrototype ExercisePrototype { get; set; } = null!;
     public List<ApproachVm>? Approaches { get; set; }
 
     public void Mapping(AutoMapper.Profile profile)
@@ -23,6 +24,8 @@ public class ExerciseVm : IMapWith<Exercise>
                 vm => vm.MapFrom(v => v.DiaryDayId))
             .ForMember(p => p.ExercisePrototypeId,
                 vm => vm.MapFrom(v => v.ExercisePrototypeId))
+            .ForMember(p => p.ExercisePrototype,
+                vm => vm.MapFrom(v => v.ExercisePrototype))
             .ForMember(p => p.ProgramDayId,
                 vm => vm.MapFrom(v => v.ProgramDayId))
             .ForMember(p => p.Date,

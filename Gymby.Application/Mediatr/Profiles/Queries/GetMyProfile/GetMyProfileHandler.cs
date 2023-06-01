@@ -63,7 +63,7 @@ public class GetMyProfileHandler
             foreach(var elem in result.Photos)
             {
                 elem.PhotoPath = await _fileService.GetPhotoAsync(query.Options.Value.ContainerName, query.UserId, query.Options.Value.Profile, elem.PhotoPath);
-            }
+            }   
         }
         else
         {

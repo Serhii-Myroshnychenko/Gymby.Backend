@@ -33,6 +33,8 @@ public class GetProfileByUsernameHandler
 
         var result = _mapper.Map<ProfileVm>(profile);
 
+        result.Photos = new List<PhotoVm>();
+
         if (result.PhotoAvatarPath != null)
         {
             result.PhotoAvatarPath = await _fileService.GetPhotoAsync(request.Options.Value.ContainerName, profile.UserId, request.Options.Value.Avatar, result.PhotoAvatarPath);
