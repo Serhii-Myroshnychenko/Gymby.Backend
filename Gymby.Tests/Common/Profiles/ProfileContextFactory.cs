@@ -12,6 +12,7 @@
         public static string FriendUsernameForInvite = "user-bill";
         public static string FriendUsernameForInvite2 = "user-den";
         public static string FriendUsernameForAcceptOrReject = "user-alex";
+        public static string FriendForPending = "user-chandler";
 
         public static ApplicationDbContext Create()
         {

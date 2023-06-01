@@ -16,7 +16,7 @@ namespace Gymby.ApiTests.Endpoints
 
             // Act
             var response = await httpClient.GetAsync(apiEndpoint);
-
+            var responseContent = await response.Content.ReadAsStringAsync();
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }

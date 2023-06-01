@@ -1,17 +1,23 @@
 ﻿using AutoMapper;
-using Gymby.Application.Mediatr.Friends.Commands.AcceptFriendship;
 using Gymby.Application.Mediatr.Friends.Commands.InviteFriend;
 using Gymby.Application.Mediatr.Friends.Queries.GetMyFriendsList;
+using Gymby.Application.Mediatr.Friends.Queries.GetPendingFriendsList;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Gymby.UnitTests.Mediatr.Friends.Queries.GetMyFriendsList
+namespace Gymby.UnitTests.Mediatr.Friends.Queries.GetPendingFriendsList
 {
-    public class GetMyFriendsListHandlerTests
+
+    public class GetPendingFriendsListHandlerTests
     {
         private readonly ApplicationDbContext Context;
         private readonly IMapper Mapper;
         private readonly IFileService FileService;
 
-        public GetMyFriendsListHandlerTests()
+        public GetPendingFriendsListHandlerTests()
         {
             ProfileCommandTestFixture fixture = new ProfileCommandTestFixture();
             Context = fixture.Context;
@@ -20,22 +26,15 @@ namespace Gymby.UnitTests.Mediatr.Friends.Queries.GetMyFriendsList
         }
 
         [Fact]
-        public async Task GetMyFriendsListHandler_WhenUserHasTwoFriends_ShouldBeSuccess()
+        public async Task GetPendingFriendsListHandlerTests_WhenUserHasTwoFriends_ShouldBeSuccess()
         {
             // Arrange
-            var handler = new GetMyFriendsListHandler(Context, Mapper, FileService);
-            var handlerForAccept = new AcceptFriendshipHandler(Context, Mapper, FileService);
+            var handler = new GetPendingFriendsListHandler(Context, Mapper, FileService);
             var handlerForInvite = new InviteFriendHandler(Context);
-            var appConfigOptionsFriend= Options.Create(new AppConfig());
+            var appConfigOptionsFriend = Options.Create(new AppConfig());
 
             // Act
             await handlerForInvite.Handle(new InviteFriendCommand()
-            {
-                UserId = ProfileContextFactory.UserAId.ToString(),
-                Username = ProfileContextFactory.FriendUsernameForInvite
-            }, CancellationToken.None);
-
-            await handlerForAccept.Handle(new AcceptFriendshipCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Username = ProfileContextFactory.FriendUsernameForAcceptOrReject
@@ -43,20 +42,14 @@ namespace Gymby.UnitTests.Mediatr.Friends.Queries.GetMyFriendsList
 
             await handlerForInvite.Handle(new InviteFriendCommand()
             {
-                UserId = ProfileContextFactory.UserAId.ToString(),
-                Username = ProfileContextFactory.FriendUsernameForInvite2
-            }, CancellationToken.None);
-
-            await handlerForAccept.Handle(new AcceptFriendshipCommand()
-            {
                 UserId = ProfileContextFactory.UserDId.ToString(),
                 Username = ProfileContextFactory.FriendUsernameForAcceptOrReject
             }, CancellationToken.None);
 
-            var result = await handler.Handle(new GetMyFriendsListQuery(appConfigOptionsFriend)
-                {
-                    UserId = ProfileContextFactory.UserAId.ToString(),
-                }, CancellationToken.None);
+            var result = await handler.Handle(new GetPendingFriendsListQuery(appConfigOptionsFriend)
+            {
+                UserId = ProfileContextFactory.UserAId.ToString(),
+            }, CancellationToken.None);
 
             // Assert
             result.Count.ShouldBe(2);
@@ -65,14 +58,14 @@ namespace Gymby.UnitTests.Mediatr.Friends.Queries.GetMyFriendsList
         }
 
         [Fact]
-        public async Task GetMyFriendsListHandler_WhenUserHasZeroFriends_ShouldBeSuccess()
+        public async Task GetPendingFriendsListHandlerTests_WhenUserHasZeroPendingFriends_ShouldBeSuccess()
         {
             // Arrange
-            var handler = new GetMyFriendsListHandler(Context, Mapper, FileService);
+            var handler = new GetPendingFriendsListHandler(Context, Mapper, FileService);
             var appConfigOptionsFriend = Options.Create(new AppConfig());
 
             // Act
-            var result = await handler.Handle(new GetMyFriendsListQuery(appConfigOptionsFriend)
+            var result = await handler.Handle(new GetPendingFriendsListQuery(appConfigOptionsFriend)
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),
             }, CancellationToken.None);
@@ -82,4 +75,5 @@ namespace Gymby.UnitTests.Mediatr.Friends.Queries.GetMyFriendsList
             Assert.NotNull(result);
         }
     }
+
 }

@@ -26,7 +26,7 @@ namespace Gymby.UnitTests.Mediatr.Friends.Commands.AcceptFriendship
             var handlerForInvite = new InviteFriendHandler(Context);
 
             // Act
-            var result1 = await handlerForInvite.Handle(new InviteFriendCommand()
+            await handlerForInvite.Handle(new InviteFriendCommand()
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),
                 Username = ProfileContextFactory.FriendUsernameForInvite
