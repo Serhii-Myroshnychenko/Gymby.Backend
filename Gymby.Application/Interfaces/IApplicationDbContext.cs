@@ -1,5 +1,6 @@
 ﻿using Gymby.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Gymby.Application.Interfaces;
 
@@ -19,4 +20,5 @@ public interface IApplicationDbContext
     DbSet<ProgramAccess> ProgramAccesses { get; set; }
     DbSet<ProgramDay> ProgramDays { get; set; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+    EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 }

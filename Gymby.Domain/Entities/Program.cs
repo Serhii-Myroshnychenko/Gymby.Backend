@@ -9,6 +9,6 @@ public class Program
     public string Description { get;set; } = null!;
     public Level Level { get; set; }
     public ProgramType Type { get; set; }
-    public ICollection<ProgramAccess> ProgramAccesses { get; set; } = null!;
-    public ICollection<ProgramDay> ProgramDays { get; set; } = null!;
+    public virtual ICollection<ProgramAccess> ProgramAccesses { get; set; } = null!;
+    public virtual ICollection<ProgramDay> ProgramDays { get; set; } = null!;
 }

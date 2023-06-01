@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Gymby.Application.CommandModels;
+using Gymby.Application.CommandModels.CreateProgramModels;
 using Gymby.Application.Common.Mappings;
 
 namespace Gymby.WebApi.Models.CreateProgramDtos;

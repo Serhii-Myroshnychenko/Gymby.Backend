@@ -7,5 +7,5 @@ public class DiaryAccess
     public string UserId { get; set; } = null!;
     public string DiaryId { get; set; } = null!;
     public AccessType Type { get; set; }
-    public Diary Diary { get; set; } = null!;
+    public virtual Diary Diary { get; set; } = null!;
 }

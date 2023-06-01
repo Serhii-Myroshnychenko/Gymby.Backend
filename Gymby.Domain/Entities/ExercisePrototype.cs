@@ -7,5 +7,5 @@ public class ExercisePrototype
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
     public Category Category { get; set; }
-    public ICollection<Exercise> Exercises { get; set; } = null!;
+    public virtual ICollection<Exercise> Exercises { get; set; } = null!;
 }

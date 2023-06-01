@@ -32,6 +32,13 @@ public class GetMyFriendsListHandler
             }
         }
 
-        return _mapper.Map<List<ProfileVm>>(friendProfiles);
+        var result =  _mapper.Map<List<ProfileVm>>(friendProfiles);
+
+        foreach(var profileVm in result)
+        {
+            profileVm.Photos = new List<PhotoVm>();
+        }
+
+        return result;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Gymby.Application.Config;
 using Gymby.Application.Mediatr.Friends.Commands.AcceptFriendship;
+using Gymby.Application.Mediatr.Friends.Commands.DeleteFriend;
 using Gymby.Application.Mediatr.Friends.Commands.InviteFriend;
 using Gymby.Application.Mediatr.Friends.Commands.RejectFriendship;
 using Gymby.Application.Mediatr.Friends.Queries.GetMyFriendsList;
@@ -63,6 +64,7 @@ public class FriendsController : BaseController
         {
             UserId = UserId.ToString(),
             Username = request.Username,
+            Options = _config
         };
 
         return Ok(await Mediator.Send(command));
@@ -76,6 +78,21 @@ public class FriendsController : BaseController
         {
             UserId = UserId.ToString(),
             Username = request.Username,
+            Options = _config
+        };
+
+        return Ok(await Mediator.Send(command));
+    }
+
+    [Authorize]
+    [HttpPost("delete-request")]
+    public async Task<IActionResult> DeleteFriend([FromBody] FriendDto request)
+    {
+        var command = new DeleteFriendCommand()
+        {
+            UserId = UserId.ToString(),
+            Username = request.Username,
+            Options = _config
         };
 
         return Ok(await Mediator.Send(command));

@@ -4,10 +4,11 @@ using Gymby.Domain.Enums;
 using MediatR;
 using Microsoft.Extensions.Options;
 
-namespace Gymby.Application.Mediatr.Measurements.Commands.AddMeasuement;
+namespace Gymby.Application.Mediatr.Measurements.Commands.EditMeasurement;
 
-public class AddMeasurementCommand : IRequest<MeasurementsList>
+public class EditMeasurementCommand : IRequest<MeasurementsList>
 {
+    public string Id { get; set; } = null!;
     public string UserId { get; set; } = null!;
     public DateTime Date { get; set; }
     public MeasurementType Type { get; set; }
