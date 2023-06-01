@@ -7,7 +7,7 @@
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync();
+            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
 
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 

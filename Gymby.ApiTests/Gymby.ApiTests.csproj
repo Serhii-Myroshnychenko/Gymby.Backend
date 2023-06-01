@@ -28,4 +28,8 @@
     <ProjectReference Include="..\Gymby.WebApi\Gymby.WebApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Friend\" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,16 @@
+[
+  {
+    "profileId": "b37351a0-df84-466b-b0ab-796dbc2ee57c",
+    "username": "@friendforinvite",
+    "firstName": "Test",
+    "lastName": "User",
+    "description": "I am a test user1",
+    "photoAvatarPath": "https://gymbystorage.blob.core.windows.net/pictures/71298ba4-f426-48e4-8701-31d7bb874e32/Avatar/bf2361f5-6d20-4d77-a948-dbba3c1bd58a.png",
+    "instagramUrl": "https://www.instagram.com/",
+    "facebookUrl": "https://uk-ua.facebook.com/",
+    "telegramUsername": "@friendforinvite",
+    "isCoach": false,
+    "email": "friendforinvite@gmail.com",
+    "photos": null
+  }
+]

@@ -8,15 +8,15 @@ namespace Gymby.ApiTests.Utils
 {
     public class Authorization : IAuthorization
     {
-        public async Task<string> GetAccessTokenAsync()
+        public async Task<string> GetAccessTokenAsync(string username, string password)
         {
             var identityServerUrl = "https://gymby-auth.azurewebsites.net/";
             var tokenEndpoint = $"{identityServerUrl}/connect/token";
 
             var clientId = "test";
             var clientSecret = "secret";
-            var username = "userfortest@gmail.com";
-            var password = "TestUser123";
+            //var username = "userfortest@gmail.com";
+            //var password = "TestUser123";
             var scope = "GymbyWebAPI";
 
             var httpClient = new HttpClient();

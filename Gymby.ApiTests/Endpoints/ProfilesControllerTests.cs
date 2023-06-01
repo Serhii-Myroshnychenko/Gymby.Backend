@@ -1,4 +1,6 @@
-﻿namespace Gymby.ApiTests.Endpoints
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Gymby.ApiTests.Endpoints
 {
     public class ProfilesControllerTests
     {
@@ -7,7 +9,7 @@
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync();
+            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile";
@@ -16,7 +18,7 @@
             var response = await httpClient.GetAsync(apiEndpoint);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetPathToJson("DefaultProfile.json"));
+            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetPathToProfile("DefaultProfile.json"));
             var expectedObject = JObject.Parse(expectedJson);
             var responseObject = JObject.Parse(responseContent);
 
@@ -45,10 +47,13 @@
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync();
+            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/update";
+
+            string imagePath = FileBuilder.GetPathToProfile("avatar.png");
+            IFormFile formFile = new FormFile(File.OpenRead(imagePath), 0, new FileInfo(imagePath).Length, null, Path.GetFileName(imagePath));
 
             // Act
             var content = new MultipartFormDataContent();
@@ -57,7 +62,7 @@
             content.Add(new StringContent("Test"), "firstName");
             content.Add(new StringContent("User"), "lastName");
             content.Add(new StringContent("I am a test user1"), "description");
-            content.Add(new StringContent("https://gymbystorage.blob.core.windows.net/pictures/95d0ee72-14d6-40d2-af16-9063cf5a1fc9/Avatar/3a7dab25-5ca2-427d-afc8-57e2befbeb45.png"), "photoAvatarPath");
+            content.Add(new StreamContent(formFile.OpenReadStream()), "photoAvatarPath", formFile.FileName);
             content.Add(new StringContent("https://www.instagram.com/"), "instagramUrl");
             content.Add(new StringContent("https://uk-ua.facebook.com/"), "facebookUrl");
             content.Add(new StringContent("@testuser"), "telegramUsername");
@@ -75,7 +80,7 @@
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync();
+            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var username = "@test-user-profile";
@@ -85,7 +90,7 @@
             var response = await httpClient.GetAsync(apiEndpoint);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetPathToJson("UsernameTestProfile.json"));
+            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetPathToProfile("UsernameTestProfile.json"));
             var expectedObject = JObject.Parse(expectedJson);
             var responseObject = JObject.Parse(responseContent);
 
@@ -99,7 +104,7 @@
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync();
+            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var username = "@test";
@@ -110,6 +115,39 @@
 
             // Assert
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task ForTest()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync("friendserg@gmail.com", "TestUser123");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/update";
+
+            string imagePath = FileBuilder.GetPathToProfile("avatar.png");
+            IFormFile formFile = new FormFile(File.OpenRead(imagePath), 0, new FileInfo(imagePath).Length, null, Path.GetFileName(imagePath));
+
+            // Act
+            var content = new MultipartFormDataContent();
+            content.Add(new StringContent("42c66924-d117-43d0-9076-460acbe64b1"), "profileId");
+            content.Add(new StringContent("@friendserg"), "username");
+            content.Add(new StringContent("Test"), "firstName");
+            content.Add(new StringContent("User"), "lastName");
+            content.Add(new StringContent("I am a test user1"), "description");
+            content.Add(new StreamContent(formFile.OpenReadStream()), "photoAvatarPath", formFile.FileName);
+            content.Add(new StringContent("https://www.instagram.com/"), "instagramUrl");
+            content.Add(new StringContent("https://uk-ua.facebook.com/"), "facebookUrl");
+            content.Add(new StringContent("@friendserg"), "telegramUsername");
+            content.Add(new StringContent("true"), "isCoach");
+            content.Add(new StringContent("friendserg@gmail.com"), "email");
+
+            var response = await httpClient.PostAsync(apiEndpoint, content);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
     }
 }
