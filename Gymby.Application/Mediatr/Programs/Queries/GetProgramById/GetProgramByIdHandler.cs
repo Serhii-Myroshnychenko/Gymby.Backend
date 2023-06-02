@@ -23,7 +23,7 @@ public class GetProgramByIdHandler
     {
         var program = await _dbContext.Programs
             .Include(c => c.ProgramDays)
-                .ThenInclude(c => c.Exercises)
+                .ThenInclude(c => c.Exercises)!
                     .ThenInclude(c => c.Approaches)
             .FirstOrDefaultAsync(p => p.Id == request.ProgramId, cancellationToken)
             ?? throw new NotFoundEntityException(request.ProgramId, nameof(Program));
