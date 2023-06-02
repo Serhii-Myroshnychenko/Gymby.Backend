@@ -4,11 +4,11 @@
   "firstName": "Test",
   "lastName": "User",
   "description": "I am a test user1",
-  "photoAvatarPath": "https://gymbystorage.blob.core.windows.net/pictures/95d0ee72-14d6-40d2-af16-9063cf5a1fc9/Avatar/3a7dab25-5ca2-427d-afc8-57e2befbeb45.png",
+  "photoAvatarPath": "https://gymbystorage.blob.core.windows.net/pictures/95d0ee72-14d6-40d2-af16-9063cf5a1fc9/Avatar/6d7b3ba6-7b3a-4c04-befa-4fb400cd4a9c.png",
   "instagramUrl": "https://www.instagram.com/",
   "facebookUrl": "https://uk-ua.facebook.com/",
   "telegramUsername": "@testuser",
   "isCoach": true,
   "email": "userfortest@gmail.com",
-  "photos": null
+  "photos": []
 }
