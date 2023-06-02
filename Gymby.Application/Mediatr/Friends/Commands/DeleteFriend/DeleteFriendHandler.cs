@@ -25,10 +25,11 @@ public class DeleteFriendHandler
         var friendProfile = await _dbContext.Profiles
             .FirstOrDefaultAsync(c => c.Username == command.Username, cancellationToken)
             ?? throw new NotFoundEntityException(command.Username, nameof(Domain.Entities.Profile));
-
+        
+        // Добавлена возможность удалять reject юзеров
         var friendship = await _dbContext.Friends
-            .Where(f => (f.SenderId == friendProfile.UserId && f.ReceiverId == command.UserId && f.Status == Status.Confirmed) ||
-             (f.SenderId == command.UserId && f.ReceiverId == friendProfile.UserId && f.Status == Status.Confirmed)).FirstOrDefaultAsync(cancellationToken)
+            .Where(f => (f.SenderId == friendProfile.UserId && f.ReceiverId == command.UserId && (f.Status == Status.Confirmed || f.Status == Status.Rejected)) ||
+             (f.SenderId == command.UserId && f.ReceiverId == friendProfile.UserId && (f.Status == Status.Confirmed || f.Status == Status.Rejected))).FirstOrDefaultAsync(cancellationToken)
              ?? throw new NotFoundEntityException(command.Username, nameof(Friend));
 
         _dbContext.Friends.Remove(friendship);
