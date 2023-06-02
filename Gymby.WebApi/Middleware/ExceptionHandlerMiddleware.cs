@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-using Gymby.Application.Common.Exceptions;
-using System.ComponentModel.DataAnnotations;
+﻿using Gymby.Application.Common.Exceptions;
 using System.Net;
 using System.Text.Json;
 using ValidationException = FluentValidation.ValidationException;

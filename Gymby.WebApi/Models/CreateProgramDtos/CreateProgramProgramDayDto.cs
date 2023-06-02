@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Gymby.Application.CommandModels.CreateProgramModels;
 using Gymby.Application.Common.Mappings;
-using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
 
 namespace Gymby.WebApi.Models.CreateProgramDtos;
 

@@ -3,6 +3,7 @@ using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
 using Gymby.Application.ViewModels;
 using Gymby.Domain.Entities;
+using Gymby.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +26,7 @@ public class CreateProgramExerciseHandler
             ?? throw new InsufficientRightsException("You do not have permissions to create an exercise");
 
         var programAccess = await _dbContext.ProgramAccesses
-            .FirstOrDefaultAsync(p => p.ProgramId == request.ProgramId && p.UserId == request.UserId, cancellationToken)
+            .FirstOrDefaultAsync(p => p.ProgramId == request.ProgramId && p.UserId == request.UserId && p.Type == AccessType.Owner, cancellationToken)
             ?? throw new InsufficientRightsException("You do not have permissions to create an exercise in this program");
 
         var programDay = await _dbContext.ProgramDays
@@ -64,7 +65,7 @@ public class CreateProgramExerciseHandler
 
         var result = _mapper.Map<ExerciseVm>(exercise);
         result.Approaches = new List<ApproachVm>();
-
         return result;
+        
     }
 }
