@@ -1,0 +1,16 @@
+[
+  {
+    "profileId": "602a6716-ddbe-4f84-8abb-bddc530b012a",
+    "username": "invitetousertest",
+    "firstName": "Test",
+    "lastName": "pending",
+    "description": "desc",
+    "photoAvatarPath": "https://gymbystorage.blob.core.windows.net/pictures/0b3cd3c6-bf40-4991-8808-83e3b5bd08b2/Avatar/7c533461-7c02-4edc-94b4-b63869850d71.png",
+    "instagramUrl": "inst",
+    "facebookUrl": "null",
+    "telegramUsername": "telega",
+    "isCoach": false,
+    "email": "invitetousertest@gmail.com",
+    "photos": []
+  }
+]

@@ -1,5 +1,19 @@
 [
   {
+    "profileId": "769fd194-74c3-4b63-a28c-a5d2d78bc0e2",
+    "username": "@friendfordelete",
+    "firstName": "Test",
+    "lastName": "User",
+    "description": "I am a test user1",
+    "photoAvatarPath": "https://gymbystorage.blob.core.windows.net/pictures/3c99a451-1eb9-4cd8-992e-8b4f355fe9db/Avatar/2ce7aaac-dcaa-4010-884b-bc40d2e22f83.png",
+    "instagramUrl": "https://www.instagram.com/",
+    "facebookUrl": "https://uk-ua.facebook.com/",
+    "telegramUsername": "@friendfordelete",
+    "isCoach": false,
+    "email": "friendfordelete@gmail.com",
+    "photos": []
+  },
+  {
     "profileId": "b37351a0-df84-466b-b0ab-796dbc2ee57c",
     "username": "@friendforinvite",
     "firstName": "Test",
@@ -11,6 +25,6 @@
     "telegramUsername": "@friendforinvite",
     "isCoach": false,
     "email": "friendforinvite@gmail.com",
-    "photos": null
+    "photos": []
   }
 ]

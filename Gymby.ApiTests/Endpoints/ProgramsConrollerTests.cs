@@ -7,13 +7,13 @@
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("staticinvite@gmail.com", "TestUser123");
 
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var programDto = new CreateProgramDto
             {
-                Name = "Program Name",
+                Name = "Program Name1",
                 Description = "Program Description",
                 Level = Level.Intermediate,
                 Type = ProgramType.Endurance,
