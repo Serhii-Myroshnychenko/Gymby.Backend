@@ -18,7 +18,7 @@ namespace Gymby.ApiTests.Endpoints
             var response = await httpClient.GetAsync(apiEndpoint);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetPathToProfile("DefaultProfile.json"));
+            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Profile", "DefaultProfile.json"));
             var expectedObject = JObject.Parse(expectedJson);
             var responseObject = JObject.Parse(responseContent);
 
@@ -52,7 +52,7 @@ namespace Gymby.ApiTests.Endpoints
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/update";
 
-            string imagePath = FileBuilder.GetPathToProfile("avatar.png");
+            string imagePath = FileBuilder.GetFilePath("Profile", "avatar.png");
             IFormFile formFile = new FormFile(File.OpenRead(imagePath), 0, new FileInfo(imagePath).Length, null, Path.GetFileName(imagePath));
 
             // Act
@@ -90,7 +90,7 @@ namespace Gymby.ApiTests.Endpoints
             var response = await httpClient.GetAsync(apiEndpoint);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetPathToProfile("UsernameTestProfile.json"));
+            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Profile", "UsernameTestProfile.json"));
             var expectedObject = JObject.Parse(expectedJson);
             var responseObject = JObject.Parse(responseContent);
 

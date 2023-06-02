@@ -32,7 +32,7 @@ namespace Gymby.ApiTests.Endpoints
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/measurement/create";
 
             // Act
-            var json = await File.ReadAllTextAsync(FileBuilder.GetPathToMeasurement("MeasurementDefault.json"));
+            var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Measurement", "MeasurementDefault.json"));
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await httpClient.PostAsync(apiEndpoint, jsonContent);
@@ -66,7 +66,7 @@ namespace Gymby.ApiTests.Endpoints
         //    var apiEndpoint = "https://gymby-api.azurewebsites.net/api/measurement/create";
 
         //    // Act
-        //    var json = await File.ReadAllTextAsync(FileBuilder.GetPathToMeasurement("MeasurementFail.json"));
+        //    var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Measurement","MeasurementFail.json"));
         //    var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
         //    var response = await httpClient.PostAsync(apiEndpoint, jsonContent);
@@ -92,7 +92,7 @@ namespace Gymby.ApiTests.Endpoints
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/measurement/edit";
 
             // Act
-            var json = await File.ReadAllTextAsync(FileBuilder.GetPathToMeasurement("MeasurementEdit.json"));
+            var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Measurement", "MeasurementEdit.json"));
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await httpClient.PostAsync(apiEndpoint, jsonContent);
@@ -128,7 +128,7 @@ namespace Gymby.ApiTests.Endpoints
             var apiEndpointDelete = "https://gymby-api.azurewebsites.net/api/measurement/delete";
 
             // Act
-            var json = await File.ReadAllTextAsync(FileBuilder.GetPathToMeasurement("MeasurementDelete.json"));
+            var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Measurement", "MeasurementDelete.json"));
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await httpClient.PostAsync(apiEndpointCreate, jsonContent);

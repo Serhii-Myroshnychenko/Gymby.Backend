@@ -8,24 +8,10 @@ namespace Gymby.ApiTests.Utils
 {
     public class FileBuilder
     {
-        public static string GetPathToProfile(string file)
+        public static string GetFilePath(string folder, string file)
         {
             string basePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..//..//..//"));
-            string jsonFilePath = Path.Combine(basePath, "Data", "Profile", file);
-            return jsonFilePath;
-        }
-
-        public static string GetPathToMeasurement(string file)
-        {
-            string basePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..//..//..//"));
-            string jsonFilePath = Path.Combine(basePath, "Data", "Measurement", file);
-            return jsonFilePath;
-        }
-
-        public static string GetPathToFriend(string file)
-        {
-            string basePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..//..//..//"));
-            string jsonFilePath = Path.Combine(basePath, "Data", "Friend", file);
+            string jsonFilePath = Path.Combine(basePath, "Data", folder, file);
             return jsonFilePath;
         }
     }

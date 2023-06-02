@@ -17,7 +17,7 @@
             var response = await httpClient.GetAsync(apiEndpoint);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetPathToFriend("GetFriendsList.json"));
+            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "GetFriendsList.json"));
             var expectedArray = JArray.Parse(expectedJson);
             var responseArray = JArray.Parse(responseContent);
 
@@ -40,7 +40,7 @@
             var response = await httpClient.GetAsync(apiEndpoint);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetPathToFriend("GetPendingFriendsList.json")); //change file
+            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "GetPendingFriendsList.json")); //change file
             var expectedArray = JArray.Parse(expectedJson);
             var responseArray = JArray.Parse(responseContent);
 
@@ -66,13 +66,13 @@
             var apiEndpointDelete = "https://gymby-api.azurewebsites.net/api/friend/delete-request";
 
             // Act
-            var jsonInvite = await File.ReadAllTextAsync(FileBuilder.GetPathToFriend("FriendInvite.json"));
+            var jsonInvite = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "FriendInvite.json"));
             var jsonContentInvite = new StringContent(jsonInvite, Encoding.UTF8, "application/json");
 
-            var jsonAccept = await File.ReadAllTextAsync(FileBuilder.GetPathToFriend("DeleteFriend.json"));
+            var jsonAccept = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "DeleteFriend.json"));
             var jsonContentAccept = new StringContent(jsonAccept, Encoding.UTF8, "application/json");
 
-            var jsonDelete = await File.ReadAllTextAsync(FileBuilder.GetPathToFriend("DeleteFriend.json"));
+            var jsonDelete = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "DeleteFriend.json"));
             var jsonContentDelete = new StringContent(jsonDelete, Encoding.UTF8, "application/json");
 
             var responseInvite = await httpClientForInvite.PostAsync(apiEndpointInvite, jsonContentInvite);
@@ -102,13 +102,13 @@
         //    var apiEndpointDelete = "https://gymby-api.azurewebsites.net/api/friend/delete-request";
 
         //    // Act
-        //    var jsonInvite = await File.ReadAllTextAsync(FileBuilder.GetPathToFriend("FriendInvite.json"));
+        //    var jsonInvite = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend","FriendInvite.json"));
         //    var jsonContentInvite = new StringContent(jsonInvite, Encoding.UTF8, "application/json");
 
-        //    var jsonReject = await File.ReadAllTextAsync(FileBuilder.GetPathToFriend("DeleteFriend.json"));
+        //    var jsonReject = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend","DeleteFriend.json"));
         //    var jsonContentReject = new StringContent(jsonReject, Encoding.UTF8, "application/json");
 
-        //    var jsonDelete = await File.ReadAllTextAsync(FileBuilder.GetPathToFriend("DeleteFriend.json"));
+        //    var jsonDelete = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend","DeleteFriend.json"));
         //    var jsonContentDelete = new StringContent(jsonDelete, Encoding.UTF8, "application/json");
 
         //    var responseInvite = await httpClientForInvite.PostAsync(apiEndpointInvite, jsonContentInvite);
@@ -132,7 +132,7 @@
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/friend/invite";
 
             // Act
-            var json = await File.ReadAllTextAsync(FileBuilder.GetPathToFriend("NonexistentUsername.json"));
+            var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "NonexistentUsername.json"));
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await httpClient.PostAsync(apiEndpoint, jsonContent);
@@ -152,7 +152,7 @@
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/friend/accept-request";
 
             // Act
-            var json = await File.ReadAllTextAsync(FileBuilder.GetPathToFriend("NonexistentUsername.json"));
+            var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "NonexistentUsername.json"));
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await httpClient.PostAsync(apiEndpoint, jsonContent);
@@ -173,7 +173,7 @@
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/friend/reject-request";
 
             // Act
-            var json = await File.ReadAllTextAsync(FileBuilder.GetPathToFriend("NonexistentUsername.json"));
+            var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "NonexistentUsername.json"));
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await httpClient.PostAsync(apiEndpoint, jsonContent);
@@ -193,7 +193,7 @@
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/friend/delete-request";
 
             // Act
-            var json = await File.ReadAllTextAsync(FileBuilder.GetPathToFriend("NonexistentUsername.json"));
+            var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "NonexistentUsername.json"));
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await httpClient.PostAsync(apiEndpoint, jsonContent);
