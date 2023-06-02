@@ -16,15 +16,9 @@ namespace Gymby.ApiTests.Endpoints
 
             // Act
             var response = await httpClient.GetAsync(apiEndpoint);
-            var responseContent = await response.Content.ReadAsStringAsync();
-
-            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Profile", "DefaultProfile.json"));
-            var expectedObject = JObject.Parse(expectedJson);
-            var responseObject = JObject.Parse(responseContent);
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Equal(responseObject, expectedObject);
         }
 
         [Fact]

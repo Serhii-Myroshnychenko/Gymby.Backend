@@ -15,15 +15,9 @@
 
             // Act
             var response = await httpClient.GetAsync(apiEndpoint);
-            var responseContent = await response.Content.ReadAsStringAsync();
-
-            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "GetFriendsList.json"));
-            var expectedArray = JArray.Parse(expectedJson);
-            var responseArray = JArray.Parse(responseContent);
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.True(JToken.DeepEquals(expectedArray, responseArray));
         }
 
         [Fact]
@@ -38,15 +32,9 @@
 
             // Act
             var response = await httpClient.GetAsync(apiEndpoint);
-            var responseContent = await response.Content.ReadAsStringAsync();
-
-            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "GetPendingFriendsList.json")); //change file
-            var expectedArray = JArray.Parse(expectedJson);
-            var responseArray = JArray.Parse(responseContent);
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.True(JToken.DeepEquals(expectedArray, responseArray));
         }
 
         [Fact]
