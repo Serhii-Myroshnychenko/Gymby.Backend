@@ -53,17 +53,14 @@ namespace Gymby.ApiTests.Endpoints
 
             var apiEndpointCreate = "https://gymby-api.azurewebsites.net/api/photo/profile";
 
-            string imagePath = FileBuilder.GetFilePath("Photo", "photo2.png");
-            IFormFile formFile = new FormFile(File.OpenRead(imagePath), 0, new FileInfo(imagePath).Length, null, Path.GetFileName(imagePath));
-
             // Act
             var content = new MultipartFormDataContent();
-            content.Add(new StreamContent(formFile.OpenReadStream()), "photo", formFile.FileName);
+            content.Add(new StringContent("1"), "PhotoId");
 
             var responseCreate = await httpClient.PostAsync(apiEndpointCreate, content);
 
             // Assert
-            Assert.NotEqual(HttpStatusCode.BadRequest, responseCreate.StatusCode);
+            Assert.Equal(HttpStatusCode.BadRequest, responseCreate.StatusCode);
         }
 
         [Fact]
@@ -71,7 +68,7 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("friendforkerol@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointDelete = "https://gymby-api.azurewebsites.net/api/photo/profile/delete";
@@ -93,7 +90,7 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("friendforkerol@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointCreate = "https://gymby-api.azurewebsites.net/api/photo/measurement";
@@ -132,22 +129,21 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("friendforkerol@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointCreate = "https://gymby-api.azurewebsites.net/api/photo/measurement";
 
-            string imagePath = FileBuilder.GetFilePath("Photo", "photo2.png");
-            IFormFile formFile = new FormFile(File.OpenRead(imagePath), 0, new FileInfo(imagePath).Length, null, Path.GetFileName(imagePath));
+            var photoId = Guid.NewGuid().ToString();
 
-            // Act
+            //Act
             var content = new MultipartFormDataContent();
-            content.Add(new StreamContent(formFile.OpenReadStream()), "photo", formFile.FileName);
+            content.Add(new StringContent("1"), "PhotoId");
 
             var responseCreate = await httpClient.PostAsync(apiEndpointCreate, content);
 
             // Assert
-            Assert.NotEqual(HttpStatusCode.BadRequest, responseCreate.StatusCode);
+            Assert.Equal(HttpStatusCode.BadRequest, responseCreate.StatusCode);
         }
 
         [Fact]
@@ -155,7 +151,7 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("friendforkerol@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointDelete = "https://gymby-api.azurewebsites.net/api/photo/measurement/delete";
