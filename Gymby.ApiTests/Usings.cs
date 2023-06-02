@@ -7,3 +7,4 @@ global using Gymby.Domain.Enums;
 global using Gymby.WebApi.Models.CreateProgramDtos;
 global using Newtonsoft.Json;
 global using System.Text;
+global using Microsoft.AspNetCore.Http;

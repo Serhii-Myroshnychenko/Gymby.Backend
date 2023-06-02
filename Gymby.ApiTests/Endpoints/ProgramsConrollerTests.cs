@@ -13,20 +13,20 @@
 
             var programDto = new CreateProgramDto
             {
-                Name = "Program Name for Serg1",
-                Description = "Program Description",
+                Name = "Program for test",
+                Description = "Program Description Test",
                 Level = Level.Intermediate,
                 Type = ProgramType.Endurance,
                 ProgramDays = new List<CreateProgramProgramDayDto>
                 {
                     new CreateProgramProgramDayDto
                     {
-                        Name = "Day 1",
+                        Name = "Day 1 Test",
                         Exercises = new List<CreateProgramExerciseDto>
                         {
                             new CreateProgramExerciseDto
                             {
-                                Name = "Exercise 1",
+                                Name = "Exercise 1 Test",
                                 ExercisePrototypeId = "5224eb66-74df-4632-a43b-eaf561f33319",
                                 Approaches = new List<CreateProgramApproacheDto>
                                 {
@@ -44,7 +44,7 @@
                             },
                             new CreateProgramExerciseDto
                             {
-                                Name = "Exercise 2",
+                                Name = "Exercise 2 Test",
                                 ExercisePrototypeId = "5224eb66-74df-4632-a43b-eaf561f33319",
                                 Approaches = new List<CreateProgramApproacheDto>
                                 {
@@ -59,12 +59,12 @@
                     },
                     new CreateProgramProgramDayDto
                     {
-                        Name = "Day 2",
+                        Name = "Day 2 Test",
                         Exercises = new List<CreateProgramExerciseDto>
                         {
                             new CreateProgramExerciseDto
                             {
-                                Name = "Exercise 3",
+                                Name = "Exercise 3 Test",
                                 ExercisePrototypeId = "5224eb66-74df-4632-a43b-eaf561f33319",
                                 Approaches = new List<CreateProgramApproacheDto>
                                 {
