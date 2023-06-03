@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mediatr\Program\Queries\" />
+    <Folder Include="Mediatr\Programs\Queries\" />
   </ItemGroup>
 
 </Project>

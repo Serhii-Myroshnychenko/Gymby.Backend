@@ -1,13 +1,7 @@
-﻿using Gymby.Application.CommandModels;
-using Gymby.Application.CommandModels.CreateProgramModels;
+﻿using Gymby.Application.CommandModels.CreateProgramModels;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Gymby.UnitTests.Mediatr.Program.Commands
+namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
 {
     public class CreateProgramCommandTests
     {

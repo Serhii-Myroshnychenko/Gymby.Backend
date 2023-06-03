@@ -1,18 +1,15 @@
 ﻿using AutoMapper;
-using Gymby.Application.CommandModels;
 using Gymby.Application.CommandModels.CreateProgramModels;
-using Gymby.Application.Mediatr.Measurements.Commands.AddMeasuement;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
-using Gymby.UnitTests.Common.Program;
-using Microsoft.AspNetCore.Http.Connections;
+using Gymby.UnitTests.Common.Programs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gymby.UnitTests.Mediatr.Program.Commands
+namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
 {
     public class CreateProgramHandlerTests
     {
@@ -25,7 +22,7 @@ namespace Gymby.UnitTests.Mediatr.Program.Commands
             ProgramCommandTestFixture fixture = new ProgramCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
-    }
+        }
 
         [Fact]
         public async Task CreateProgramHandler_WhenUserCoach_ShouldBeSuccess()

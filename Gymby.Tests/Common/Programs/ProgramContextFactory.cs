@@ -1,25 +1,10 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Gymby.Domain.Entities;
-
-namespace Gymby.UnitTests.Common.Program
+﻿namespace Gymby.UnitTests.Common.Programs
 {
     public class ProgramContextFactory
     {
         public static Guid UserAId = Guid.NewGuid();
         public static Guid UserBId = Guid.NewGuid();
         public static Guid UserDId = Guid.NewGuid();
-
-        public static Guid ProfileIdForDelete = Guid.NewGuid();
-        public static Guid ProfileIdForUpdate = Guid.NewGuid();
-
-        public static string FriendUsernameForInvite = "user-bill";
-        public static string FriendUsernameForInvite2 = "user-den";
-        public static string FriendUsernameForAcceptOrReject = "user-alex";
 
         public static ApplicationDbContext Create()
         {
@@ -29,7 +14,7 @@ namespace Gymby.UnitTests.Common.Program
             var context = new ApplicationDbContext(options);
             context.Database.EnsureCreated();
             context.Programs.AddRange(
-                new Domain.Entities.Program
+                new Program
                 {
                     Id = "program1",
                     Name = "ProgramName1",
@@ -42,9 +27,9 @@ namespace Gymby.UnitTests.Common.Program
                        new ProgramDay
                        {
                             Name = "Day 1",
-                            Exercises = new List<Exercise>
+                            Exercises = new List<Gymby.Domain.Entities.Exercise>
                             {
-                                new Exercise
+                                new Gymby.Domain.Entities.Exercise
                                 {
                                     Name = "Exercise 1",
                                     ExercisePrototypeId = "5224eb66-74df-4632-a43b-eaf561f33319",
@@ -62,7 +47,7 @@ namespace Gymby.UnitTests.Common.Program
                                         }
                                     }
                                 },
-                                new Exercise
+                                new Gymby.Domain.Entities.Exercise
                                 {
                                     Name = "Exercise 2",
                                     ExercisePrototypeId = "5224eb66-74df-4632-a43b-eaf561f33319",
@@ -80,9 +65,9 @@ namespace Gymby.UnitTests.Common.Program
                        new ProgramDay
                        {
                             Name = "Day 2",
-                            Exercises = new List<Exercise>
+                            Exercises = new List<Gymby.Domain.Entities.Exercise>
                             {
-                                new Exercise
+                                new Gymby.Domain.Entities.Exercise
                                 {
                                     Name = "Exercise 1.2",
                                     ExercisePrototypeId = "5224eb66-74df-4632-a43b-eaf561f33319",
