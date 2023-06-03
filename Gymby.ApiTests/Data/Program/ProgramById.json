@@ -1,0 +1,84 @@
+{
+  "id": "64a2c50e-cd39-48e6-a152-9f539a36af61",
+  "name": "Program for TEST",
+  "isPublic": false,
+  "description": "Program Description shared",
+  "level": 1,
+  "type": 1,
+  "programDays": [
+    {
+      "id": "9f5317b5-46d7-4d3b-9c66-f174a9d800a7",
+      "programId": "64a2c50e-cd39-48e6-a152-9f539a36af61",
+      "name": "Day 2 Test",
+      "exercises": [
+        {
+          "id": "d4d62060-de4c-4173-bd34-b6c691d7f00a",
+          "diaryDayId": null,
+          "exercisePrototypeId": "5224eb66-74df-4632-a43b-eaf561f33319",
+          "programDayId": "9f5317b5-46d7-4d3b-9c66-f174a9d800a7",
+          "date": null,
+          "name": "Exercise 3 Test",
+          "approaches": [
+            {
+              "id": "490b3fed-da7e-4cc8-b17a-38d684c2703e",
+              "exerciseId": "d4d62060-de4c-4173-bd34-b6c691d7f00a",
+              "repeats": 6,
+              "weight": 40,
+              "isDone": false,
+              "creationDate": "2023-06-03T12:51:04.4618878"
+            },
+            {
+              "id": "49899c26-beac-4307-928c-035f55b6fdd5",
+              "exerciseId": "d4d62060-de4c-4173-bd34-b6c691d7f00a",
+              "repeats": 10,
+              "weight": 30,
+              "isDone": false,
+              "creationDate": "2023-06-03T12:51:04.4618867"
+            },
+            {
+              "id": "4ad8fe66-7912-47b3-b116-40c1da91a60f",
+              "exerciseId": "d4d62060-de4c-4173-bd34-b6c691d7f00a",
+              "repeats": 8,
+              "weight": 35,
+              "isDone": false,
+              "creationDate": "2023-06-03T12:51:04.4618873"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a3d07a6a-5053-4c23-8b9c-01aeadc64492",
+      "programId": "64a2c50e-cd39-48e6-a152-9f539a36af61",
+      "name": "Day 1 shared",
+      "exercises": [
+        {
+          "id": "661181a8-e54a-44f6-87ef-491cb6579c7e",
+          "diaryDayId": null,
+          "exercisePrototypeId": "5224eb66-74df-4632-a43b-eaf561f33319",
+          "programDayId": "a3d07a6a-5053-4c23-8b9c-01aeadc64492",
+          "date": null,
+          "name": "Exercise 1 TEST",
+          "approaches": [
+            {
+              "id": "51077036-b359-4267-ac2a-4ae4903bf721",
+              "exerciseId": "661181a8-e54a-44f6-87ef-491cb6579c7e",
+              "repeats": 10,
+              "weight": 20.5,
+              "isDone": false,
+              "creationDate": "2023-06-03T12:51:04.4618832"
+            },
+            {
+              "id": "7eb3dece-5926-4ba3-81c4-74a5542e7697",
+              "exerciseId": "661181a8-e54a-44f6-87ef-491cb6579c7e",
+              "repeats": 8,
+              "weight": 22.5,
+              "isDone": false,
+              "creationDate": "2023-06-03T12:51:04.461885"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
