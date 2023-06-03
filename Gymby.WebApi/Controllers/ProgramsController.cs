@@ -7,6 +7,7 @@ using Gymby.Application.Mediatr.Programs.Queries.GetProgramById;
 using Gymby.Application.Mediatr.Programs.Queries.GetProgramsFromCoach;
 using Gymby.WebApi.Models;
 using Gymby.WebApi.Models.CreateProgramDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gymby.WebApi.Controllers
@@ -20,6 +21,7 @@ namespace Gymby.WebApi.Controllers
         public ProgramsController(IMapper mapper) =>
             (_mapper) = (mapper);
 
+        [Authorize]
         [HttpPost("program/create")]
         public async Task<IActionResult> CreateProgram([FromBody] CreateProgramDto request)
         {
@@ -28,7 +30,7 @@ namespace Gymby.WebApi.Controllers
 
             return Ok(await Mediator.Send(command));
         }
-
+        [Authorize]
         [HttpGet("program/{id}")]
         public async Task<IActionResult> GetProgramById(string id)
         {
@@ -40,7 +42,7 @@ namespace Gymby.WebApi.Controllers
 
             return Ok(await Mediator.Send(query));
         }
-
+        [Authorize]
         [HttpGet("programs/free")]
         public async Task<IActionResult> GetFreePrograms()
         {
@@ -51,7 +53,7 @@ namespace Gymby.WebApi.Controllers
 
             return Ok(await Mediator.Send(query));
         }
-
+        [Authorize]
         [HttpGet("programs/shared")]
         public async Task<IActionResult> GetSharedPrograms()
         {
@@ -62,7 +64,7 @@ namespace Gymby.WebApi.Controllers
 
             return Ok(await Mediator.Send(query));
         }
-
+        [Authorize]
         [HttpGet("programs/personal")]
         public async Task<IActionResult> GetPersonalPrograms()
         {
@@ -73,7 +75,7 @@ namespace Gymby.WebApi.Controllers
 
             return Ok(await Mediator.Send(query));
         }
-
+        [Authorize]
         [HttpPost("program/access")]
         public async Task<IActionResult> AccessProgramToUserByUsername([FromBody] AccessProgramToUserByUsernameDto request)
         {

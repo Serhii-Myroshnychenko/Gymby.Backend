@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Gymby.Application.Mediatr.ExercisePrototypes.Queries.GetAllExercisePrototypes;
 
 public class GetAllExercisePrototypesHandler
-: IRequestHandler<GetAllExercisePrototypesQuery, List<ExercisePrototypeVm>>
+    : IRequestHandler<GetAllExercisePrototypesQuery, List<ExercisePrototypeVm>>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;

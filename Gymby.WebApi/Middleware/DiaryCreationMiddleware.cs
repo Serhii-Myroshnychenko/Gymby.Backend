@@ -1,14 +1,14 @@
-﻿using Gymby.Application.Mediatr.Profiles.Commands.CreateProfile;
+﻿using Gymby.Application.Mediatr.Diaries.Command.CreateDiary;
 using MediatR;
 using System.Security.Claims;
 
 namespace Gymby.WebApi.Middleware;
 
-public class PersonalAccountMiddleware
+public class DiaryCreationMiddleware
 {
     private readonly RequestDelegate _next;
 
-    public PersonalAccountMiddleware(RequestDelegate next) =>
+    public DiaryCreationMiddleware(RequestDelegate next) =>
         (_next) = (next);
 
     public async Task InvokeAsync(HttpContext httpContext)
@@ -18,11 +18,10 @@ public class PersonalAccountMiddleware
         if (httpContext?.User?.Identity?.IsAuthenticated == true)
         {
             var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var email = httpContext.User.FindFirst("name")!.Value;
 
-            if (!string.IsNullOrEmpty(userId) && !string.IsNullOrEmpty(email))
+            if (!string.IsNullOrEmpty(userId))
             {
-                await mediator.Send(new CreateProfileCommand() { UserId = userId, Email = email });
+                await mediator.Send(new CreateDiaryCommand() { UserId = userId });
             }
         }
         await _next(httpContext!);

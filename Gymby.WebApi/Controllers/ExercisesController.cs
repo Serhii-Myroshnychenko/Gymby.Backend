@@ -1,6 +1,10 @@
-﻿using Gymby.Application.Mediatr.Exercises.Commands.CreateProgramExercise;
+﻿using Gymby.Application.Mediatr.Exercises.Commands.CreateDiaryExercise;
+using Gymby.Application.Mediatr.Exercises.Commands.CreateProgramExercise;
+using Gymby.Application.Mediatr.Exercises.Commands.DeleteDiaryExercise;
 using Gymby.Application.Mediatr.Exercises.Commands.DeleteProgramExercise;
+using Gymby.Application.Mediatr.Exercises.Commands.UpdateDiaryExercise;
 using Gymby.Application.Mediatr.Exercises.Commands.UpdateProgramExercise;
+using Gymby.WebApi.Models.DiaryExerciseDtos;
 using Gymby.WebApi.Models.ProgramExerciseDto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +15,6 @@ namespace Gymby.WebApi.Controllers;
 [ApiController]
 public class ExercisesController : BaseController
 {
-    public ExercisesController()
-    {
-    }
-
     [Authorize]
     [HttpPost("program/exercise/update")]
     public async Task<IActionResult> UpdateProgramExercise([FromBody]UpdateProgramExerciseDto request)
@@ -56,6 +56,51 @@ public class ExercisesController : BaseController
             UserId = UserId.ToString(),
             ExerciseId = request.ExerciseId,
             ProgramId = request.ProgramId
+        };
+
+        return Ok(await Mediator.Send(command));
+    }
+
+    [Authorize]
+    [HttpPost("diary/exercise/create")]
+    public async Task<IActionResult> CreateDiaryExercise([FromBody] CreateDiaryExerciseDto request)
+    {
+        var command = new CreateDiaryExerciseCommand()
+        {
+            Date = request.Date,
+            DiaryId = request.DiaryId,
+            ExercisePrototypeId = request.ExercisePrototypeId,
+            Name = request.Name,
+            ProgramDayId = request.ProgramDayId,
+            UserId = UserId.ToString()
+        };
+
+        return Ok(await Mediator.Send(command));
+    }
+
+    [Authorize]
+    [HttpPost("diary/exercise/update")]
+    public async Task<IActionResult> UpdateDiaryExercise([FromBody] UpdateDiaryExerciseDto request)
+    {
+        var command = new UpdateDiaryExerciseCommand()
+        {
+            ExercisePrototypeId = request.ExercisePrototypeId,
+            Name = request.Name,
+            UserId = UserId.ToString(),
+            ExerciseId = request.ExerciseId
+        };
+
+        return Ok(await Mediator.Send(command));
+    }
+
+    [Authorize]
+    [HttpPost("diary/exercise/delete")]
+    public async Task<IActionResult> DeleteDiaryExercise([FromBody] DeleteDiaryExerciseDto request)
+    {
+        var command = new DeleteDiaryExerciseCommand()
+        {
+            ExerciseId = request.ExerciseId,
+            UserId = UserId.ToString()
         };
 
         return Ok(await Mediator.Send(command));
