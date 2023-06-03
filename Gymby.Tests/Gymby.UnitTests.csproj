@@ -31,8 +31,4 @@
     <ProjectReference Include="..\Gymby.Persistence\Gymby.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mediatr\Programs\Queries\" />
-  </ItemGroup>
-
 </Project>
