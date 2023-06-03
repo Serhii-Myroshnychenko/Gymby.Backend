@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Gymby.Application.ViewModels;
+using MediatR;
 
-namespace Gymby.Application.Mediatr.DiaryDay.Queries.GetDiaryDay
+namespace Gymby.Application.Mediatr.DiaryDay.Queries.GetDiaryDay;
+
+public class GetDiaryDayCommand : IRequest<DiaryDayVm>
 {
-    internal class GetDiaryDayCommand
-    {
-    }
+    public string UserId { get; set; } = null!;
+    public DateTime Date { get; set; }
+    public string? DiaryId { get; set; }
 }

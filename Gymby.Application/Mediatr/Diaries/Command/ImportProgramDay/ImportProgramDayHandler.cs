@@ -42,7 +42,7 @@ public class ImportProgramDayHandler
 
             if(diaryDay == null)
             {
-                diaryDay = new DiaryDay()
+                diaryDay = new Domain.Entities.DiaryDay()
                 {
                     Id = Guid.NewGuid().ToString(),
                     Date = request.Date.Date,
@@ -108,7 +108,7 @@ public class ImportProgramDayHandler
 
             if (diaryDay == null)
             {
-                diaryDay = new DiaryDay()
+                diaryDay = new Domain.Entities.DiaryDay()
                 {
                     Id = Guid.NewGuid().ToString(),
                     Date = request.Date.Date,

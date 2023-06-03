@@ -33,7 +33,7 @@ public class CreateDiaryExerciseHandler
 
         if(diaryDay == null)
         {
-            var newDiaryDay = new DiaryDay()
+            var newDiaryDay = new Domain.Entities.DiaryDay()
             {
                 Id = Guid.NewGuid().ToString(),
                 Date = request.Date.Date,
