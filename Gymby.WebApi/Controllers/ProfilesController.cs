@@ -2,6 +2,7 @@
 using Gymby.Application.Mediatr.Profiles.Commands.UpdateProfile;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
 using Gymby.Application.Mediatr.Profiles.Queries.GetProfileByUsername;
+using Gymby.Application.Mediatr.Profiles.Queries.QueryProfile;
 using Gymby.Application.ViewModels;
 using Gymby.WebApi.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -49,5 +50,19 @@ public class ProfilesController : BaseController
         var command = new UpdateProfileCommand(_config) { ProfileId = updateProfile.ProfileId, UserId = UserId.ToString(), Username = updateProfile.Username, Email = updateProfile.Email, FirstName = updateProfile.FirstName, LastName = updateProfile.LastName, Description = updateProfile.Description, PhotoAvatarPath = updateProfile.PhotoAvatarPath, InstagramUrl = updateProfile.InstagramUrl, FacebookUrl = updateProfile.FacebookUrl, TelegramUsername = updateProfile.TelegramUsername };
 
         return Ok(await Mediator.Send(command));
+    }
+
+    [Authorize]
+    [HttpGet("search")]
+    public async Task<IActionResult> QueryProfile(string? type, string? query)
+    {
+        var search = new QueryProfileQuery()
+        {
+            Type = type,
+            Query = query
+        };
+
+        return Ok(await Mediator.Send(search));
+
     }
 }

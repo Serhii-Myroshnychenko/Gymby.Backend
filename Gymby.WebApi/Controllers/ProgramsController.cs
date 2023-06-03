@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Gymby.Application.Mediatr.ProgramAccesses.AccessProgramToUserByUsername;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
+using Gymby.Application.Mediatr.Programs.Commands.DeleteProgram;
+using Gymby.Application.Mediatr.Programs.Queries.GetAllProgramsInDiary;
 using Gymby.Application.Mediatr.Programs.Queries.GetFreePrograms;
 using Gymby.Application.Mediatr.Programs.Queries.GetPersonalPrograms;
 using Gymby.Application.Mediatr.Programs.Queries.GetProgramById;
@@ -89,5 +91,29 @@ namespace Gymby.WebApi.Controllers
             return Ok(await Mediator.Send(command));
         }
 
+        [Authorize]
+        [HttpGet("diary/all-programs")]
+        public async Task<IActionResult> GetAllProgramsToDiary()
+        {
+            var query = new GetAllProgramsInDiaryQuery()
+            {
+                UserId = UserId.ToString()
+            };
+
+            return Ok(await Mediator.Send(query));
+        }
+
+        [Authorize]
+        [HttpPost("program/delete")]
+        public async Task<IActionResult> RemoveProgram([FromBody] DeleteProgramDto request)
+        {
+            var command = new DeleteProgramCommand()
+            {
+                UserId = UserId.ToString(),
+                ProgramId = request.ProgramId
+            };
+
+            return Ok(await Mediator.Send(command));
+        }
     }
 }
