@@ -8,7 +8,7 @@ namespace Gymby.Persistence.Data;
 public class ApplicationDbContext : DbContext, IApplicationDbContext
 {
     public DbSet<Approach> Approaches { get; set; }
-    public DbSet<Diary> Diarys { get; set; }
+    public DbSet<Diary> Diaries { get; set; }
     public DbSet<DiaryAccess> DiaryAccess { get; set; }
     public DbSet<DiaryDay> DiaryDays { get; set; }
     public DbSet<Exercise> Exercises { get; set; }

@@ -26,8 +26,11 @@ public class GetProgramsFromCoachHandler
 
         var programOwners = await _dbContext.ProgramAccesses
             .Where(p => usersProgramsIds.Contains(p.ProgramId) && p.Type == AccessType.Owner)
+            .ToListAsync(cancellationToken);
+
+        var programOwnersDictionary = programOwners
             .GroupBy(p => p.ProgramId)
-            .ToDictionaryAsync(g => g.Key, g => g.First().UserId, cancellationToken);
+            .ToDictionary(g => g.Key, g => g.First().UserId);
 
         var programs = await _dbContext.Programs
             .Where(p => usersProgramsIds.Contains(p.Id))
@@ -37,7 +40,7 @@ public class GetProgramsFromCoachHandler
 
         foreach (var programFromCoach in result)
         {
-            if (programOwners.TryGetValue(programFromCoach.Id, out var coachId))
+            if (programOwnersDictionary.TryGetValue(programFromCoach.Id, out var coachId))
             {
                 programFromCoach.CoachUsername = await _dbContext.Profiles
                     .Where(p => p.UserId == coachId)

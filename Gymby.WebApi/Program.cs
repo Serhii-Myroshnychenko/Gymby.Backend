@@ -66,6 +66,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseCustomMiddlewareHandler();
 
 app.UseCors("Default");
@@ -75,6 +76,10 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseMiddleware<PersonalAccountMiddleware>();
+
+app.UseMiddleware<DiaryCreationMiddleware>();
 
 app.MapControllers();
 

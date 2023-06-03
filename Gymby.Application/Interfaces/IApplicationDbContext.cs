@@ -7,7 +7,7 @@ namespace Gymby.Application.Interfaces;
 public interface IApplicationDbContext
 {
     DbSet<Approach> Approaches { get; set; }
-    DbSet<Diary> Diarys { get; set; }
+    DbSet<Diary> Diaries { get; set; }
     DbSet<DiaryAccess> DiaryAccess { get; set; }
     DbSet<DiaryDay> DiaryDays { get; set; }
     DbSet<Exercise> Exercises { get; set; }
