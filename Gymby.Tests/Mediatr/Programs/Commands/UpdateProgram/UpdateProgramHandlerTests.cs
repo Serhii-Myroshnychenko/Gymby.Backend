@@ -2,17 +2,18 @@
 using Gymby.Application.CommandModels.CreateProgramModels;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
+using Gymby.Application.Mediatr.Programs.Commands.UpdateProgram;
 using Gymby.UnitTests.Common.Programs;
 
-namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
+namespace Gymby.UnitTests.Mediatr.Programs.Commands.UpdateProgram
 {
-    public class CreateProgramHandlerTests
+    public class UpdateProgramHandlerTests
     {
         private readonly ApplicationDbContext Context;
         private readonly IMapper Mapper;
         private readonly IFileService FileService;
 
-        public CreateProgramHandlerTests()
+        public UpdateProgramHandlerTests()
         {
             ProgramCommandTestFixture fixture = new ProgramCommandTestFixture();
             Context = fixture.Context;
@@ -21,10 +22,11 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
         }
 
         [Fact]
-        public async Task CreateProgramHandler_WhenUserCoach_ShouldBeSuccess()
+        public async Task UpdateProgramHandler_WhenUserOwner_ShouldBeSuccess()
         {
             // Arrange
-            var handlerProgram = new CreateProgramHandler(Context, Mapper);
+            var handlerProgramCreate = new CreateProgramHandler(Context, Mapper);
+            var handlerProgramUpdate = new UpdateProgramHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
@@ -36,7 +38,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
                 Email = "user-b@gmail.com"
             }, CancellationToken.None);
 
-            var result = await handlerProgram.Handle(new CreateProgramCommand()
+            var resultCreate = await handlerProgramCreate.Handle(new CreateProgramCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
@@ -86,16 +88,28 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
                 }
             }, CancellationToken.None);
 
+            var programId = resultCreate.Id;
+
+            var resultUpdate = await handlerProgramUpdate.Handle(new UpdateProgramCommand()
+            {
+                ProgramId = programId,
+                Description = "Update programmm description",
+                Name = "UPDATE",
+                Level = "Beginner",
+                Type = "Endurance",
+                UserId = ProfileContextFactory.UserBId.ToString()
+            }, CancellationToken.None);
+
             // Assert
-            Assert.NotNull(result);
+            Assert.NotNull(resultCreate);
             Assert.NotNull(
                await Context.Programs.SingleOrDefaultAsync(program =>
-                    program.Name == "ProgramName1" &&
-                    program.Description == "Description1" &&
-                    program.Type == ProgramType.WeightGain &&
-                    program.Level == Level.Advanced &&
+                    program.Name == "UPDATE" &&
+                    program.Description == "Update programmm description" &&
+                    program.Type == ProgramType.Endurance &&
+                    program.Level == Level.Beginner &&
                     program.IsPublic == false));
-            Assert.Collection(result.ProgramDays, day =>
+            Assert.Collection(resultCreate.ProgramDays, day =>
             {
                 Assert.Equal("Day 1", day.Name);
                 Assert.Collection(day.Exercises, exercise =>
@@ -125,35 +139,49 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
         }
 
         [Fact]
-        public async Task CreateProgramHandler_WhenUserNotCoach_ShouldBeSuccess()
+        public async Task UpdateProgramHandler_WhenUserNotOwner_ShouldBeSuccess()
         {
             // Arrange
-            var handlerProgram = new CreateProgramHandler(Context, Mapper);
+            var handlerProgramCreate = new CreateProgramHandler(Context, Mapper);
+            var handlerProgramUpdate = new UpdateProgramHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
             // Act
-            //Assert
+            
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),
                 Email = "user-c@gmail.com"
             }, CancellationToken.None);
 
+            var resultCreate = await handlerProgramCreate.Handle(new CreateProgramCommand()
+            {
+                UserId = ProfileContextFactory.UserBId.ToString(),
+                Name = "ProgramName1",
+                Description = "Description1",
+                Level = "Advanced",
+                Type = "WeightGain"
+            }, CancellationToken.None);
+
+            var programId = resultCreate.Id;
+
+            //Assert
             var exception = await Assert.ThrowsAsync<InsufficientRightsException>(async () =>
             {
-                await handlerProgram.Handle(new CreateProgramCommand()
+                await handlerProgramUpdate.Handle(new UpdateProgramCommand()
                 {
-                    UserId = ProfileContextFactory.UserAId.ToString(),
-                    Name = "ProgramName1",
-                    Description = "Description1",
-                    Level = "Advanced",
-                    Type = "WeightGain"
+                    ProgramId = programId,
+                    Description = "Update programmm description",
+                    Name = "UPDATE",
+                    Level = "Beginner",
+                    Type = "Endurance",
+                    UserId = ProfileContextFactory.UserAId.ToString()
                 }, CancellationToken.None);
             });
 
-            Assert.Equal("You do not have permissions to create a program", exception.Message);
+            Assert.Equal("You can not modify this program", exception.Message);
         }
     }
 }

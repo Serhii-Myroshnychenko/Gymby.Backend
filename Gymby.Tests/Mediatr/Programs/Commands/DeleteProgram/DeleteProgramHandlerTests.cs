@@ -2,17 +2,24 @@
 using Gymby.Application.CommandModels.CreateProgramModels;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
+using Gymby.Application.Mediatr.Programs.Commands.DeleteProgram;
+using Gymby.Application.Mediatr.Programs.Commands.UpdateProgram;
 using Gymby.UnitTests.Common.Programs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
+namespace Gymby.UnitTests.Mediatr.Programs.Commands.DeleteProgram
 {
-    public class CreateProgramHandlerTests
+    public class DeleteProgramHandlerTests
     {
         private readonly ApplicationDbContext Context;
         private readonly IMapper Mapper;
         private readonly IFileService FileService;
 
-        public CreateProgramHandlerTests()
+        public DeleteProgramHandlerTests()
         {
             ProgramCommandTestFixture fixture = new ProgramCommandTestFixture();
             Context = fixture.Context;
@@ -21,10 +28,11 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
         }
 
         [Fact]
-        public async Task CreateProgramHandler_WhenUserCoach_ShouldBeSuccess()
+        public async Task DeleteProgramHandler_WhenUserOwner_ShouldBeSuccess()
         {
             // Arrange
-            var handlerProgram = new CreateProgramHandler(Context, Mapper);
+            var handlerProgramCreate = new CreateProgramHandler(Context, Mapper);
+            var handlerProgramDelete = new DeleteProgramHandler(Context);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
@@ -36,7 +44,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
                 Email = "user-b@gmail.com"
             }, CancellationToken.None);
 
-            var result = await handlerProgram.Handle(new CreateProgramCommand()
+            var resultCreate = await handlerProgramCreate.Handle(new CreateProgramCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
@@ -86,74 +94,59 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
                 }
             }, CancellationToken.None);
 
-            // Assert
-            Assert.NotNull(result);
-            Assert.NotNull(
-               await Context.Programs.SingleOrDefaultAsync(program =>
-                    program.Name == "ProgramName1" &&
-                    program.Description == "Description1" &&
-                    program.Type == ProgramType.WeightGain &&
-                    program.Level == Level.Advanced &&
-                    program.IsPublic == false));
-            Assert.Collection(result.ProgramDays, day =>
+            var programId = resultCreate.Id;
+
+            var resultDelete = await handlerProgramDelete.Handle(new DeleteProgramCommand()
             {
-                Assert.Equal("Day 1", day.Name);
-                Assert.Collection(day.Exercises, exercise =>
-                {
-                    Assert.Equal("Exercise 1", exercise.Name);
-                    Assert.Equal("5224eb66-74df-4632-a43b-eaf561f33319", exercise.ExercisePrototypeId);
-                    Assert.Collection(exercise.Approaches, approach =>
-                    {
-                        Assert.Equal(10, approach.Repeats);
-                        Assert.Equal(20.5, approach.Weight);
-                    }, approach =>
-                    {
-                        Assert.Equal(8, approach.Repeats);
-                        Assert.Equal(22.5, approach.Weight);
-                    });
-                }, exercise =>
-                {
-                    Assert.Equal("Exercise 2", exercise.Name);
-                    Assert.Equal("5224eb66-74df-4632-a43b-eaf561f33319", exercise.ExercisePrototypeId);
-                    Assert.Collection(exercise.Approaches, approach =>
-                    {
-                        Assert.Equal(12, approach.Repeats);
-                        Assert.Equal(15.0, approach.Weight);
-                    });
-                });
-            });
+                ProgramId = programId,
+                UserId = ProfileContextFactory.UserBId.ToString()
+            }, CancellationToken.None);
+
+            // Assert
+            Assert.Equal(Unit.Value, resultDelete);
+            var deletedProgram = await Context.Programs.FindAsync(programId);
+            Assert.Null(deletedProgram);
         }
 
         [Fact]
-        public async Task CreateProgramHandler_WhenUserNotCoach_ShouldBeSuccess()
+        public async Task DeleteProgramHandler_WhenIncorrectProgramId_ShouldBeSuccess()
         {
             // Arrange
-            var handlerProgram = new CreateProgramHandler(Context, Mapper);
+            var handlerProgramCreate = new CreateProgramHandler(Context, Mapper);
+            var handlerProgramDelete = new DeleteProgramHandler(Context);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
+            var programId = Guid.NewGuid().ToString();
 
             // Act
-            //Assert
+
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),
                 Email = "user-c@gmail.com"
             }, CancellationToken.None);
 
-            var exception = await Assert.ThrowsAsync<InsufficientRightsException>(async () =>
+            var resultCreate = await handlerProgramCreate.Handle(new CreateProgramCommand()
             {
-                await handlerProgram.Handle(new CreateProgramCommand()
+                UserId = ProfileContextFactory.UserBId.ToString(),
+                Name = "ProgramName1",
+                Description = "Description1",
+                Level = "Advanced",
+                Type = "WeightGain"
+            }, CancellationToken.None);
+
+            //Assert
+            var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
+            {
+                await handlerProgramDelete.Handle(new DeleteProgramCommand()
                 {
-                    UserId = ProfileContextFactory.UserAId.ToString(),
-                    Name = "ProgramName1",
-                    Description = "Description1",
-                    Level = "Advanced",
-                    Type = "WeightGain"
+                    ProgramId = programId,
+                    UserId = ProfileContextFactory.UserBId.ToString()
                 }, CancellationToken.None);
             });
 
-            Assert.Equal("You do not have permissions to create a program", exception.Message);
+            Assert.Equal($"Entity \"{programId}\" ({nameof(Domain.Entities.Program)}) not found", exception.Message);
         }
     }
 }

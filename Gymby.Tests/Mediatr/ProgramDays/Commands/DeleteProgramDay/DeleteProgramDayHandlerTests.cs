@@ -74,6 +74,8 @@ namespace Gymby.UnitTests.Mediatr.ProgramDays.Commands.DeleteProgramDay
 
             // Assert
             Assert.Equal(Unit.Value, resultProgramDayDelete);
+            var deletedProgramDay = await Context.ProgramDays.FindAsync(programDayId);
+            Assert.Null(deletedProgramDay);
         }
 
         [Fact]
