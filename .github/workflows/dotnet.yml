@@ -27,6 +27,6 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
       working-directory: ./Gymby.Backend
-    - name: Test
+    - name: Run unit tests
       run: dotnet test --no-build --verbosity normal
-      working-directory: ./Gymby.Backend
+      working-directory: ./Gymby.Tests
