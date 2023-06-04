@@ -18,7 +18,7 @@ namespace Gymby.UnitTests.Mediatr.Measurements.Queries.GetMyMeasurements
         }
 
         [Fact]
-        public async Task GetMyMeasurementsHandler_ShouldGetMeasurementList()
+        public async Task GetMyMeasurementsHandler_GetMeasurementTwoList_ShouldBeSuccess()
         {
             // Arrange
             var handler = new GetMyMeasurementsHandler(Context, Mapper, FileService);
@@ -49,21 +49,25 @@ namespace Gymby.UnitTests.Mediatr.Measurements.Queries.GetMyMeasurements
             }
         }
 
-        //[Fact]
-        //public async Task GetMyMeasurementsHandler_ShouldBeFailOnWrongUserId()
-        //{
-        //    // Arrange
-        //    var handler = new GetMyMeasurementsHandler(Context, Mapper, FileService);
-        //    var appConfigOptions = Options.Create(new AppConfig());
+        [Fact]
+        public async Task GetMyMeasurementsHandler_GetMeasurementZeroList_ShouldBeSuccess()
+        {
+            // Arrange
+            var handler = new GetMyMeasurementsHandler(Context, Mapper, FileService);
+            var appConfigOptions = Options.Create(new AppConfig());
 
-        //    // Act
-        //    // Assert
-        //    await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
-        //       await handler.Handle(
-        //       new GetMyMeasurementsQuery(appConfigOptions)
-        //       {
-        //           UserId = Guid.NewGuid().ToString(),
-        //       }, CancellationToken.None));
-        //}
+            // Act
+            var result = await handler.Handle(
+                new GetMyMeasurementsQuery(appConfigOptions)
+                {
+                    UserId = Guid.NewGuid().ToString(),
+
+                }, CancellationToken.None);
+
+            // Assert
+            Assert.NotNull(result);
+            result.ShouldBeOfType<MeasurementsList>();
+            result.Measurements.Count().ShouldBe(0);
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace Gymby.UnitTests.Mediatr.Friends.Queries.GetPendingFriendsList
         }
 
         [Fact]
-        public async Task GetPendingFriendsListHandlerTests_WhenUserHasTwoFriends_ShouldBeSuccess()
+        public async Task GetPendingFriendsListHandlerTests_WhenUserHasTwoPendingFriends_ShouldBeSuccess()
         {
             // Arrange
             var handler = new GetPendingFriendsListHandler(Context, Mapper, FileService);

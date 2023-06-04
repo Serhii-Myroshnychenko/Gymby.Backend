@@ -166,5 +166,136 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
 
             Assert.Equal("You do not have permissions to create an exercise", exception.Message);
         }
+
+        [Fact]
+        public async Task CreateProgramExerciseHandler_WhenNonexistentProgramDay_ShouldBeSuccess()
+        {
+            // Arrange
+            var handlerProgram = new CreateProgramHandler(Context, Mapper);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
+            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
+
+            var appConfigOptionsProfile = Options.Create(new AppConfig());
+            var appConfigOptionsProfile1 = Options.Create(new AppConfig());
+
+            var ExercisePrototypeId_A = Guid.NewGuid().ToString();
+
+            // Act
+            await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
+            {
+                UserId = ProfileContextFactory.UserBId.ToString(),
+                Email = "user-b@gmail.com"
+            }, CancellationToken.None);
+
+            var user = await Context.Profiles.FirstOrDefaultAsync(u => u.UserId == ProfileContextFactory.UserBId.ToString());
+            if (user != null)
+            {
+                user.IsCoach = true;
+                await Context.SaveChangesAsync();
+            }
+
+            var resultProgram = await handlerProgram.Handle(new CreateProgramCommand()
+            {
+                UserId = ProfileContextFactory.UserBId.ToString(),
+                Name = "ProgramName1",
+                Description = "Description1",
+                Level = "Advanced",
+                Type = "WeightGain"
+            }, CancellationToken.None);
+
+            var programId = resultProgram.Id;
+
+            var resultProgramDay = await handlerProgramDay.Handle(new CreateProgramDayCommand()
+            {
+                ProgramId = programId,
+                Name = "ProgramDayName",
+                UserId = ProfileContextFactory.UserBId.ToString()
+            }, CancellationToken.None);
+
+            var programDayId = Guid.NewGuid().ToString();
+
+            //Assert
+            var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
+            {
+                await handlerProgramExercise.Handle(new CreateProgramExerciseCommand()
+                {
+                    ProgramId = programId,
+                    ProgramDayId = programDayId,
+                    Name = "ExerciseName",
+                    UserId = ProfileContextFactory.UserBId.ToString(),
+                    ExercisePrototypeId = ExercisePrototypeId_A
+                }, CancellationToken.None);
+            });
+
+            Assert.Equal($"Entity \"{programDayId}\" ({nameof(Domain.Entities.ProgramDay)}) not found", exception.Message);
+        }
+
+        [Fact]
+        public async Task CreateProgramExerciseHandler_WhenNonexistentExercisePrototype_ShouldBeSuccess()
+        {
+            // Arrange
+            var handlerProgram = new CreateProgramHandler(Context, Mapper);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
+            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
+
+            var appConfigOptionsProfile = Options.Create(new AppConfig());
+            var appConfigOptionsProfile1 = Options.Create(new AppConfig());
+
+            var ExercisePrototypeId_A = Guid.NewGuid().ToString();
+
+            // Act
+            await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
+            {
+                UserId = ProfileContextFactory.UserBId.ToString(),
+                Email = "user-b@gmail.com"
+            }, CancellationToken.None);
+
+            var user = await Context.Profiles.FirstOrDefaultAsync(u => u.UserId == ProfileContextFactory.UserBId.ToString());
+            if (user != null)
+            {
+                user.IsCoach = true;
+                await Context.SaveChangesAsync();
+            }
+
+            var resultProgram = await handlerProgram.Handle(new CreateProgramCommand()
+            {
+                UserId = ProfileContextFactory.UserBId.ToString(),
+                Name = "ProgramName1",
+                Description = "Description1",
+                Level = "Advanced",
+                Type = "WeightGain"
+            }, CancellationToken.None);
+
+            var programId = resultProgram.Id;
+
+            var resultProgramDay = await handlerProgramDay.Handle(new CreateProgramDayCommand()
+            {
+                ProgramId = programId,
+                Name = "ProgramDayName",
+                UserId = ProfileContextFactory.UserBId.ToString()
+            }, CancellationToken.None);
+
+            var programDayId = resultProgramDay.Id;
+            var nonexistentExercisePrototype = Guid.NewGuid().ToString();
+
+            //Assert
+            var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
+            {
+                await handlerProgramExercise.Handle(new CreateProgramExerciseCommand()
+                {
+                    ProgramId = programId,
+                    ProgramDayId = programDayId,
+                    Name = "ExerciseName",
+                    UserId = ProfileContextFactory.UserBId.ToString(),
+                    ExercisePrototypeId = nonexistentExercisePrototype
+                }, CancellationToken.None);
+            });
+
+            Assert.Equal($"Entity \"{nonexistentExercisePrototype}\" ({nameof(Domain.Entities.ExercisePrototype)}) not found", exception.Message);
+        }
     }
 }

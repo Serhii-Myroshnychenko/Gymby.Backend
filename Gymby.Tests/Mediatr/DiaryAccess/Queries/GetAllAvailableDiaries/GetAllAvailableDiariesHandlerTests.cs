@@ -121,7 +121,7 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Queries.GetAllAvailableDiaries
         }
 
         [Fact]
-        public async Task GetAllAvailableDiariesHandlerGetOneDiaries_ShouldBeSuccess()
+        public async Task GetAllAvailableDiariesHandler_GetOneDiaries_ShouldBeSuccess()
         {
             // Arrange
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
