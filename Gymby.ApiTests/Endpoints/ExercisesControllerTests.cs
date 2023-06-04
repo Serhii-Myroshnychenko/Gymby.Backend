@@ -15,14 +15,13 @@
             var apiEndpointDeleteProgramExercise = "https://gymby-api.azurewebsites.net/api/program/exercise/delete";
 
             // Act
-            var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Program", "CreateExercise.json"));
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var createJson = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Program", "CreateExercise.json"));
+            var createContent = new StringContent(createJson, Encoding.UTF8, "application/json");
 
-            var responseCreateExercise = await httpClient.PostAsync(apiEndpointCreateProgramExercise, content);
-            var responseContent = await responseCreateExercise.Content.ReadAsStringAsync();
+            var createResponse = await httpClient.PostAsync(apiEndpointCreateProgramExercise, createContent);
+            var createResponseContent = await createResponse.Content.ReadAsStringAsync();
 
-            var responseObject = JObject.Parse(responseContent);
-            var exerciseId = responseObject?.GetValue("id")?.ToString();
+            var exerciseId = JObject.Parse(createResponseContent)?.GetValue("id")?.ToString();
 
             var updateObj = new
             {
@@ -31,25 +30,25 @@
                 programId = "3840e998-fb51-4a57-a2ac-3c15fd96ce1f",
                 name = "Update exercise"
             };
-            var jsonUpdate = JsonConvert.SerializeObject(updateObj);
+            var updateJson = JsonConvert.SerializeObject(updateObj);
 
             var deleteObj = new
             {
                 exerciseId = exerciseId,
                 programId = "3840e998-fb51-4a57-a2ac-3c15fd96ce1f"
             };
-            var jsonDelete = JsonConvert.SerializeObject(deleteObj);
+            var deleteJson = JsonConvert.SerializeObject(deleteObj);
 
-            var contentUpdate = new StringContent(jsonUpdate, Encoding.UTF8, "application/json");
-            var responseUpdateExercise = await httpClient.PostAsync(apiEndpointUpdateProgramExercise, contentUpdate);
+            var updateContent = new StringContent(updateJson, Encoding.UTF8, "application/json");
+            var updateResponse = await httpClient.PostAsync(apiEndpointUpdateProgramExercise, updateContent);
 
-            var contentDelete = new StringContent(jsonDelete, Encoding.UTF8, "application/json");
-            var responseDeleteExercise = await httpClient.PostAsync(apiEndpointDeleteProgramExercise, contentDelete);
+            var deleteContent = new StringContent(deleteJson, Encoding.UTF8, "application/json");
+            var deleteResponse = await httpClient.PostAsync(apiEndpointDeleteProgramExercise, deleteContent);
 
             // Assert
-            Assert.Equal(HttpStatusCode.OK, responseCreateExercise.StatusCode);
-            Assert.Equal(HttpStatusCode.OK, responseUpdateExercise.StatusCode);
-            Assert.Equal(HttpStatusCode.OK, responseDeleteExercise.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, createResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, updateResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, deleteResponse.StatusCode);
         }
 
         [Fact]
@@ -65,14 +64,13 @@
             var apiEndpointDeleteDiaryExercise = "https://gymby-api.azurewebsites.net/api/diary/exercise/delete";
 
             // Act
-            var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Program", "CreateDiaryExercise.json"));
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var createJson = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Program", "CreateDiaryExercise.json"));
+            var createContent = new StringContent(createJson, Encoding.UTF8, "application/json");
 
-            var responseCreateExercise = await httpClient.PostAsync(apiEndpointCreateDiaryExercise, content);
-            var responseContent = await responseCreateExercise.Content.ReadAsStringAsync();
+            var createResponse = await httpClient.PostAsync(apiEndpointCreateDiaryExercise, createContent);
+            var createResponseContent = await createResponse.Content.ReadAsStringAsync();
 
-            var responseObject = JObject.Parse(responseContent);
-            var exerciseId = responseObject?.GetValue("id")?.ToString();
+            var exerciseId = JObject.Parse(createResponseContent)?.GetValue("id")?.ToString();
 
             var updateObj = new
             {
@@ -81,25 +79,25 @@
                 programId = "3840e998-fb51-4a57-a2ac-3c15fd96ce1f",
                 name = "Update exercise"
             };
-            var jsonUpdate = JsonConvert.SerializeObject(updateObj);
+            var updateJson = JsonConvert.SerializeObject(updateObj);
 
             var deleteObj = new
             {
                 exerciseId = exerciseId,
                 programId = "3840e998-fb51-4a57-a2ac-3c15fd96ce1f"
             };
-            var jsonDelete = JsonConvert.SerializeObject(deleteObj);
+            var deleteJson = JsonConvert.SerializeObject(deleteObj);
 
-            var contentUpdate = new StringContent(jsonUpdate, Encoding.UTF8, "application/json");
-            var responseUpdateExercise = await httpClient.PostAsync(apiEndpointUpdateDiaryExercise, contentUpdate);
+            var updateContent = new StringContent(updateJson, Encoding.UTF8, "application/json");
+            var updateResponse = await httpClient.PostAsync(apiEndpointUpdateDiaryExercise, updateContent);
 
-            var contentDelete = new StringContent(jsonDelete, Encoding.UTF8, "application/json");
-            var responseDeleteExercise = await httpClient.PostAsync(apiEndpointDeleteDiaryExercise, contentDelete);
+            var deleteContent = new StringContent(deleteJson, Encoding.UTF8, "application/json");
+            var deleteResponse = await httpClient.PostAsync(apiEndpointDeleteDiaryExercise, deleteContent);
 
             // Assert
-            Assert.Equal(HttpStatusCode.OK, responseCreateExercise.StatusCode);
-            Assert.Equal(HttpStatusCode.OK, responseUpdateExercise.StatusCode);
-            Assert.Equal(HttpStatusCode.OK, responseDeleteExercise.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, createResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, updateResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, deleteResponse.StatusCode);
         }
     }
 }

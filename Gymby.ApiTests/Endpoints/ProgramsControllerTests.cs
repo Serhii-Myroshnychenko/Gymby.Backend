@@ -1,4 +1,6 @@
-﻿namespace Gymby.ApiTests.Endpoints
+﻿using Gymby.WebApi.Models;
+
+namespace Gymby.ApiTests.Endpoints
 {
     public class ProgramsControllerTests
     {
@@ -10,7 +12,11 @@
             var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
-            var programDto = new CreateProgramDto
+            var apiEndpointCreate = "https://gymby-api.azurewebsites.net/api/program/create";
+            var apiEndpointUpdate = "https://gymby-api.azurewebsites.net/api/program/update";
+            var apiEndpointDelete = "https://gymby-api.azurewebsites.net/api/program/delete";
+
+            var CreateProgramDto = new CreateProgramDto
             {
                 Name = "Program for TEST d",
                 Description = "Program Description shared",
@@ -76,17 +82,37 @@
                 }
             };
 
-            string jsonPayload = JsonConvert.SerializeObject(programDto, Formatting.Indented);
+            string jsonPayloadCreate = JsonConvert.SerializeObject(CreateProgramDto, Formatting.Indented);
+            var contentCreate = new StringContent(jsonPayloadCreate, Encoding.UTF8, "application/json");
 
             // Act
-            var apiEndpoint = "https://gymby-api.azurewebsites.net/api/program/create";
+            var responseCreate = await httpClient.PostAsync(apiEndpointCreate, contentCreate);
+            var responseContentCreate = await responseCreate.Content.ReadAsStringAsync();
+            var programId = JObject.Parse(responseContentCreate)["id"]?.ToString();
 
-            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+            var updateProgramDto = new UpdateProgramDto
+            {
+                Name = "PROGRAM UPDATE",
+                Description = "DESCRIPTION UPDATE",
+                Level = "Beginner",
+                Type = "WeightLoss",
+                ProgramId = programId ?? ""
+            };
 
-            var response = await httpClient.PostAsync(apiEndpoint, content);
+            string jsonPayloadUpdate = JsonConvert.SerializeObject(updateProgramDto, Formatting.Indented);
+            var contentUpdate = new StringContent(jsonPayloadUpdate, Encoding.UTF8, "application/json");
+
+            var responseUpdate = await httpClient.PostAsync(apiEndpointUpdate, contentUpdate);
+
+            var deleteObj = new { programId = programId };
+            var jsonDelete = JsonConvert.SerializeObject(deleteObj);
+            var contentDelete = new StringContent(jsonDelete, Encoding.UTF8, "application/json");
+            var responseDelete = await httpClient.PostAsync(apiEndpointDelete, contentDelete);
 
             // Assert
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, responseCreate.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, responseUpdate.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, responseDelete.StatusCode);
         }
 
         [Fact]
@@ -162,6 +188,23 @@
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, responseGetSharedPrograms.StatusCode);
+        }
+
+        [Fact]
+        public async Task ProgramsConrollerTests_GetAllProgramsToDiary_ShouldBeSuccess()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var apiEndpointGetSharedPrograms = "https://gymby-api.azurewebsites.net/api/diary/all-programs";
+
+            // Act
+            var response = await httpClient.GetAsync(apiEndpointGetSharedPrograms);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
         //[Fact]

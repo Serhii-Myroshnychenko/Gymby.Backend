@@ -68,7 +68,7 @@ namespace Gymby.UnitTests.Mediatr.ProgramAccess.Commands
         }
 
         [Fact]
-        public async Task AccessProgramToUserByUsernameHandler_WhenUserNotCoach_ShouldBeFail()
+        public async Task AccessProgramToUserByUsernameHandler_WhenNonexistentUsername_ShouldBeFail()
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);

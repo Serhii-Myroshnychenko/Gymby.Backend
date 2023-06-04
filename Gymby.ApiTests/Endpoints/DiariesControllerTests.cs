@@ -17,7 +17,6 @@
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var responseGetDiaryDay = await httpClient.PostAsync(apiEndpointGetSharedPrograms, content);
-            var responseContent = await responseGetDiaryDay.Content.ReadAsStringAsync();
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, responseGetDiaryDay.StatusCode);
@@ -32,7 +31,8 @@
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointGetSharedPrograms = "https://gymby-api.azurewebsites.net/api/diary/available";
-
+            
+            // Act
             var responseGetDiaryDay = await httpClient.GetAsync(apiEndpointGetSharedPrograms);
             var responseContent = await responseGetDiaryDay.Content.ReadAsStringAsync();
 
@@ -60,7 +60,6 @@
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var responseImportProgramDayToDiary = await httpClient.PostAsync(apiEndpointGetSharedPrograms, content);
-            var responseContent = await responseImportProgramDayToDiary.Content.ReadAsStringAsync();
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, responseImportProgramDayToDiary.StatusCode);

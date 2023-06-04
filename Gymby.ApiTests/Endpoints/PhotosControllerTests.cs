@@ -26,7 +26,6 @@ namespace Gymby.ApiTests.Endpoints
             var responseContentCreate = await responseCreate.Content.ReadAsStringAsync();
             var responseArray = JArray.Parse(responseContentCreate);
 
-            // Find object with the newest CreationDate
             var newestObject = responseArray
                 .OrderByDescending(obj => DateTime.Parse(obj["creationDate"].ToString()))
                 .FirstOrDefault();
@@ -86,7 +85,7 @@ namespace Gymby.ApiTests.Endpoints
         }
 
         [Fact]
-        public async Task PhotosControllerTests_AddandDeleteMeasurementFromProfile_ShouldBeSuccess()
+        public async Task PhotosControllerTests_AddandDeleteMeasurementPhoto_ShouldBeSuccess()
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
@@ -107,7 +106,6 @@ namespace Gymby.ApiTests.Endpoints
             var responseContentCreate = await responseCreate.Content.ReadAsStringAsync();
             var responseArray = JArray.Parse(responseContentCreate);
 
-            // Find object with the newest CreationDate
             var newestObject = responseArray
                 .OrderByDescending(obj => DateTime.Parse(obj["creationDate"].ToString()))
                 .FirstOrDefault();
@@ -125,7 +123,7 @@ namespace Gymby.ApiTests.Endpoints
         }
 
         [Fact]
-        public async Task PhotosControllerTests_AddMeasurementFromProfile_ShouldBeFail()
+        public async Task PhotosControllerTests_AddMeasurementPhoto_ShouldBeFail()
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
@@ -147,7 +145,7 @@ namespace Gymby.ApiTests.Endpoints
         }
 
         [Fact]
-        public async Task PhotosControllerTests_DeleteMeasurementFromProfile_ShouldBeFail()
+        public async Task PhotosControllerTests_DeleteMeasurementPhoto_ShouldBeFail()
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();

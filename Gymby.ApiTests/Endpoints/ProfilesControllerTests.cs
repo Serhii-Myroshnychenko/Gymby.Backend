@@ -110,5 +110,131 @@ namespace Gymby.ApiTests.Endpoints
             // Assert
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
+
+        [Fact]
+        public async Task ProfilesControllerTests_QueryProfile_ExistentUsersFirstCase_ShouldBeFail()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/search";
+            var queryString = "?query=user";
+
+            // Act
+            var response = await httpClient.GetAsync(apiEndpoint + queryString);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var profiles = JArray.Parse(responseContent);
+            foreach (var profile in profiles)
+            {
+                var username = profile["username"]?.ToString();
+                Assert.Contains("user", username);
+            }
+        }
+
+        [Fact]
+        public async Task ProfilesControllerTests_QueryProfile_ExistentUsersSecondCase_ShouldBeFail()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/search";
+            var queryString = "?query=test";
+
+            // Act
+            var response = await httpClient.GetAsync(apiEndpoint + queryString);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var profiles = JArray.Parse(responseContent);
+            foreach (var profile in profiles)
+            {
+                var username = profile["username"]?.ToString();
+                Assert.Contains("test", username);
+            }
+        }
+
+        [Fact]
+        public async Task ProfilesControllerTests_QueryProfile_NonxistentUsers_ShouldBeFail()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/search";
+            var queryString = "?query=n1o1n1e1n1o1n1e1";
+
+            // Act
+            var response = await httpClient.GetAsync(apiEndpoint + queryString);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task ProfilesControllerTests_QueryProfile_OnlyCoach_ShouldBeFail()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/search";
+            var queryString = "?query=user&type=trainers";
+
+            // Act
+            var response = await httpClient.GetAsync(apiEndpoint + queryString);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var profiles = JArray.Parse(responseContent);
+            foreach (var profile in profiles)
+            {
+                var username = profile["username"]?.ToString();
+                Assert.Contains("user", username);
+
+                var isCoach = profile["isCoach"]?.Value<bool>();
+                Assert.True(isCoach);
+            }
+        }
+
+        [Fact]
+        public async Task ProfilesControllerTests_QueryProfile_AllCoach_ShouldBeFail()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/search";
+            var queryString = "?type=trainers";
+
+            // Act
+            var response = await httpClient.GetAsync(apiEndpoint + queryString);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var profiles = JArray.Parse(responseContent);
+            foreach (var profile in profiles)
+            {
+
+                var isCoach = profile["isCoach"]?.Value<bool>();
+                Assert.True(isCoach);
+            }
+        }
     }
 }
