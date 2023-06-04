@@ -2,7 +2,6 @@
 using Gymby.Application.Mediatr.ExercisePrototypes.Queries.GetAllExercisePrototypes;
 using Gymby.Application.Mediatr.Exercises.Commands.CreateProgramExercise;
 using Gymby.Application.Mediatr.Exercises.Commands.DeleteProgramExercise;
-using Gymby.Application.Mediatr.Exercises.Commands.UpdateProgramExercise;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
 using Gymby.Application.Mediatr.ProgramDays.Commands.CreateProgramDay;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
@@ -35,7 +34,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.DeleteProgramExercise
             var handlerExerciseDelete = new DeleteProgramExerciseHandler(Context, Mapper, FileService);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
-            var appConfigOptionsProfile1 = Options.Create(new AppConfig());
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 

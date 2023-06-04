@@ -37,7 +37,6 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
             var handlerApproachUpdate = new UpdateProgramApproachHandler(Context, Mapper, FileService);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
-            var appConfigOptionsProfile1 = Options.Create(new AppConfig());
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
@@ -147,7 +146,6 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
             var handlerApproachUpdate = new UpdateProgramApproachHandler(Context, Mapper, FileService);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
-            var appConfigOptionsProfile1 = Options.Create(new AppConfig());
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 

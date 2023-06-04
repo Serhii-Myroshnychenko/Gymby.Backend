@@ -34,7 +34,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateProgramExercise
             var handlerExerciseUpdate = new UpdateProgramExerciseHandler(Context, Mapper, FileService);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
-            var appConfigOptionsProfile1 = Options.Create(new AppConfig());
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 

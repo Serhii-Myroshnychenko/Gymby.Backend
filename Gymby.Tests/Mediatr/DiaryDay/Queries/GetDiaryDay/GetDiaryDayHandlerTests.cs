@@ -1,20 +1,24 @@
 ﻿using AutoMapper;
+using Gymby.Application.Mediatr.DiaryDay.Queries.GetDiaryDay;
 using Gymby.Application.Mediatr.ExercisePrototypes.Queries.GetAllExercisePrototypes;
+using Gymby.Application.Mediatr.Exercises.Commands.CreateDiaryExercise;
 using Gymby.Application.Mediatr.Exercises.Commands.CreateProgramExercise;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
+using Gymby.Application.Mediatr.ProgramAccesses.AccessProgramToUserByUsername;
 using Gymby.Application.Mediatr.ProgramDays.Commands.CreateProgramDay;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
+using Gymby.Application.Mediatr.Programs.Queries.GetFreePrograms;
 using Gymby.UnitTests.Common.Exercise;
 
-namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
+namespace Gymby.UnitTests.Mediatr.DiaryDay.Queries.GetDiaryDay
 {
-    public class CreateProgramExerciseHandlerTests
+    public class GetDiaryDayHandlerTests
     {
         private readonly ApplicationDbContext Context;
         private readonly IMapper Mapper;
         private readonly IFileService FileService;
 
-        public CreateProgramExerciseHandlerTests()
+        public GetDiaryDayHandlerTests()
         {
             ProgramExerciseCommandTestFixture fixture = new ProgramExerciseCommandTestFixture();
             Context = fixture.Context;
@@ -22,7 +26,7 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
         }
 
         [Fact]
-        public async Task CreateProgramExerciseHandler_WhenUserCoach_ShouldBeSuccess()
+        public async Task GetDiaryDayHandler_ShouldBeSuccess()
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
@@ -30,10 +34,34 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
             var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
             var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
+            var handlerDiaryExercise = new CreateDiaryExerciseHandler(Context, Mapper);
+            var handlerGetDiaryDay = new GetDiaryDayHandler(Context, Mapper);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
+
+            var diary = new Diary
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "My Diary",
+                CreationDate = DateTime.Now
+            };
+
+            var diaryAccess = new Gymby.Domain.Entities.DiaryAccess
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserId = ProfileContextFactory.UserBId.ToString(),
+                DiaryId = diary.Id,
+                Type = AccessType.Owner,
+                Diary = diary
+            };
+
+            Context.Diaries.Add(diary);
+            Context.DiaryAccess.Add(diaryAccess);
+            await Context.SaveChangesAsync();
+
+            var diaryId = diary.Id;
 
             // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
@@ -41,13 +69,9 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Email = "user-b@gmail.com"
             }, CancellationToken.None);
-
             var user = await Context.Profiles.FirstOrDefaultAsync(u => u.UserId == ProfileContextFactory.UserBId.ToString());
-            if (user != null)
-            {
-                user.IsCoach = true;
-                await Context.SaveChangesAsync();
-            }
+            user.IsCoach = true;
+            await Context.SaveChangesAsync();
 
             var resultProgram = await handlerProgram.Handle(new CreateProgramCommand()
             {
@@ -66,7 +90,7 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
                 Name = "ProgramDayName",
                 UserId = ProfileContextFactory.UserBId.ToString()
             }, CancellationToken.None);
-           
+
             var programDayId = resultProgramDay.Id;
 
             var exercisePrototypeAdd = new Gymby.Domain.Entities.ExercisePrototype
@@ -85,85 +109,31 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
             }, CancellationToken.None);
 
             var exercisePrototype = resultExercisePrototype[0].Id;
+            DateTime dateValue = DateTime.Parse("2023-06-14T14:29:43.385Z");
+            DateTime dateValueExpected = DateTime.Parse("2023-06-14T00:00:00.0000000");
 
-            var resultProgramExercise = await handlerProgramExercise.Handle(new CreateProgramExerciseCommand()
+            var resultDiaryExercise = await handlerDiaryExercise.Handle(new CreateDiaryExerciseCommand()
             {
-                ProgramId = programId,
                 ProgramDayId = programDayId,
-                Name = "ExerciseName",
+                DiaryId = diaryId,
+                Name = "ExerciseNameInDiary",
+                Date = dateValue,
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 ExercisePrototypeId = exercisePrototype
             }, CancellationToken.None);
 
+            var resultGetDiaryDay = await handlerGetDiaryDay.Handle(new GetDiaryDayCommand()
+            {
+                UserId = ProfileContextFactory.UserBId.ToString(),
+                DiaryId = diaryId,
+                Date = dateValue
+            }, CancellationToken.None);
+
             // Assert
-            Assert.NotNull(resultProgramExercise);
-            Assert.Equal(programDayId, resultProgramExercise.ProgramDayId);
-            Assert.Equal("ExerciseName", resultProgramExercise.Name);
-        }
-
-        [Fact]
-        public async Task CreateProgramExerciseHandler_WhenUserNotCoach_ShouldBeSuccess()
-        {
-            // Arrange
-            var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
-            var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-
-            var appConfigOptionsProfile = Options.Create(new AppConfig());
-            var appConfigOptionsProfile1 = Options.Create(new AppConfig());
-
-            var ExercisePrototypeId_A = Guid.NewGuid().ToString();
-
-            // Act
-            await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
-            {
-                UserId = ProfileContextFactory.UserBId.ToString(),
-                Email = "user-b@gmail.com"
-            }, CancellationToken.None);
-
-            var user = await Context.Profiles.FirstOrDefaultAsync(u => u.UserId == ProfileContextFactory.UserBId.ToString());
-            if (user != null)
-            {
-                user.IsCoach = true;
-                await Context.SaveChangesAsync();
-            }
-
-            var resultProgram = await handlerProgram.Handle(new CreateProgramCommand()
-            {
-                UserId = ProfileContextFactory.UserBId.ToString(),
-                Name = "ProgramName1",
-                Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
-            }, CancellationToken.None);
-
-            var programId = resultProgram.Id;
-
-            var resultProgramDay = await handlerProgramDay.Handle(new CreateProgramDayCommand()
-            {
-                ProgramId = programId,
-                Name = "ProgramDayName",
-                UserId = ProfileContextFactory.UserBId.ToString()
-            }, CancellationToken.None);
-           
-            var programDayId = resultProgramDay.Id;
-
-            //Assert
-            var exception = await Assert.ThrowsAsync<InsufficientRightsException>(async () =>
-            {
-                await handlerProgramExercise.Handle(new CreateProgramExerciseCommand()
-                {
-                    ProgramId = programId,
-                    ProgramDayId = programDayId,
-                    Name = "ExerciseName",
-                    UserId = ProfileContextFactory.UserAId.ToString(),
-                    ExercisePrototypeId = ExercisePrototypeId_A
-                }, CancellationToken.None);
-            });
-
-            Assert.Equal("You do not have permissions to create an exercise", exception.Message);
+            Assert.NotNull(resultGetDiaryDay);
+            Assert.Equal(diaryId, resultGetDiaryDay.DiaryId);
+            Assert.Equal(dateValueExpected, resultGetDiaryDay.Date);
+            resultGetDiaryDay.Exercises.Count.Should().Be(1);
         }
     }
 }

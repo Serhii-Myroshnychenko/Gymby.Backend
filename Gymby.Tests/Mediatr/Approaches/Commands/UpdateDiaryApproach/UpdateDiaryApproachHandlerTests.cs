@@ -1,22 +1,22 @@
 ﻿using AutoMapper;
-using Gymby.Application.Mediatr.Approaches.Commands.CreateProgramApproach;
-using Gymby.Application.Mediatr.Approaches.Commands.DeleteProgramApproach;
+using Gymby.Application.Mediatr.Approaches.Commands.CreateDiaryApproach;
+using Gymby.Application.Mediatr.Approaches.Commands.UpdateDiaryApproach;
 using Gymby.Application.Mediatr.ExercisePrototypes.Queries.GetAllExercisePrototypes;
-using Gymby.Application.Mediatr.Exercises.Commands.CreateProgramExercise;
+using Gymby.Application.Mediatr.Exercises.Commands.CreateDiaryExercise;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
 using Gymby.Application.Mediatr.ProgramDays.Commands.CreateProgramDay;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
 using Gymby.UnitTests.Common.Exercise;
 
-namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteProgramApproach
+namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateDiaryApproach
 {
-    public class DeleteProgramApproachHandlerTests
+    public class UpdateDiaryApproachHandlerTests
     {
         private readonly ApplicationDbContext Context;
         private readonly IMapper Mapper;
         private readonly IFileService FileService;
 
-        public DeleteProgramApproachHandlerTests()
+        public UpdateDiaryApproachHandlerTests()
         {
             ProgramExerciseCommandTestFixture fixture = new ProgramExerciseCommandTestFixture();
             Context = fixture.Context;
@@ -24,20 +24,42 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteProgramApproach
         }
 
         [Fact]
-        public async Task DeleteProgramApproachHandler_WhenUserCoach_ShouldBeSuccess()
+        public async Task UpdateDiaryApproachHandler_ShouldBeSuccess()
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
             var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerDiaryExercise = new CreateDiaryExerciseHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
             var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerApproachCreate = new CreateProgramApproachHandler(Context, Mapper, FileService);
-            var handlerApproachDelete = new DeleteProgramApproachHandler(Context, Mapper, FileService);
+            var handlerApproachCreate = new CreateDiaryApproachHandler(Context, Mapper, FileService);
+            var handlerApproachUpdate = new UpdateDiaryApproachHandler(Context, Mapper, FileService);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
+
+            var diary = new Diary
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "My Diary",
+                CreationDate = DateTime.Now
+            };
+
+            var diaryAccess = new Gymby.Domain.Entities.DiaryAccess
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserId = ProfileContextFactory.UserBId.ToString(),
+                DiaryId = diary.Id,
+                Type = AccessType.Owner,
+                Diary = diary
+            };
+
+            Context.Diaries.Add(diary);
+            Context.DiaryAccess.Add(diaryAccess);
+            await Context.SaveChangesAsync();
+
+            var diaryId = diary.Id;
 
             // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
@@ -89,56 +111,85 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteProgramApproach
             }, CancellationToken.None);
 
             var exercisePrototype = resultExercisePrototype[0].Id;
+            DateTime dateValue = DateTime.Parse("2023-06-14T14:29:43.385Z");
 
-            var resultProgramExercise = await handlerProgramExercise.Handle(new CreateProgramExerciseCommand()
+            var resultDiaryExercise = await handlerDiaryExercise.Handle(new CreateDiaryExerciseCommand()
             {
-                ProgramId = programId,
                 ProgramDayId = programDayId,
-                Name = "ExerciseName",
+                DiaryId = diaryId,
+                Name = "ExerciseNameInDiary",
+                Date = dateValue,
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 ExercisePrototypeId = exercisePrototype
             }, CancellationToken.None);
 
-            var resultProgramExerciseId = resultProgramExercise.Id;
+            var exerciseId = resultDiaryExercise.Id;
 
-            var resultProgramApproach = await handlerApproachCreate.Handle(new CreateProgramApproachCommand()
+            var resultDiaryApproach = await handlerApproachCreate.Handle(new CreateDiaryApproachCommand()
             {
-                ProgramId = programId,
-                ExerciseId = resultProgramExerciseId,
+                ExerciseId = exerciseId,
                 Weight = 30,
                 Repeats = 15,
                 UserId = ProfileContextFactory.UserBId.ToString(),
             }, CancellationToken.None);
 
-            var approachId = resultProgramApproach.Approaches.FirstOrDefault()?.Id;
+            var approachId = resultDiaryApproach.Approaches.FirstOrDefault()?.Id;
 
-            var resultProgramApproachDelete = await handlerApproachDelete.Handle(new DeleteProgramApproachCommand()
+            var resultDiaryApproachUpdate = await handlerApproachUpdate.Handle(new UpdateDiaryApproachCommand()
             {
-                ExerciseId = resultProgramExerciseId,
-                ProgramId = programId,
+                ExerciseId = exerciseId,
                 UserId = ProfileContextFactory.UserBId.ToString(),
+                Repeats = 1,
+                Weight = 1,
+                IsDone = true,
                 ApproachId = approachId
             }, CancellationToken.None);
 
             // Assert
-            Assert.Equal(Unit.Value, resultProgramApproachDelete);
+            Assert.NotNull(resultDiaryApproachUpdate);
+            Assert.Equal(approachId, resultDiaryApproachUpdate.Approaches.FirstOrDefault()?.Id);
+            Assert.Equal(1, resultDiaryApproachUpdate.Approaches.FirstOrDefault()?.Repeats);
+            Assert.Equal(1, resultDiaryApproachUpdate.Approaches.FirstOrDefault()?.Weight);
+            Assert.Equal(true, resultDiaryApproachUpdate.Approaches.FirstOrDefault()?.IsDone);
         }
 
         [Fact]
-        public async Task DeleteProgramApproachHandler_WhenUserNotCoach_ShouldBeSuccess()
+        public async Task UpdateDiaryApproachHandler_ShouldBeFail()
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
             var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerDiaryExercise = new CreateDiaryExerciseHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
             var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerApproachCreate = new CreateProgramApproachHandler(Context, Mapper, FileService);
-            var handlerApproachDelete = new DeleteProgramApproachHandler(Context, Mapper, FileService);
+            var handlerApproachCreate = new CreateDiaryApproachHandler(Context, Mapper, FileService);
+            var handlerApproachUpdate = new UpdateDiaryApproachHandler(Context, Mapper, FileService);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
+
+            var diary = new Diary
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "My Diary",
+                CreationDate = DateTime.Now
+            };
+
+            var diaryAccess = new Gymby.Domain.Entities.DiaryAccess
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserId = ProfileContextFactory.UserBId.ToString(),
+                DiaryId = diary.Id,
+                Type = AccessType.Owner,
+                Diary = diary
+            };
+
+            Context.Diaries.Add(diary);
+            Context.DiaryAccess.Add(diaryAccess);
+            await Context.SaveChangesAsync();
+
+            var diaryId = diary.Id;
 
             // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
@@ -190,42 +241,45 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteProgramApproach
             }, CancellationToken.None);
 
             var exercisePrototype = resultExercisePrototype[0].Id;
+            DateTime dateValue = DateTime.Parse("2023-06-14T14:29:43.385Z");
 
-            var resultProgramExercise = await handlerProgramExercise.Handle(new CreateProgramExerciseCommand()
+            var resultDiaryExercise = await handlerDiaryExercise.Handle(new CreateDiaryExerciseCommand()
             {
-                ProgramId = programId,
                 ProgramDayId = programDayId,
-                Name = "ExerciseName",
+                DiaryId = diaryId,
+                Name = "ExerciseNameInDiary",
+                Date = dateValue,
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 ExercisePrototypeId = exercisePrototype
             }, CancellationToken.None);
 
-            var resultProgramExerciseId = resultProgramExercise.Id;
+            var exerciseId = resultDiaryExercise.Id;
 
-            var resultProgramApproach = await handlerApproachCreate.Handle(new CreateProgramApproachCommand()
+            var resultDiaryApproach = await handlerApproachCreate.Handle(new CreateDiaryApproachCommand()
             {
-                ProgramId = programId,
-                ExerciseId = resultProgramExerciseId,
+                ExerciseId = exerciseId,
                 Weight = 30,
                 Repeats = 15,
                 UserId = ProfileContextFactory.UserBId.ToString(),
             }, CancellationToken.None);
 
-            var approachId = resultProgramApproach.Approaches.FirstOrDefault()?.Id;
+            var approachId = Guid.NewGuid().ToString();
 
             //Assert
-            var exception = await Assert.ThrowsAsync<InsufficientRightsException>(async () =>
+            var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
-                await handlerApproachDelete.Handle(new DeleteProgramApproachCommand()
+                await handlerApproachUpdate.Handle(new UpdateDiaryApproachCommand()
                 {
-                    ExerciseId = resultProgramExerciseId,
-                    ProgramId = programId,
-                    UserId = ProfileContextFactory.UserAId.ToString(),
+                    ExerciseId = exerciseId,
+                    UserId = ProfileContextFactory.UserBId.ToString(),
+                    Repeats = 1,
+                    Weight = 1,
+                    IsDone = true,
                     ApproachId = approachId
                 }, CancellationToken.None);
             });
 
-            Assert.Equal("You do not have permissions to delete an approach", exception.Message);
+            Assert.Equal($"Entity \"{approachId}\" ({nameof(Domain.Entities.Approach)}) not found", exception.Message);
         }
     }
 }
