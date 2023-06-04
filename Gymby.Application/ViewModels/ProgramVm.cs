@@ -10,8 +10,8 @@ public class ProgramVm : IMapWith<Program>
     public string Name { get; set; } = null!;
     public bool IsPublic { get; set; }
     public string Description { get; set; } = null!;
-    public Level Level { get; set; }
-    public ProgramType Type { get; set; }
+    public string Level { get; set; } = null!;
+    public string Type { get; set; } = null!;
     public List<ProgramDayVm>? ProgramDays { get; set; }
 
     public void Mapping(AutoMapper.Profile profile)
@@ -26,9 +26,9 @@ public class ProgramVm : IMapWith<Program>
             .ForMember(p => p.Description,
                 vm => vm.MapFrom(v => v.Description))
             .ForMember(p => p.Level,
-                vm => vm.MapFrom(v => v.Level))
+                vm => vm.MapFrom(v => v.Level.ToString()))
             .ForMember(p => p.Type,
-                vm => vm.MapFrom(v => v.Type))
+                vm => vm.MapFrom(v => v.Type.ToString()))
             .ForMember(p => p.ProgramDays,
                 vm => vm.MapFrom(v => v.ProgramDays));
     }
