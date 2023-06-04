@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Gymby.Application.Interfaces;
+using Gymby.Application.Mediatr.Friends.Queries.GetMyFriendsList;
 using Gymby.Application.ViewModels;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -12,25 +13,36 @@ public class QueryProfileHandler
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
+    private readonly IMediator _mediator;
 
-    public QueryProfileHandler(IApplicationDbContext dbContext,IMapper mapper) =>
-        (_dbContext, _mapper) = (dbContext, mapper);
+    public QueryProfileHandler(IApplicationDbContext dbContext,IMapper mapper, IMediator mediator) =>
+        (_dbContext, _mapper, _mediator) = (dbContext, mapper, mediator);
 
     public async Task<List<ProfileVm>> Handle(QueryProfileQuery request, CancellationToken cancellationToken)
     {
-        var query = _dbContext.Profiles.AsQueryable();
+        var friends = await _mediator.Send(new GetMyFriendsListQuery(request.Options) { UserId = request.UserId, Options = request.Options},cancellationToken);
+        
+        var ownProfile = await _dbContext.Profiles
+            .FirstOrDefaultAsync(p => p.UserId == request.UserId, cancellationToken);
+
+        var friendsIds = friends.Select(c => c.ProfileId).ToList();
+
+        friendsIds.Add(ownProfile!.Id);
+
+        var profiles = await _dbContext.Profiles
+            .Where(p => !friendsIds.Contains(p.Id))
+                .ToListAsync(cancellationToken);
 
         if (request.Type == "trainers")
         {
-            query = query.Where(p => p.IsCoach == true);
+            profiles = profiles.Where(p => p.IsCoach == true).ToList();
         }
 
         if (request.Query != null)
         {
-            query = query.Where(p => p.Username!.Contains(request.Query));
+            profiles = profiles.Where(p => p.Username!.Contains(request.Query)).ToList();
         }
 
-        var profiles = await query.ToListAsync(cancellationToken);
         return _mapper.Map<List<ProfileVm>>(profiles);
     }
 }
