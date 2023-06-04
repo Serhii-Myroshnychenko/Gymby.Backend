@@ -49,7 +49,7 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.CreateDiary
 
             if (user != null)
             {
-                user.IsCoach = true;
+                user.Username = "user-bill";
                 await Context.SaveChangesAsync();
             }
 
