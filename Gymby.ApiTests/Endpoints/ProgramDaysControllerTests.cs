@@ -49,8 +49,26 @@
             Assert.Equal(HttpStatusCode.OK, responseCreateProgramDay.StatusCode);
             Assert.Equal(HttpStatusCode.OK, responseUpdateProgramDay.StatusCode);
             Assert.Equal(HttpStatusCode.OK, responseDeleteProgramDay.StatusCode);
-
-           
         }
+
+        //[Fact]
+        //public async Task ProgramDaysControllerTests_CreateUpdateDeleteProgramDay_ShouldBeSuccess1()
+        //{
+        //    // Arrange
+        //    IAuthorization authorization = new Utils.Authorization();
+        //    var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+        //    var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+        //    var apiEndpointCreateProgramDay = "https://gymby-api.azurewebsites.net/api/program/day/create";
+
+        //    // Act
+        //    var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Program", "CreateProgramDayFail.json"));
+        //    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        //    var responseCreateProgramDay = await httpClient.PostAsync(apiEndpointCreateProgramDay, content);
+
+        //    // Assert
+        //    Assert.Equal(HttpStatusCode.BadRequest, responseCreateProgramDay.StatusCode);
+        //}
     }
 }
