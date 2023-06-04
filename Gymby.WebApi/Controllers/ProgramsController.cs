@@ -2,6 +2,7 @@
 using Gymby.Application.Mediatr.ProgramAccesses.AccessProgramToUserByUsername;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
 using Gymby.Application.Mediatr.Programs.Commands.DeleteProgram;
+using Gymby.Application.Mediatr.Programs.Commands.UpdateProgram;
 using Gymby.Application.Mediatr.Programs.Queries.GetAllProgramsInDiary;
 using Gymby.Application.Mediatr.Programs.Queries.GetFreePrograms;
 using Gymby.Application.Mediatr.Programs.Queries.GetPersonalPrograms;
@@ -28,6 +29,16 @@ namespace Gymby.WebApi.Controllers
         public async Task<IActionResult> CreateProgram([FromBody] CreateProgramDto request)
         {
             var command = _mapper.Map<CreateProgramCommand>(request);
+            command.UserId = UserId.ToString();
+
+            return Ok(await Mediator.Send(command));
+        }
+
+        [Authorize]
+        [HttpPost("program/update")]
+        public async Task<IActionResult> UpdateProgram([FromBody] UpdateProgramDto request)
+        {
+            var command = _mapper.Map<UpdateProgramCommand>(request);
             command.UserId = UserId.ToString();
 
             return Ok(await Mediator.Send(command));

@@ -1,6 +1,5 @@
 ﻿using Gymby.Application.Common.Mappings;
 using Gymby.Domain.Entities;
-using Gymby.Domain.Enums;
 
 namespace Gymby.Application.ViewModels;
 
@@ -9,7 +8,7 @@ public class ExercisePrototypeVm : IMapWith<ExercisePrototype>
     public string Id { get; set; } = null!;
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
-    public Category Category { get; set; }
+    public string Category { get; set; } = null!;
 
     public void Mapping(AutoMapper.Profile profile)
     {
@@ -21,6 +20,6 @@ public class ExercisePrototypeVm : IMapWith<ExercisePrototype>
             .ForMember(p => p.Description,
                 vm => vm.MapFrom(v => v.Description))
             .ForMember(p => p.Category,
-                vm => vm.MapFrom(v => v.Category));
+                vm => vm.MapFrom(v => v.Category.ToString()));
     }
 }

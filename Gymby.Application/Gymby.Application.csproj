@@ -34,6 +34,7 @@
     <Folder Include="Mediatr\Exercises\Queries\" />
     <Folder Include="Mediatr\Photos\Queries\" />
     <Folder Include="Mediatr\ProgramDays\Queries\" />
+    <Folder Include="Mediatr\Programs\Queries\Новая папка\" />
   </ItemGroup>
 
 </Project>

@@ -32,8 +32,8 @@ public class CreateProgramHandler
             Name = request.Name,
             IsPublic = false,
             Description = request.Description!,
-            Level = request.Level,
-            Type = request.Type
+            Level = (Level)Enum.Parse(typeof(Level),request.Level),
+            Type = (ProgramType)Enum.Parse(typeof(ProgramType), request.Type)
         };
 
         var programAccess = new ProgramAccess
