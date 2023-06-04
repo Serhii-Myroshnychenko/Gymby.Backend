@@ -12,8 +12,8 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
             var userId = "user1";
             var name = "Program 1";
             var description = "Sample program";
-            var level = Level.Beginner;
-            var type = ProgramType.WeightLoss;
+            var level = "Beginner";
+            var type = "WeightLoss";
             var programDays = new List<ProgramDayCM>
             {
                 new ProgramDayCM

@@ -26,6 +26,7 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.CreateDiary
             ProgramExerciseCommandTestFixture fixture = new ProgramExerciseCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
+            FileService = fixture.FileService;
         }
 
         [Fact]
@@ -43,9 +44,14 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.CreateDiary
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Email = "user-b@gmail.com"
             }, CancellationToken.None);
+
             var user = await Context.Profiles.FirstOrDefaultAsync(u => u.UserId == ProfileContextFactory.UserBId.ToString());
-            user.Username = "user-bill";
-            await Context.SaveChangesAsync();
+
+            if (user != null)
+            {
+                user.IsCoach = true;
+                await Context.SaveChangesAsync();
+            }
 
             var resultCreateDiary = await handlerCreateDiary.Handle(new CreateDiaryCommand()
             {

@@ -21,6 +21,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateDiaryApproach
             ProgramExerciseCommandTestFixture fixture = new ProgramExerciseCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
+            FileService = fixture.FileService;
         }
 
         [Fact]
@@ -80,8 +81,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateDiaryApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;
@@ -133,7 +134,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateDiaryApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
             }, CancellationToken.None);
 
-            var approachId = resultDiaryApproach.Approaches.FirstOrDefault()?.Id;
+            var approachId = resultDiaryApproach?.Approaches?.FirstOrDefault()?.Id;
 
             var resultDiaryApproachUpdate = await handlerApproachUpdate.Handle(new UpdateDiaryApproachCommand()
             {
@@ -142,15 +143,15 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateDiaryApproach
                 Repeats = 1,
                 Weight = 1,
                 IsDone = true,
-                ApproachId = approachId
+                ApproachId = approachId ?? ""
             }, CancellationToken.None);
 
             // Assert
             Assert.NotNull(resultDiaryApproachUpdate);
-            Assert.Equal(approachId, resultDiaryApproachUpdate.Approaches.FirstOrDefault()?.Id);
-            Assert.Equal(1, resultDiaryApproachUpdate.Approaches.FirstOrDefault()?.Repeats);
-            Assert.Equal(1, resultDiaryApproachUpdate.Approaches.FirstOrDefault()?.Weight);
-            Assert.Equal(true, resultDiaryApproachUpdate.Approaches.FirstOrDefault()?.IsDone);
+            Assert.Equal(approachId, resultDiaryApproachUpdate?.Approaches?.FirstOrDefault()?.Id);
+            Assert.Equal(1, resultDiaryApproachUpdate?.Approaches?.FirstOrDefault()?.Repeats);
+            Assert.Equal(1, resultDiaryApproachUpdate?.Approaches?.FirstOrDefault()?.Weight);
+            Assert.Equal(true, resultDiaryApproachUpdate?.Approaches?.FirstOrDefault()?.IsDone);
         }
 
         [Fact]
@@ -210,8 +211,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateDiaryApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;

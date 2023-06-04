@@ -17,6 +17,7 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Queries.GetAllAvailableDiaries
             ProgramExerciseCommandTestFixture fixture = new ProgramExerciseCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
+            FileService = fixture.FileService;
         }
 
         [Fact]
@@ -96,8 +97,12 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Queries.GetAllAvailableDiaries
             }, CancellationToken.None);
 
             var user = await Context.Profiles.FirstOrDefaultAsync(u => u.UserId == ProfileContextFactory.UserBId.ToString());
-            user.IsCoach = true;
-            await Context.SaveChangesAsync();
+
+            if (user != null)
+            {
+                user.IsCoach = true;
+                await Context.SaveChangesAsync();
+            }
 
             await handlerAccessToMyDiaryByUsername.Handle(new AccessToMyDiaryByUsernameCommand()
             {

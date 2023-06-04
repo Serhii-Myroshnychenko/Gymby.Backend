@@ -22,6 +22,7 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.DeleteDiaryExercise
             ProgramExerciseCommandTestFixture fixture = new ProgramExerciseCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
+            FileService = fixture.FileService;
         }
 
         [Fact]
@@ -69,17 +70,22 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.DeleteDiaryExercise
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Email = "user-b@gmail.com"
             }, CancellationToken.None);
+
             var user = await Context.Profiles.FirstOrDefaultAsync(u => u.UserId == ProfileContextFactory.UserBId.ToString());
-            user.IsCoach = true;
-            await Context.SaveChangesAsync();
+
+            if (user != null)
+            {
+                user.IsCoach = true;
+                await Context.SaveChangesAsync();
+            }
 
             var resultProgram = await handlerProgram.Handle(new CreateProgramCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;
@@ -179,17 +185,21 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.DeleteDiaryExercise
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Email = "user-b@gmail.com"
             }, CancellationToken.None);
-            var user = await Context.Profiles.FirstOrDefaultAsync(u => u.UserId == ProfileContextFactory.UserBId.ToString());
-            user.IsCoach = true;
-            await Context.SaveChangesAsync();
 
+            var user = await Context.Profiles.FirstOrDefaultAsync(u => u.UserId == ProfileContextFactory.UserBId.ToString());
+
+            if (user != null)
+            {
+                user.IsCoach = true;
+                await Context.SaveChangesAsync();
+            }
             var resultProgram = await handlerProgram.Handle(new CreateProgramCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;

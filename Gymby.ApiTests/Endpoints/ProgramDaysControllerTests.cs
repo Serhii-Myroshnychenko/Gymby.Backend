@@ -22,7 +22,7 @@
             var responseContent = await responseCreateProgramDay.Content.ReadAsStringAsync();
 
             var responseObject = JObject.Parse(responseContent);
-            var programDayId = responseObject.GetValue("id").ToString();
+            var programDayId = responseObject.GetValue("id")?.ToString();
 
             var updateObj = new
             {

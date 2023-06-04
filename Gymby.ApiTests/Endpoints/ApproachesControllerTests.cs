@@ -22,7 +22,7 @@
             var responseContent = await responseCreateApproach.Content.ReadAsStringAsync();
 
             var responseObject = JObject.Parse(responseContent);
-            var approachId = responseObject["approaches"][0]["id"].ToString();
+            var approachId = responseObject?["approaches"]?[0]?["id"]?.ToString();
 
             var updateObj = new
             {
@@ -75,7 +75,7 @@
             var responseContent = await responseCreateApproach.Content.ReadAsStringAsync();
 
             var responseObject = JObject.Parse(responseContent);
-            var approachId = responseObject["approaches"][0]["id"].ToString();
+            var approachId = responseObject?["approaches"]?[0]?["id"]?.ToString();
 
             var updateObj = new
             {

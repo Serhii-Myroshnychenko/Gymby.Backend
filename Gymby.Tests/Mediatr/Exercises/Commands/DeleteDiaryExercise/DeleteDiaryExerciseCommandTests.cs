@@ -9,8 +9,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.DeleteDiaryExercise
         {
             // Arrange
             var userId = "testUserId";
-            var name = "testName";
-            var exercisePrototypeId = "testExercisePrototypeId";
             var exerciseId = "testExerciseId";
 
             // Act

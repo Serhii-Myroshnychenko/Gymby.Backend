@@ -14,8 +14,8 @@
             {
                 Name = "Program for TEST d",
                 Description = "Program Description shared",
-                Level = Level.Intermediate,
-                Type = ProgramType.Endurance,
+                Level = "Advanced",
+                Type = "WeightGain",
                 ProgramDays = new List<CreateProgramProgramDayDto>
                 {
                     new CreateProgramProgramDayDto

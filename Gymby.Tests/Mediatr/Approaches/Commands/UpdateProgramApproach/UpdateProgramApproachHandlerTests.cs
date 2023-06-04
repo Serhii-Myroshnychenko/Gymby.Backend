@@ -22,6 +22,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
             ProgramExerciseCommandTestFixture fixture = new ProgramExerciseCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
+            FileService = fixture.FileService;
         }
 
         [Fact]
@@ -59,8 +60,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;
@@ -112,7 +113,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
             }, CancellationToken.None);
 
 
-            var approachId = resultProgramApproach.Approaches.FirstOrDefault()?.Id;
+            var approachId = resultProgramApproach?.Approaches?.FirstOrDefault()?.Id;
 
             var resultProgramApproachUpdate = await handlerApproachUpdate.Handle(new UpdateProgramApproachCommand()
             {
@@ -121,15 +122,15 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Repeats = 1,
                 Weight = 1,
-                ApproachId = approachId
+                ApproachId = approachId ?? ""
             }, CancellationToken.None);
 
             // Assert
             Assert.NotNull(resultProgramApproachUpdate);
-            Assert.Equal(approachId, resultProgramApproachUpdate.Approaches.FirstOrDefault()?.Id);
-            Assert.Equal(1, resultProgramApproachUpdate.Approaches.FirstOrDefault()?.Repeats);
-            Assert.Equal(1, resultProgramApproachUpdate.Approaches.FirstOrDefault()?.Weight);
-            Assert.Equal(programDayId, resultProgramApproachUpdate.ProgramDayId);
+            Assert.Equal(approachId, resultProgramApproachUpdate?.Approaches?.FirstOrDefault()?.Id);
+            Assert.Equal(1, resultProgramApproachUpdate?.Approaches?.FirstOrDefault()?.Repeats);
+            Assert.Equal(1, resultProgramApproachUpdate?.Approaches?.FirstOrDefault()?.Weight);
+            Assert.Equal(programDayId, resultProgramApproachUpdate?.ProgramDayId);
         }
 
         [Fact]
@@ -168,8 +169,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;
@@ -220,7 +221,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
             }, CancellationToken.None);
 
-            var approachId = resultProgramApproach.Approaches.FirstOrDefault()?.Id;
+            var approachId = resultProgramApproach?.Approaches?.FirstOrDefault()?.Id;
 
             //Assert
             var exception = await Assert.ThrowsAsync<InsufficientRightsException>(async () =>
@@ -232,7 +233,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
                     UserId = ProfileContextFactory.UserAId.ToString(),
                     Repeats = 1,
                     Weight = 1,
-                    ApproachId = approachId
+                    ApproachId = approachId ?? ""
                 }, CancellationToken.None);
             });
 

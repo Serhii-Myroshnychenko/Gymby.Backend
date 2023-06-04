@@ -20,10 +20,11 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateDiaryApproach
             ProgramExerciseCommandTestFixture fixture = new ProgramExerciseCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
+            FileService = fixture.FileService;
         }
 
         [Fact]
-        public async Task CreateProgramApproachHandler_ShouldBeSuccess()
+        public async Task CreateDiaryApproachHandler_ShouldBeSuccess()
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
@@ -78,8 +79,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateDiaryApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;
@@ -139,7 +140,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateDiaryApproach
         }
 
         [Fact]
-        public async Task CreateProgramApproachHandler_ShouldBeFail()
+        public async Task CreateDiaryApproachHandler_ShouldBeFail()
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
@@ -194,8 +195,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateDiaryApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;

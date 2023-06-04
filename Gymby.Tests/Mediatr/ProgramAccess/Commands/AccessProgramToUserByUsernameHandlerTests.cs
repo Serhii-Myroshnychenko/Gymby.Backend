@@ -18,6 +18,7 @@ namespace Gymby.UnitTests.Mediatr.ProgramAccess.Commands
             ProgramCommandTestFixture fixture = new ProgramCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
+            FileService = fixture.FileService;
         }
 
         [Fact]
@@ -43,8 +44,8 @@ namespace Gymby.UnitTests.Mediatr.ProgramAccess.Commands
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;
@@ -89,8 +90,8 @@ namespace Gymby.UnitTests.Mediatr.ProgramAccess.Commands
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;

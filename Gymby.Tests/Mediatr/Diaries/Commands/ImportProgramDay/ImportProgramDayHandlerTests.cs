@@ -22,6 +22,7 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgramDay
             ProgramExerciseCommandTestFixture fixture = new ProgramExerciseCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
+            FileService = fixture.FileService;
         }
 
         [Fact]
@@ -46,9 +47,12 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgramDay
                 Email = "user-b@gmail.com" 
             }, CancellationToken.None);
             var user = await Context.Profiles.FirstOrDefaultAsync(u => u.UserId == ProfileContextFactory.UserBId.ToString());
-            user.Username = "user-bill";
-            user.IsCoach = true;
-            await Context.SaveChangesAsync();
+            if (user != null)
+            {
+                user.Username = "user-bill";
+                user.IsCoach = true;
+                await Context.SaveChangesAsync();
+            }
 
             var resultCreateDiary = await handlerCreateDiary.Handle(new CreateDiaryCommand()
             {
@@ -62,8 +66,8 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgramDay
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;
@@ -116,7 +120,7 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgramDay
             }, CancellationToken.None);
 
             var resultDiaryDays = diary?.DiaryDays.FirstOrDefault(d => d.DiaryId == diary.Id);
-            var resultDiaryDaysExercises = resultDiaryDays?.Exercises.FirstOrDefault(d => d.Name == "ExerciseName");
+            var resultDiaryDaysExercises = resultDiaryDays?.Exercises?.FirstOrDefault(d => d.Name == "ExerciseName");
 
             // Assert
             Assert.Equal(Unit.Value, resultImport);
@@ -167,9 +171,12 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgramDay
                 Email = "user-b@gmail.com"
             }, CancellationToken.None);
             var user = await Context.Profiles.FirstOrDefaultAsync(u => u.UserId == ProfileContextFactory.UserBId.ToString());
-            user.Username = "user-bill";
-            user.IsCoach = true;
-            await Context.SaveChangesAsync();
+            if (user != null)
+            {
+                user.Username = "user-bill";
+                user.IsCoach = true;
+                await Context.SaveChangesAsync();
+            }
 
             var resultCreateDiary = await handlerCreateDiary.Handle(new CreateDiaryCommand()
             {
@@ -183,8 +190,8 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgramDay
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;

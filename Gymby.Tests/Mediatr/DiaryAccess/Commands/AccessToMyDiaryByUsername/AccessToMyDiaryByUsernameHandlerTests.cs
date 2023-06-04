@@ -16,6 +16,7 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Commands.AccessToMyDiaryByUsername
             ProgramExerciseCommandTestFixture fixture = new ProgramExerciseCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
+            FileService = fixture.FileService;
         }
 
         [Fact]
@@ -76,8 +77,12 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Commands.AccessToMyDiaryByUsername
             }, CancellationToken.None);
 
             var user = await Context.Profiles.FirstOrDefaultAsync(u => u.UserId == ProfileContextFactory.UserBId.ToString());
-            user.IsCoach = true;
-            await Context.SaveChangesAsync();
+
+            if (user != null)
+            {
+                user.IsCoach = true;
+                await Context.SaveChangesAsync();
+            }
 
             var result = await handlerAccessToMyDiaryByUsername.Handle(new AccessToMyDiaryByUsernameCommand()
             {
@@ -128,9 +133,14 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Commands.AccessToMyDiaryByUsername
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Email = "user-b@gmail.com"
             }, CancellationToken.None);
+
             var user = await Context.Profiles.FirstOrDefaultAsync(u => u.UserId == ProfileContextFactory.UserBId.ToString());
-            user.IsCoach = true;
-            await Context.SaveChangesAsync();
+
+            if (user != null)
+            {
+                user.IsCoach = true;
+                await Context.SaveChangesAsync();
+            }
 
             //Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>

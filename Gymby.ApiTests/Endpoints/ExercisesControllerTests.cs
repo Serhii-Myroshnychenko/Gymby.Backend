@@ -22,7 +22,7 @@
             var responseContent = await responseCreateExercise.Content.ReadAsStringAsync();
 
             var responseObject = JObject.Parse(responseContent);
-            var exerciseId = responseObject.GetValue("id").ToString();
+            var exerciseId = responseObject?.GetValue("id")?.ToString();
 
             var updateObj = new
             {
@@ -72,7 +72,7 @@
             var responseContent = await responseCreateExercise.Content.ReadAsStringAsync();
 
             var responseObject = JObject.Parse(responseContent);
-            var exerciseId = responseObject.GetValue("id").ToString();
+            var exerciseId = responseObject?.GetValue("id")?.ToString();
 
             var updateObj = new
             {

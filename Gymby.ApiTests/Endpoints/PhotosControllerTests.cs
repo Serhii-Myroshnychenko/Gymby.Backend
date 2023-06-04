@@ -31,7 +31,7 @@ namespace Gymby.ApiTests.Endpoints
                 .OrderByDescending(obj => DateTime.Parse(obj["creationDate"].ToString()))
                 .FirstOrDefault();
 
-            var photoId = newestObject["id"].ToString();
+            var photoId = newestObject?["id"]?.ToString();
 
             var contentDelete = new MultipartFormDataContent();
             contentDelete.Add(new StringContent(photoId), "PhotoId");
@@ -112,7 +112,7 @@ namespace Gymby.ApiTests.Endpoints
                 .OrderByDescending(obj => DateTime.Parse(obj["creationDate"].ToString()))
                 .FirstOrDefault();
 
-            var photoId = newestObject["id"].ToString();
+            var photoId = newestObject?["id"]?.ToString();
 
             var contentDelete = new MultipartFormDataContent();
             contentDelete.Add(new StringContent(photoId), "PhotoId");

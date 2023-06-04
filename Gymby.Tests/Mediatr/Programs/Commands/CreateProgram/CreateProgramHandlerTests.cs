@@ -22,6 +22,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
             ProgramCommandTestFixture fixture = new ProgramCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
+            FileService = fixture.FileService;
         }
 
         [Fact]
@@ -45,8 +46,8 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain,
+                Level = "Advanced",
+                Type = "WeightGain",
                 ProgramDays = new List<ProgramDayCM>
                     {
                        new ProgramDayCM
@@ -152,8 +153,8 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
                     UserId = ProfileContextFactory.UserAId.ToString(),
                     Name = "ProgramName1",
                     Description = "Description1",
-                    Level = Level.Advanced,
-                    Type = ProgramType.WeightGain
+                    Level = "Advanced",
+                    Type = "WeightGain"
                 }, CancellationToken.None);
             });
 

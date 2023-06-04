@@ -20,6 +20,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetProgramById
             ProgramCommandTestFixture fixture = new ProgramCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
+            FileService = fixture.FileService;
         }
 
         [Fact]
@@ -44,8 +45,8 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetProgramById
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;
@@ -61,8 +62,8 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetProgramById
             Assert.Equal("ProgramName1", resultGetProgramById.Name);
             Assert.False(resultGetProgramById.IsPublic);
             Assert.Equal("Description1", resultGetProgramById.Description);
-            Assert.Equal(ProgramType.WeightGain, resultGetProgramById.Type);
-            Assert.Equal(Level.Advanced, resultGetProgramById.Level);
+            Assert.Equal("WeightGain", resultGetProgramById.Type);
+            Assert.Equal("Advanced", resultGetProgramById.Level);
         }
 
         [Fact]

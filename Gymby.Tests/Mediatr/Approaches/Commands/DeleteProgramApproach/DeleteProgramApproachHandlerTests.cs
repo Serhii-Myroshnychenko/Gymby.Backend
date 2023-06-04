@@ -21,6 +21,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteProgramApproach
             ProgramExerciseCommandTestFixture fixture = new ProgramExerciseCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
+            FileService = fixture.FileService;
         }
 
         [Fact]
@@ -58,8 +59,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteProgramApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;
@@ -110,14 +111,14 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteProgramApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
             }, CancellationToken.None);
 
-            var approachId = resultProgramApproach.Approaches.FirstOrDefault()?.Id;
+            var approachId = resultProgramApproach?.Approaches?.FirstOrDefault()?.Id;
 
             var resultProgramApproachDelete = await handlerApproachDelete.Handle(new DeleteProgramApproachCommand()
             {
                 ExerciseId = resultProgramExerciseId,
                 ProgramId = programId,
                 UserId = ProfileContextFactory.UserBId.ToString(),
-                ApproachId = approachId
+                ApproachId = approachId ?? ""
             }, CancellationToken.None);
 
             // Assert
@@ -159,8 +160,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteProgramApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;
@@ -211,7 +212,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteProgramApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
             }, CancellationToken.None);
 
-            var approachId = resultProgramApproach.Approaches.FirstOrDefault()?.Id;
+            var approachId = resultProgramApproach?.Approaches?.FirstOrDefault()?.Id;
 
             //Assert
             var exception = await Assert.ThrowsAsync<InsufficientRightsException>(async () =>
@@ -221,7 +222,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteProgramApproach
                     ExerciseId = resultProgramExerciseId,
                     ProgramId = programId,
                     UserId = ProfileContextFactory.UserAId.ToString(),
-                    ApproachId = approachId
+                    ApproachId = approachId ?? ""
                 }, CancellationToken.None);
             });
 

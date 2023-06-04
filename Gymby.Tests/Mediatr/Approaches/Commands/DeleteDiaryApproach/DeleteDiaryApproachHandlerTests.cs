@@ -21,6 +21,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteDiaryApproach
             ProgramExerciseCommandTestFixture fixture = new ProgramExerciseCommandTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
+            FileService = fixture.FileService;
         }
 
         [Fact]
@@ -80,8 +81,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteDiaryApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;
@@ -133,12 +134,12 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteDiaryApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
             }, CancellationToken.None);
 
-            var approachId = resultDiaryApproach.Approaches.FirstOrDefault()?.Id;
+            var approachId = resultDiaryApproach?.Approaches?.FirstOrDefault()?.Id;
 
             var resultDiaryApproachDelete = await handlerApproachDelete.Handle(new DeleteDiaryApproachCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
-                ApproachId = approachId
+                ApproachId = approachId ?? ""
             }, CancellationToken.None);
 
             // Assert
@@ -202,8 +203,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteDiaryApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Name = "ProgramName1",
                 Description = "Description1",
-                Level = Level.Advanced,
-                Type = ProgramType.WeightGain
+                Level = "Advanced",
+                Type = "WeightGain"
             }, CancellationToken.None);
 
             var programId = resultProgram.Id;
