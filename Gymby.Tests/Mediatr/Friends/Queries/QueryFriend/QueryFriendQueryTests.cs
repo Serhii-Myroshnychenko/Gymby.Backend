@@ -1,11 +1,11 @@
 ﻿using Gymby.Application.Mediatr.Profiles.Queries.QueryProfile;
 
-namespace Gymby.UnitTests.Mediatr.Profiles.Queries.QueryProfile
+namespace Gymby.UnitTests.Mediatr.Friends.Queries.QueryFriend
 {
-    public class QueryProfileQueryTests
+    public class QueryFriendQueryTests
     {
         [Fact]
-        public void QueryProfileQuery_Properties_ShouldBeSetCorrectly()
+        public void QueryFriendQuery_Properties_ShouldBeSetCorrectly()
         {
             // Arrange
             var query = "testQuery";

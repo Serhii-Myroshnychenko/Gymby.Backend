@@ -207,6 +207,84 @@ namespace Gymby.ApiTests.Endpoints
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
+        [Fact]
+        public async Task ProgramsConrollerTests_QueryProgram_OnlyQuery_ShouldBeSuccess()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var apiEndpoint = "https://gymby-api.azurewebsites.net/api/program/search";
+            var queryString = "?query=gym";
+
+            // Act
+            var response = await httpClient.GetAsync(apiEndpoint + queryString);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var programs = JArray.Parse(responseContent);
+            foreach (var program in programs)
+            {
+                var name = program["name"]?.ToString();
+                Assert.Contains("gym", name);
+            }
+        }
+
+        [Fact]
+        public async Task ProgramsConrollerTests_QueryProgram_WithLevel_ShouldBeSuccess()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var apiEndpoint = "https://gymby-api.azurewebsites.net/api/program/search";
+            var queryString = "?level=beginner";
+
+            // Act
+            var response = await httpClient.GetAsync(apiEndpoint + queryString);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var programs = JArray.Parse(responseContent);
+            foreach (var program in programs)
+            {
+                var name = program["level"]?.ToString();
+                Assert.Contains("Beginner", name);
+            }
+        }
+
+        [Fact]
+        public async Task ProgramsConrollerTests_QueryProgram_WithType_ShouldBeSuccess()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var apiEndpoint = "https://gymby-api.azurewebsites.net/api/program/search";
+            var queryString = "?type=endurance";
+
+            // Act
+            var response = await httpClient.GetAsync(apiEndpoint + queryString);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var programs = JArray.Parse(responseContent);
+            foreach (var program in programs)
+            {
+                var name = program["type"]?.ToString();
+                Assert.Contains("Endurance", name);
+            }
+        }
+
         //[Fact]
         //public async Task ProgramsConrollerTests_AccessProgramToUserByUsername_ShouldBeSuccess()
         //{
