@@ -65,12 +65,52 @@
             Assert.Equal(HttpStatusCode.OK, responseImportProgramDayToDiary.StatusCode);
         }
 
+        [Fact]
+        public async Task DiariesControllerTests_ImportProgramToDiary_ShouldBeSuccess()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync("testautoimportindiary@gmail.com", "TestUser123");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var apiEndpointGetSharedPrograms = "https://gymby-api.azurewebsites.net/api/diary/import/program";
+
+            // Act
+            var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Diary", "ImportProgramToDiary.json"));
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var responseImportProgramDayToDiary = await httpClient.PostAsync(apiEndpointGetSharedPrograms, content);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, responseImportProgramDayToDiary.StatusCode);
+        }
+
+        [Fact]
+        public async Task DiariesControllerTests_ImportProgramToSharedDiary_ShouldBeSuccess()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync("testautoimportindiary@gmail.com", "TestUser123");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var apiEndpointGetSharedPrograms = "https://gymby-api.azurewebsites.net/api/diary/import/program";
+
+            // Act
+            var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Diary", "ImportProgramToDiaryFromCoach.json"));
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var responseImportProgramDayToDiary = await httpClient.PostAsync(apiEndpointGetSharedPrograms, content);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, responseImportProgramDayToDiary.StatusCode);
+        }
+
         //[Fact]
         //public async Task DiariesControllerTests_AccessToMyDiaryByUsername_ShouldBeSuccess()
         //{
         //    // Arrange
         //    IAuthorization authorization = new Utils.Authorization();
-        //    var accessToken = await authorization.GetAccessTokenAsync("programsshared1@gmail.com", "TestUser123");
+        //    var accessToken = await authorization.GetAccessTokenAsync("testimporttt@gmail.com", "TestUser123");
         //    var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
         //    var apiEndpointGetSharedPrograms = "https://gymby-api.azurewebsites.net/api/diary/access";
