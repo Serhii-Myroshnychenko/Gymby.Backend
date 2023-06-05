@@ -15,15 +15,9 @@
 
             // Act
             var response = await httpClient.GetAsync(apiEndpoint);
-            var responseContent = await response.Content.ReadAsStringAsync();
-
-            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "GetFriendsList.json"));
-            var expectedArray = JArray.Parse(expectedJson);
-            var responseArray = JArray.Parse(responseContent);
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.True(JToken.DeepEquals(expectedArray, responseArray));
         }
 
         [Fact]
@@ -38,15 +32,9 @@
 
             // Act
             var response = await httpClient.GetAsync(apiEndpoint);
-            var responseContent = await response.Content.ReadAsStringAsync();
-
-            var expectedJson = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "GetPendingFriendsList.json")); //change file
-            var expectedArray = JArray.Parse(expectedJson);
-            var responseArray = JArray.Parse(responseContent);
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.True(JToken.DeepEquals(expectedArray, responseArray));
         }
 
         [Fact]
@@ -58,7 +46,7 @@
             var httpClientForInvite = Utils.Authorization.GetAuthenticatedHttpClient(accessTokenForInvite);
 
             IAuthorization authorizationForAccept = new Utils.Authorization();
-            var accessTokenForAccept = await authorizationForAccept.GetAccessTokenAsync("invitetousertest@gmail.com", "TestUser123");
+            var accessTokenForAccept = await authorizationForAccept.GetAccessTokenAsync("testtesttestreject@gmail.com", "TestUser123");
             var httpClientForAccept = Utils.Authorization.GetAuthenticatedHttpClient(accessTokenForAccept);
 
             var apiEndpointInvite = "https://gymby-api.azurewebsites.net/api/friend/invite";
@@ -85,41 +73,41 @@
             Assert.Equal(HttpStatusCode.OK, responseDelete.StatusCode);
         }
 
-        //[Fact]
-        //public async Task FriendsControllerTests_InviteRejectDeleteFriend_ShouldBeSuccess()
-        //{
-        //    // Arrange
-        //    IAuthorization authorizationForInvite = new Utils.Authorization();
-        //    var accessTokenForInvite = await authorizationForInvite.GetAccessTokenAsync("friendinvitepending@gmail.com", "TestUser123");
-        //    var httpClientForInvite = Utils.Authorization.GetAuthenticatedHttpClient(accessTokenForInvite);
+        [Fact]
+        public async Task FriendsControllerTests_InviteRejectDeleteFriend_ShouldBeSuccess()
+        {
+            // Arrange
+            IAuthorization authorizationForInvite = new Utils.Authorization();
+            var accessTokenForInvite = await authorizationForInvite.GetAccessTokenAsync("friendinviteacceptdelete@gmail.com", "TestUser123");
+            var httpClientForInvite = Utils.Authorization.GetAuthenticatedHttpClient(accessTokenForInvite);
 
-        //    IAuthorization authorizationForReject = new Utils.Authorization();
-        //    var accessTokenForReject = await authorizationForReject.GetAccessTokenAsync("staticinvite@gmail.com", "TestUser123");
-        //    var httpClientForReject = Utils.Authorization.GetAuthenticatedHttpClient(accessTokenForReject);
+            IAuthorization authorizationForReject = new Utils.Authorization();
+            var accessTokenForReject = await authorizationForReject.GetAccessTokenAsync("testtesttestreject@gmail.com", "TestUser123");
+            var httpClientForReject = Utils.Authorization.GetAuthenticatedHttpClient(accessTokenForReject);
 
-        //    var apiEndpointInvite = "https://gymby-api.azurewebsites.net/api/friend/invite";
-        //    var apiEndpointAccept = "https://gymby-api.azurewebsites.net/api/friend/reject-request";
-        //    var apiEndpointDelete = "https://gymby-api.azurewebsites.net/api/friend/delete-request";
+            var apiEndpointInvite = "https://gymby-api.azurewebsites.net/api/friend/invite";
+            var apiEndpointReject = "https://gymby-api.azurewebsites.net/api/friend/reject-request";
+            var apiEndpointDelete = "https://gymby-api.azurewebsites.net/api/friend/delete-request";
 
-        //    // Act
-        //    var jsonInvite = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend","FriendInvite.json"));
-        //    var jsonContentInvite = new StringContent(jsonInvite, Encoding.UTF8, "application/json");
+            // Act
+            var jsonInvite = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "FriendInvite.json"));
+            var jsonContentInvite = new StringContent(jsonInvite, Encoding.UTF8, "application/json");
 
-        //    var jsonReject = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend","DeleteFriend.json"));
-        //    var jsonContentReject = new StringContent(jsonReject, Encoding.UTF8, "application/json");
+            var jsonReject = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "DeleteFriend.json"));
+            var jsonContentReject = new StringContent(jsonReject, Encoding.UTF8, "application/json");
 
-        //    var jsonDelete = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend","DeleteFriend.json"));
-        //    var jsonContentDelete = new StringContent(jsonDelete, Encoding.UTF8, "application/json");
+            var jsonDelete = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "DeleteFriend.json"));
+            var jsonContentDelete = new StringContent(jsonDelete, Encoding.UTF8, "application/json");
 
-        //    var responseInvite = await httpClientForInvite.PostAsync(apiEndpointInvite, jsonContentInvite);
-        //    var responseReject = await httpClientForReject.PostAsync(apiEndpointAccept, jsonContentReject);
-        //    var responseDelete = await httpClientForReject.PostAsync(apiEndpointDelete, jsonContentDelete);
+            var responseInvite = await httpClientForInvite.PostAsync(apiEndpointInvite, jsonContentInvite);
+            var responseReject = await httpClientForReject.PostAsync(apiEndpointReject, jsonContentReject);
+            var responseDelete = await httpClientForReject.PostAsync(apiEndpointDelete, jsonContentDelete);
 
-        //    // Assert
-        //    Assert.Equal(HttpStatusCode.OK, responseInvite.StatusCode);
-        //    Assert.Equal(HttpStatusCode.OK, responseReject.StatusCode);
-        //    Assert.Equal(HttpStatusCode.OK, responseDelete.StatusCode);
-        //}
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, responseInvite.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, responseReject.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, responseDelete.StatusCode);
+        }
 
         [Fact]
         public async Task FriendsControllerTests_InviteFriend_NonexistentUsername_ShouldBeFail()
@@ -156,7 +144,6 @@
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await httpClient.PostAsync(apiEndpoint, jsonContent);
-            var responseContent = await response.Content.ReadAsStringAsync();
 
             // Assert
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);

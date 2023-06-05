@@ -42,11 +42,11 @@ namespace Gymby.ApiTests.Endpoints
             var responseObject = JObject.Parse(responseContent);
 
             var measurements = responseObject["measurements"];
-            var addedMeasurement = measurements.FirstOrDefault(m =>
-                m["date"].ToString() == expectedObject["date"].ToString() &&
-                m["type"].ToString() == expectedObject["type"].ToString() &&
-                m["value"].ToString() == expectedObject["value"].ToString() &&
-                m["unit"].ToString() == expectedObject["unit"].ToString()
+            var addedMeasurement = measurements?.FirstOrDefault(m =>
+                m["date"]?.ToString() == expectedObject["date"]?.ToString() &&
+                m["type"]?.ToString() == expectedObject["type"]?.ToString() &&
+                m["value"]?.ToString() == expectedObject["value"]?.ToString() &&
+                m["unit"]?.ToString() == expectedObject["unit"]?.ToString()
             );
 
             // Assert
@@ -101,14 +101,8 @@ namespace Gymby.ApiTests.Endpoints
             var expectedObject = JObject.Parse(json);
             var responseObject = JObject.Parse(responseContent);
 
-            var measurements = responseObject["measurements"];
-            var addedMeasurement = measurements.FirstOrDefault(m =>
-                m["id"].ToString() == expectedObject["id"].ToString() &&
-                m["date"].ToString() == expectedObject["date"].ToString() &&
-                m["type"].ToString() == expectedObject["type"].ToString() &&
-                m["value"].ToString() == expectedObject["value"].ToString() &&
-                m["unit"].ToString() == expectedObject["unit"].ToString()
-            );
+            var measurements = responseObject["measurements"] as JArray;
+            var addedMeasurement = measurements?.FirstOrDefault(m => JToken.DeepEquals(m, expectedObject));
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -133,11 +127,11 @@ namespace Gymby.ApiTests.Endpoints
 
             var response = await httpClient.PostAsync(apiEndpointCreate, jsonContent);
             var responseContent = await response.Content.ReadAsStringAsync();
-            
-            var responseObj = JsonConvert.DeserializeObject<JObject>(responseContent);
-            var measurementsArray = responseObj.Value<JArray>("measurements");
-            var measurementWithDate = measurementsArray.FirstOrDefault(m => m.Value<DateTime>("date") == DateTime.Parse("2023-06-01T20:30:08.593"));
-            var measurementId = measurementWithDate.Value<string>("id");
+            var responseObj = JObject.Parse(responseContent);
+
+            var measurementsArray = responseObj["measurements"] as JArray;
+            var measurementWithDate = measurementsArray?.FirstOrDefault(m => m.Value<DateTime>("date") == DateTime.Parse("2023-06-01T20:30:08.593"));
+            var measurementId = measurementWithDate?.Value<string>("id");
 
             var deleteJson = @"{ ""id"": """ + measurementId + @""" }";
             var deleteJsonContent = new StringContent(deleteJson, Encoding.UTF8, "application/json");
