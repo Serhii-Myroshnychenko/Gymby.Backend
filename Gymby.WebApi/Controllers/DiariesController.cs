@@ -1,4 +1,5 @@
-﻿using Gymby.Application.Mediatr.Diaries.Command.ImportProgramDay;
+﻿using Gymby.Application.Mediatr.Diaries.Command.ImportProgram;
+using Gymby.Application.Mediatr.Diaries.Command.ImportProgramDay;
 using Gymby.Application.Mediatr.DiaryAccesses.Commands.AccessToMyDiaryByUsername;
 using Gymby.Application.Mediatr.DiaryAccesses.Queries.GetAllAvailableDiaries;
 using Gymby.Application.Mediatr.DiaryDay.Queries.GetDiaryDay;
@@ -65,6 +66,22 @@ namespace Gymby.WebApi.Controllers
             };
 
             return Ok(await Mediator.Send(query));
+        }
+
+        [Authorize]
+        [HttpPost("import/program")]
+        public async Task<IActionResult> ImportProgram([FromBody] ImportProgramDto request)
+        {
+            var command = new ImportProgramCommand()
+            {
+                StartDate = request.StartDate,
+                DiaryId = request.DiaryId,
+                UserId = UserId.ToString(),
+                DaysOfWeek = request.DaysOfWeek,
+                ProgramId = request.ProgramId
+            };
+
+            return Ok(await Mediator.Send(command));
         }
     }
 }

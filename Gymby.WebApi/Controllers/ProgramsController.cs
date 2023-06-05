@@ -8,6 +8,7 @@ using Gymby.Application.Mediatr.Programs.Queries.GetFreePrograms;
 using Gymby.Application.Mediatr.Programs.Queries.GetPersonalPrograms;
 using Gymby.Application.Mediatr.Programs.Queries.GetProgramById;
 using Gymby.Application.Mediatr.Programs.Queries.GetProgramsFromCoach;
+using Gymby.Application.Mediatr.Programs.Queries.QueryProgram;
 using Gymby.WebApi.Models;
 using Gymby.WebApi.Models.CreateProgramDtos;
 using Microsoft.AspNetCore.Authorization;
@@ -125,6 +126,21 @@ namespace Gymby.WebApi.Controllers
             };
 
             return Ok(await Mediator.Send(command));
+        }
+
+        [Authorize]
+        [HttpGet("program/search")]
+        public async Task<IActionResult> QueryProgram(string? level, string? type, string? query)
+        {
+            var search = new QueryProgramQuery()
+            {
+                UserId = UserId.ToString(),
+                Query = query,
+                Level = level,
+                Type = type
+            };
+
+            return Ok(await Mediator.Send(search));
         }
     }
 }

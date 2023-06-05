@@ -58,8 +58,10 @@ public class ProfilesController : BaseController
     {
         var search = new QueryProfileQuery()
         {
+            UserId = UserId.ToString(),
             Type = type,
-            Query = query
+            Query = query,
+            Options = _config
         };
 
         return Ok(await Mediator.Send(search));
