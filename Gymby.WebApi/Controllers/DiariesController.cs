@@ -1,5 +1,6 @@
 ﻿using Gymby.Application.Mediatr.Diaries.Command.ImportProgram;
 using Gymby.Application.Mediatr.Diaries.Command.ImportProgramDay;
+using Gymby.Application.Mediatr.Diaries.Queries.GetDiaryCalendarRepresentaion;
 using Gymby.Application.Mediatr.DiaryAccesses.Commands.AccessToMyDiaryByUsername;
 using Gymby.Application.Mediatr.DiaryAccesses.Queries.GetAllAvailableDiaries;
 using Gymby.Application.Mediatr.DiaryDay.Queries.GetDiaryDay;
@@ -79,6 +80,21 @@ namespace Gymby.WebApi.Controllers
                 UserId = UserId.ToString(),
                 DaysOfWeek = request.DaysOfWeek,
                 ProgramId = request.ProgramId
+            };
+
+            return Ok(await Mediator.Send(command));
+        }
+
+        [Authorize]
+        [HttpPost("trainings")]
+        public async Task<IActionResult> DiaryCalendarRepresentation([FromBody] DiaryCalendarRepresentationDto request)
+        {
+            var command = new GetDiaryCalendarRepresentationQuery()
+            {
+                UserId = UserId.ToString(),
+                DiaryId = request.DiaryId,
+                EndDate = request.EndDate,
+                StartDate = request.StartDate
             };
 
             return Ok(await Mediator.Send(command));

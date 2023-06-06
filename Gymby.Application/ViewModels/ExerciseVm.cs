@@ -1,5 +1,4 @@
-﻿
-using Gymby.Application.Common.Mappings;
+﻿using Gymby.Application.Common.Mappings;
 using Gymby.Domain.Entities;
 
 namespace Gymby.Application.ViewModels;

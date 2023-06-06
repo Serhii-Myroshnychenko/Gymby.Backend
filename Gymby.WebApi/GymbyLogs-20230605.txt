@@ -1,0 +1,92 @@
+2023-06-05 19:29:56.274 +03:00 [INF] Executed DbCommand (106ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2023-06-05 19:29:56.470 +03:00 [INF] Executed DbCommand (99ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2023-06-05 19:29:56.680 +03:00 [INF] User profile is available. Using 'C:\Users\Xiaomi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-06-05 19:29:56.941 +03:00 [INF] Now listening on: https://localhost:7120
+2023-06-05 19:29:56.942 +03:00 [INF] Now listening on: http://localhost:5120
+2023-06-05 19:29:56.948 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-06-05 19:29:56.949 +03:00 [INF] Hosting environment: Development
+2023-06-05 19:29:56.949 +03:00 [INF] Content root path: C:\Users\Xiaomi\source\repos\Gymby.Backend\Gymby.WebApi\
+2023-06-05 19:30:01.291 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/swagger/index.html - -
+2023-06-05 19:30:01.965 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/_framework/aspnetcore-browser-refresh.js - -
+2023-06-05 19:30:01.966 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/swagger/index.html - - - 200 - text/html;charset=utf-8 680.7164ms
+2023-06-05 19:30:01.979 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 14.2473ms
+2023-06-05 19:30:02.018 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/_vs/browserLink - -
+2023-06-05 19:30:02.040 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 21.9612ms
+2023-06-05 19:30:03.152 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/swagger/v1/swagger.json - -
+2023-06-05 19:30:03.410 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 257.2205ms
+2023-06-05 19:30:07.113 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:7120/api/profile - -
+2023-06-05 19:30:08.533 +03:00 [INF] Gymby Web API Request: CreateProfileCommand "c72e430c-3a81-464a-a43b-76ca8be554dc" {"UserId":"c72e430c-3a81-464a-a43b-76ca8be554dc","Email":"programstest@gmail.com","$type":"CreateProfileCommand"}
+2023-06-05 19:30:09.542 +03:00 [INF] Executed DbCommand (147ms) [Parameters=[@__createProfile_UserId_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Description], [p].[Email], [p].[FacebookUrl], [p].[FirstName], [p].[InstagramUrl], [p].[IsCoach], [p].[LastName], [p].[PhotoAvatarPath], [p].[TelegramUsername], [p].[UserId], [p].[Username]
+FROM [Profile] AS [p]
+WHERE [p].[UserId] = @__createProfile_UserId_0
+2023-06-05 19:30:09.711 +03:00 [INF] Gymby Web API Request: CreateDiaryCommand "c72e430c-3a81-464a-a43b-76ca8be554dc" {"UserId":"c72e430c-3a81-464a-a43b-76ca8be554dc","$type":"CreateDiaryCommand"}
+2023-06-05 19:30:10.143 +03:00 [INF] Executed DbCommand (59ms) [Parameters=[@__request_UserId_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[Id], [d].[DiaryId], [d].[Type], [d].[UserId]
+FROM [DiaryAccess] AS [d]
+WHERE [d].[UserId] = @__request_UserId_0 AND [d].[Type] = 0
+2023-06-05 19:30:10.226 +03:00 [INF] Executed DbCommand (59ms) [Parameters=[@__request_UserId_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Description], [p].[Email], [p].[FacebookUrl], [p].[FirstName], [p].[InstagramUrl], [p].[IsCoach], [p].[LastName], [p].[PhotoAvatarPath], [p].[TelegramUsername], [p].[UserId], [p].[Username]
+FROM [Profile] AS [p]
+WHERE [p].[UserId] = @__request_UserId_0
+2023-06-05 19:30:10.228 +03:00 [INF] Executing endpoint 'Gymby.WebApi.Controllers.ProfilesController.GetMyProfile (Gymby.WebApi)'
+2023-06-05 19:30:10.269 +03:00 [INF] Route matched with {action = "GetMyProfile", controller = "Profiles"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Gymby.Application.ViewModels.ProfileVm]] GetMyProfile() on controller Gymby.WebApi.Controllers.ProfilesController (Gymby.WebApi).
+2023-06-05 19:30:10.339 +03:00 [INF] Gymby Web API Request: GetMyProfileQuery "c72e430c-3a81-464a-a43b-76ca8be554dc" {"Options":{"Value":{"Profile":"Profiles","Measurement":"Measurements","Avatar":"Avatar","ContainerName":"pictures","AzureBlobStorage":"DefaultEndpointsProtocol=https;AccountName=gymbystorage;AccountKey=oKSNb2dWxRFrK+UF/bLKE3xleZBck7d0g6Kp686BAp+rAEYmp+ej0AEBP7R11C0F/L8ywh/6CySG+AStgIWAJA==;EndpointSuffix=core.windows.net","Host":"https://localhost:7120/","DirectoryPath":"C:/Users/Xiaomi/source/repos/Gymby.Backend/Gymby.WebApi","$type":"AppConfig"},"$type":"UnnamedOptionsManager`1"},"UserId":"c72e430c-3a81-464a-a43b-76ca8be554dc","Email":"programstest@gmail.com","$type":"GetMyProfileQuery"}
+2023-06-05 19:30:10.414 +03:00 [INF] Executed DbCommand (59ms) [Parameters=[@__query_UserId_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Description], [p].[Email], [p].[FacebookUrl], [p].[FirstName], [p].[InstagramUrl], [p].[IsCoach], [p].[LastName], [p].[PhotoAvatarPath], [p].[TelegramUsername], [p].[UserId], [p].[Username]
+FROM [Profile] AS [p]
+WHERE [p].[UserId] = @__query_UserId_0
+2023-06-05 19:30:10.525 +03:00 [INF] Executed DbCommand (63ms) [Parameters=[@__query_UserId_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CreationDate], [p].[IsMeasurement], [p].[MeasurementDate], [p].[PhotoPath], [p].[UserId]
+FROM [Photo] AS [p]
+WHERE [p].[UserId] = @__query_UserId_0 AND [p].[IsMeasurement] = CAST(0 AS bit)
+2023-06-05 19:30:10.569 +03:00 [INF] Executing OkObjectResult, writing value of type 'Gymby.Application.ViewModels.ProfileVm'.
+2023-06-05 19:30:10.625 +03:00 [INF] Executed action Gymby.WebApi.Controllers.ProfilesController.GetMyProfile (Gymby.WebApi) in 347.7627ms
+2023-06-05 19:30:10.627 +03:00 [INF] Executed endpoint 'Gymby.WebApi.Controllers.ProfilesController.GetMyProfile (Gymby.WebApi)'
+2023-06-05 19:30:10.647 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:7120/api/profile - - - 200 - application/json;+charset=utf-8 3534.3023ms
+2023-06-05 19:30:21.262 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:7120/api/profile - -
+2023-06-05 19:30:21.265 +03:00 [INF] Gymby Web API Request: CreateProfileCommand "c72e430c-3a81-464a-a43b-76ca8be554dc" {"UserId":"c72e430c-3a81-464a-a43b-76ca8be554dc","Email":"programstest@gmail.com","$type":"CreateProfileCommand"}
+2023-06-05 19:30:21.398 +03:00 [INF] Executed DbCommand (60ms) [Parameters=[@__createProfile_UserId_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Description], [p].[Email], [p].[FacebookUrl], [p].[FirstName], [p].[InstagramUrl], [p].[IsCoach], [p].[LastName], [p].[PhotoAvatarPath], [p].[TelegramUsername], [p].[UserId], [p].[Username]
+FROM [Profile] AS [p]
+WHERE [p].[UserId] = @__createProfile_UserId_0
+2023-06-05 19:30:21.398 +03:00 [INF] Gymby Web API Request: CreateDiaryCommand "c72e430c-3a81-464a-a43b-76ca8be554dc" {"UserId":"c72e430c-3a81-464a-a43b-76ca8be554dc","$type":"CreateDiaryCommand"}
+2023-06-05 19:30:21.458 +03:00 [INF] Executed DbCommand (58ms) [Parameters=[@__request_UserId_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[Id], [d].[DiaryId], [d].[Type], [d].[UserId]
+FROM [DiaryAccess] AS [d]
+WHERE [d].[UserId] = @__request_UserId_0 AND [d].[Type] = 0
+2023-06-05 19:30:21.519 +03:00 [INF] Executed DbCommand (61ms) [Parameters=[@__request_UserId_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Description], [p].[Email], [p].[FacebookUrl], [p].[FirstName], [p].[InstagramUrl], [p].[IsCoach], [p].[LastName], [p].[PhotoAvatarPath], [p].[TelegramUsername], [p].[UserId], [p].[Username]
+FROM [Profile] AS [p]
+WHERE [p].[UserId] = @__request_UserId_0
+2023-06-05 19:30:21.520 +03:00 [INF] Executing endpoint 'Gymby.WebApi.Controllers.ProfilesController.GetMyProfile (Gymby.WebApi)'
+2023-06-05 19:30:21.520 +03:00 [INF] Route matched with {action = "GetMyProfile", controller = "Profiles"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Gymby.Application.ViewModels.ProfileVm]] GetMyProfile() on controller Gymby.WebApi.Controllers.ProfilesController (Gymby.WebApi).
+2023-06-05 19:30:21.521 +03:00 [INF] Gymby Web API Request: GetMyProfileQuery "c72e430c-3a81-464a-a43b-76ca8be554dc" {"Options":{"Value":{"Profile":"Profiles","Measurement":"Measurements","Avatar":"Avatar","ContainerName":"pictures","AzureBlobStorage":"DefaultEndpointsProtocol=https;AccountName=gymbystorage;AccountKey=oKSNb2dWxRFrK+UF/bLKE3xleZBck7d0g6Kp686BAp+rAEYmp+ej0AEBP7R11C0F/L8ywh/6CySG+AStgIWAJA==;EndpointSuffix=core.windows.net","Host":"https://localhost:7120/","DirectoryPath":"C:/Users/Xiaomi/source/repos/Gymby.Backend/Gymby.WebApi","$type":"AppConfig"},"$type":"UnnamedOptionsManager`1"},"UserId":"c72e430c-3a81-464a-a43b-76ca8be554dc","Email":"programstest@gmail.com","$type":"GetMyProfileQuery"}
+2023-06-05 19:30:21.588 +03:00 [INF] Executed DbCommand (66ms) [Parameters=[@__query_UserId_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Description], [p].[Email], [p].[FacebookUrl], [p].[FirstName], [p].[InstagramUrl], [p].[IsCoach], [p].[LastName], [p].[PhotoAvatarPath], [p].[TelegramUsername], [p].[UserId], [p].[Username]
+FROM [Profile] AS [p]
+WHERE [p].[UserId] = @__query_UserId_0
+2023-06-05 19:30:21.646 +03:00 [INF] Executed DbCommand (57ms) [Parameters=[@__query_UserId_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CreationDate], [p].[IsMeasurement], [p].[MeasurementDate], [p].[PhotoPath], [p].[UserId]
+FROM [Photo] AS [p]
+WHERE [p].[UserId] = @__query_UserId_0 AND [p].[IsMeasurement] = CAST(0 AS bit)
+2023-06-05 19:30:21.646 +03:00 [INF] Executing OkObjectResult, writing value of type 'Gymby.Application.ViewModels.ProfileVm'.
+2023-06-05 19:30:21.647 +03:00 [INF] Executed action Gymby.WebApi.Controllers.ProfilesController.GetMyProfile (Gymby.WebApi) in 126.7067ms
+2023-06-05 19:30:21.647 +03:00 [INF] Executed endpoint 'Gymby.WebApi.Controllers.ProfilesController.GetMyProfile (Gymby.WebApi)'
+2023-06-05 19:30:21.647 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:7120/api/profile - - - 200 - application/json;+charset=utf-8 385.0675ms

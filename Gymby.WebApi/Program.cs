@@ -5,10 +5,23 @@ using Gymby.Application.Interfaces;
 using Gymby.Persistence.Data;
 using Gymby.Persistence.DI;
 using Gymby.WebApi.Middleware;
+using Gymby.WebApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Serilog;
+using Serilog.Events;
 using System.Reflection;
 
 var configuration = GetConfiguration();
+
+//Log.Logger = new LoggerConfiguration()
+//    .WriteTo.Console()
+//    .MinimumLevel.Information().CreateLogger();
+
+Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .WriteTo.File("GymbyLogs-.txt", rollingInterval:
+                    RollingInterval.Day)
+                .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<AppConfig>(configuration);
@@ -43,6 +56,10 @@ builder.Services.AddAuthentication(config =>
     options.Audience = "GymbyWebAPI";
     options.RequireHttpsMetadata = false;
 });
+builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
+builder.Services.AddHttpContextAccessor();
+
+builder.Host.UseSerilog();  
 
 var app = builder.Build();
 
@@ -56,7 +73,7 @@ using (var scope = app.Services.CreateScope())
     }
     catch(Exception ex)
     {
-
+        Log.Fatal(ex, "An error occurred while app initialization");
     }
 }
 
