@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gymby.WebApi", "..\Gymby.We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gymby.UnitTests", "..\Gymby.Tests\Gymby.UnitTests.csproj", "{F6D999C2-BFFF-4E1F-BC3E-18652F6117CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymby.ApiTests", "..\Gymby.ApiTests\Gymby.ApiTests.csproj", "{2883A8C9-9303-408F-81F3-42F6FA6E7F3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gymby.ApiTests", "..\Gymby.ApiTests\Gymby.ApiTests.csproj", "{2883A8C9-9303-408F-81F3-42F6FA6E7F3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymby.UITests", "..\Gymby.UITests\Gymby.UITests.csproj", "{1C7A76A1-8B22-4EFB-A41C-74204F3445E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{2883A8C9-9303-408F-81F3-42F6FA6E7F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2883A8C9-9303-408F-81F3-42F6FA6E7F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2883A8C9-9303-408F-81F3-42F6FA6E7F3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C7A76A1-8B22-4EFB-A41C-74204F3445E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C7A76A1-8B22-4EFB-A41C-74204F3445E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C7A76A1-8B22-4EFB-A41C-74204F3445E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C7A76A1-8B22-4EFB-A41C-74204F3445E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{617FE2EE-560F-4B67-97F1-D01A4E4628F6} = {43F18C0C-CC31-4479-BA43-A1ACDBB43EFA}
 		{F6D999C2-BFFF-4E1F-BC3E-18652F6117CA} = {1F2A8380-B258-46DC-A532-70302F325926}
 		{2883A8C9-9303-408F-81F3-42F6FA6E7F3C} = {1F2A8380-B258-46DC-A532-70302F325926}
+		{1C7A76A1-8B22-4EFB-A41C-74204F3445E8} = {1F2A8380-B258-46DC-A532-70302F325926}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2084AB36-B065-4075-A120-FDECDB785D22}
