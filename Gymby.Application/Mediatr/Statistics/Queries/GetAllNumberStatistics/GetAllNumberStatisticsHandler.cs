@@ -20,36 +20,46 @@ public class GetAllNumberStatisticsHandler
 
     public async Task<NumericStatisticsVm> Handle(GetAllNumberStatisticsQuery request, CancellationToken cancellationToken)
     {
-        var numericStatisticsVm = new NumericStatisticsVm();
+        var diaryAccess = await _dbContext.DiaryAccess
+        .FirstOrDefaultAsync(d => d.UserId == request.UserId && d.Type == AccessType.Owner, cancellationToken)
+        ?? throw new NotFoundEntityException(request.UserId, nameof(DiaryAccess));
 
-        //var diaryAccess = await _dbContext.DiaryAccess
-        //    .FirstOrDefaultAsync(d => d.UserId == request.UserId && d.Type == AccessType.Owner, cancellationToken)
-        //        ?? throw new NotFoundEntityException(request.UserId,nameof(DiaryAccess));
+        var statistics = await _dbContext.DiaryDays
+            .Include(d => d.Exercises)!
+                .ThenInclude(e => e.Approaches)
+            .Where(d => d.DiaryId == diaryAccess.DiaryId)
+            .SelectMany(d => d.Exercises!)
+            .ToListAsync(cancellationToken);
 
-        //var diaryDays = await _dbContext.DiaryDays
-        //    .Include(d => d.Exercises)!
-        //        .ThenInclude(d => d.Approaches)
-        //            .Where(d => d.DiaryId == diaryAccess.DiaryId)
-        //                 .ToListAsync(cancellationToken);
+        int countOfExecutedExercises = statistics
+            .Count(exercise => exercise.Approaches.All(approach => approach.IsDone));
 
-        //int countOfExecutedExercises = 0;
-        //int countOfTrainings = 0;
-        //int countOfExecutedApproaches = 0;
-        //int maxApproachesCountPerTraining = 0;
-        //int maxTonnagePerTrainin = 0;
-        //int maxExercisesCountPerTraining = 0;
+        int countOfTrainings = statistics.Count;
 
-        //foreach(var day in diaryDays)
-        //{
-        //    countOfTrainings++;
-        //    if(day.Exercises != null && day.Exercises.Count > 0)
-        //    {
-        //        foreach(var exercise in day.Exercises)
-        //        {
-        //            exercise.
-        //        }
-        //    }
-        //}
-        return numericStatisticsVm;
+        int countOfExecutedApproaches = statistics
+            .SelectMany(exercise => exercise.Approaches)
+            .Count(approach => approach.IsDone);
+
+        int maxApproachesCountPerTraining = statistics
+            .Max(exercise => exercise.Approaches.Sum(approach => approach.Repeats));
+
+        double maxTonnagePerTraining = statistics
+            .SelectMany(exercise => exercise.Approaches)
+            .Where(approach => approach.IsDone)
+            .Sum(approach => approach.Weight);
+
+        int maxExercisesCountPerTraining = statistics
+            .GroupBy(exercise => exercise.DiaryDayId)
+            .Max(group => group.Count());
+
+        return new NumericStatisticsVm()
+        {
+            CountOfExecutedApproaches = countOfExecutedApproaches,
+            MaxApproachesCountPerTraining = maxApproachesCountPerTraining,
+            MaxExercisesCountPerTraining = maxExercisesCountPerTraining,
+            MaxTonnagePerTraining = maxTonnagePerTraining,
+            СountOfTrainings = countOfTrainings,
+            СountOfExecutedExercises = countOfExecutedExercises
+        };
     }
 }
