@@ -124,8 +124,6 @@
             Thread.Sleep(TimeSpan.FromSeconds(1));
             driver.FindElement(By.CssSelector(".MeasurementsItem_deleteButton__iuuTP > img")).Click();
             Thread.Sleep(TimeSpan.FromSeconds(3));
-
-
         }
     }
 }

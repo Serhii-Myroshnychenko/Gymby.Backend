@@ -120,7 +120,7 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.DeleteDiaryExercise
             var resultDiaryExercise = await handlerDiaryExerciseCreate.Handle(new CreateDiaryExerciseCommand()
             {
                 ProgramDayId = programDayId,
-                DiaryId = diaryId,
+                DiaryId = null,
                 Name = "ExerciseNameInDiary1",
                 Date = dateValue,
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -234,7 +234,7 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.DeleteDiaryExercise
             var resultDiaryExercise = await handlerDiaryExerciseCreate.Handle(new CreateDiaryExerciseCommand()
             {
                 ProgramDayId = programDayId,
-                DiaryId = diaryId,
+                DiaryId = null,
                 Name = "ExerciseNameInDiary1",
                 Date = dateValue,
                 UserId = ProfileContextFactory.UserBId.ToString(),

@@ -115,7 +115,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateDiaryApproach
             var resultDiaryExercise = await handlerDiaryExercise.Handle(new CreateDiaryExerciseCommand()
             {
                 ProgramDayId = programDayId,
-                DiaryId = diaryId,
+                DiaryId = null,
                 Name = "ExerciseNameInDiary",
                 Date = dateValue,
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -231,7 +231,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateDiaryApproach
             var resultDiaryExercise = await handlerDiaryExercise.Handle(new CreateDiaryExerciseCommand()
             {
                 ProgramDayId = programDayId,
-                DiaryId = diaryId,
+                DiaryId = null,
                 Name = "ExerciseNameInDiary",
                 Date = dateValue,
                 UserId = ProfileContextFactory.UserBId.ToString(),
