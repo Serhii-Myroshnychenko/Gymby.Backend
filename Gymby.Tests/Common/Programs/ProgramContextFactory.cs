@@ -19,7 +19,7 @@
                     Id = "program1",
                     Name = "ProgramName1",
                     Description = "Description1",
-                    IsPublic = false,
+                    IsPublic = true,
                     Level = Level.Advanced,
                     Type = ProgramType.WeightGain,
                     ProgramDays = new List<ProgramDay>
