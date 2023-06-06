@@ -91,7 +91,8 @@ public class CreateProgramHandler
                                     Weight = approachRequest.Weight,
                                     IsDone = false,
                                     CreationDate = DateTime.Now,
-                                    Exercise = exercise
+                                    Exercise = exercise,
+                                    Interval = approachRequest.Interval
                                 };
                                 approaches.Add(approach);
                             }

@@ -33,7 +33,7 @@ public class DeleteProgramDayHandler
             ?? throw new NotFoundEntityException(request.ProgramId, nameof(Program));
 
         var programDay = await _dbContext.ProgramDays
-                .Include(p => p.Exercises)
+                .Include(p => p.Exercises)!
                     .ThenInclude(c => c.Approaches)
             .FirstOrDefaultAsync(p => p.Id == request.ProgramDayId && p.ProgramId == request.ProgramId, cancellationToken)
             ?? throw new NotFoundEntityException(request.ProgramDayId, nameof(ProgramDay));

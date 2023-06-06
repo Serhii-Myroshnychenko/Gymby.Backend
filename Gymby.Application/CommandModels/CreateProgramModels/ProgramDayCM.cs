@@ -1,6 +1,4 @@
-﻿using Gymby.Application.Common.Mappings;
-
-namespace Gymby.Application.CommandModels.CreateProgramModels;
+﻿namespace Gymby.Application.CommandModels.CreateProgramModels;
 
 public class ProgramDayCM
 {

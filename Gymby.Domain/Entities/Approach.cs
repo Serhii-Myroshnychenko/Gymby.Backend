@@ -7,6 +7,7 @@ public class Approach
     public int Repeats { get; set; }
     public double Weight { get; set; }
     public bool IsDone { get; set; }
+    public int Interval { get; set; }
     public DateTime CreationDate { get; set; }
     public virtual Exercise Exercise { get; set; } = null!;
 }

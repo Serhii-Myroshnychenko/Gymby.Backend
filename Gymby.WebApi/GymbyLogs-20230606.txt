@@ -194,3 +194,35 @@ ORDER BY [t].[Id], [t0].[Id]
 2023-06-06 12:11:23.952 +03:00 [INF] Executed action Gymby.WebApi.Controllers.DiariesController.GetDiaryDay (Gymby.WebApi) in 178.2176ms
 2023-06-06 12:11:23.952 +03:00 [INF] Executed endpoint 'Gymby.WebApi.Controllers.DiariesController.GetDiaryDay (Gymby.WebApi)'
 2023-06-06 12:11:23.952 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7120/api/diary/day application/json 60 - 200 - application/json;+charset=utf-8 449.4469ms
+2023-06-06 18:37:22.617 +03:00 [INF] Executed DbCommand (108ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2023-06-06 18:37:22.822 +03:00 [INF] Executed DbCommand (107ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2023-06-06 18:37:23.068 +03:00 [INF] User profile is available. Using 'C:\Users\Xiaomi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-06-06 18:37:23.510 +03:00 [INF] Now listening on: https://localhost:7120
+2023-06-06 18:37:23.511 +03:00 [INF] Now listening on: http://localhost:5120
+2023-06-06 18:37:23.517 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-06-06 18:37:23.518 +03:00 [INF] Hosting environment: Development
+2023-06-06 18:37:23.519 +03:00 [INF] Content root path: C:\Users\Xiaomi\source\repos\Gymby.Backend\Gymby.WebApi\
+2023-06-06 18:37:24.481 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/swagger/index.html - -
+2023-06-06 18:37:25.134 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/_framework/aspnetcore-browser-refresh.js - -
+2023-06-06 18:37:25.144 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/swagger/index.html - - - 200 - text/html;charset=utf-8 669.8345ms
+2023-06-06 18:37:25.145 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 11.4525ms
+2023-06-06 18:37:25.191 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/_vs/browserLink - -
+2023-06-06 18:37:25.221 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 29.7367ms
+2023-06-06 18:37:27.006 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/swagger/v1/swagger.json - -
+2023-06-06 18:37:27.252 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 246.2868ms

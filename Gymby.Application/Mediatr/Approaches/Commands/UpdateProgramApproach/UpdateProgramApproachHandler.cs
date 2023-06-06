@@ -47,6 +47,7 @@ public class UpdateProgramApproachHandler
         approach.IsDone = request.IsDone;
         approach.ExerciseId = request.ExerciseId;
         approach.Exercise = programExercise;
+        approach.Interval = request.Interval;
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 
