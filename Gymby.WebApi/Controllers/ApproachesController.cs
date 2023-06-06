@@ -29,7 +29,8 @@ public class ApproachesController : BaseController
             ProgramId = request.ProgramId,
             Repeats = request.Repeats,
             UserId = UserId.ToString(),
-            Weight = request.Weight
+            Weight = request.Weight,
+            Interval = request.Interval
         };
 
         return Ok(await Mediator.Send(command));
@@ -47,7 +48,8 @@ public class ApproachesController : BaseController
             UserId = UserId.ToString(),
             Weight = request.Weight,
             ApproachId = request.ApproachId,
-            IsDone = request.IsDone
+            IsDone = request.IsDone,
+            Interval = request.Interval
         };
 
         return Ok(await Mediator.Send(command));
@@ -77,7 +79,8 @@ public class ApproachesController : BaseController
             UserId = UserId.ToString(),
             ExerciseId = request.ExerciseId,
             Repeats = request.Repeats,
-            Weight = request.Weight
+            Weight = request.Weight,
+            Interval = request.Interval
         };
 
         return Ok(await Mediator.Send(command));
@@ -94,7 +97,8 @@ public class ApproachesController : BaseController
             Repeats = request.Repeats,
             Weight = request.Weight,
             ApproachId = request.ApproachId,
-            IsDone = request.IsDone
+            IsDone = request.IsDone,
+            Interval = request.Interval
         };
 
         return Ok(await Mediator.Send(command));

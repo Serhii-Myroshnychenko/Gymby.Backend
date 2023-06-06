@@ -85,6 +85,7 @@ public class ImportProgramDayHandler
                                 IsDone = false,
                                 Repeats = approach.Repeats,
                                 Weight = approach.Weight,
+                                Interval = approach.Interval
                             };
 
                             await _dbContext.Approaches.AddAsync(curApproach, cancellationToken);
@@ -151,6 +152,7 @@ public class ImportProgramDayHandler
                                 IsDone = false,
                                 Repeats = approach.Repeats,
                                 Weight = approach.Weight,
+                                Interval = approach.Interval
                             };
 
                             await _dbContext.Approaches.AddAsync(curApproach, cancellationToken);

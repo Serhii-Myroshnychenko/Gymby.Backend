@@ -31,6 +31,7 @@ public class UpdateDiaryApproachHandler
         approach.Weight = request.Weight;
         approach.Repeats = request.Repeats;
         approach.IsDone = request.IsDone;
+        approach.Interval = request.Interval;
         approach.Exercise = exercise;
         approach.ExerciseId = exercise.Id;
         

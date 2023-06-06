@@ -20,6 +20,9 @@ public class ApproachConfiguration : IEntityTypeConfiguration<Approach>
         builder.Property(a => a.Weight)
             .IsRequired();
 
+        builder.Property(a => a.Interval)
+            .IsRequired();
+
         builder.Property(a => a.CreationDate)
             .IsRequired();
 

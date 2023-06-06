@@ -32,7 +32,8 @@ public class CreateDiaryApproachHandler
             Exercise = exercise,
             ExerciseId = request.ExerciseId,
             Repeats = request.Repeats,
-            Weight = request.Weight
+            Weight = request.Weight,
+            Interval = request.Interval
         };
 
         await _dbContext.Approaches.AddAsync(approach, cancellationToken);

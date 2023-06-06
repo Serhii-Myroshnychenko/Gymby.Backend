@@ -46,6 +46,7 @@ public class CreateProgramApproachHandler
             IsDone = false,
             Weight = request.Weight,
             Repeats = request.Repeats,
+            Interval = request.Interval
         };
 
         await _dbContext.Approaches.AddAsync(approach, cancellationToken);
