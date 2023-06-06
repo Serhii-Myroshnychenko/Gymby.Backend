@@ -3,6 +3,7 @@ using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
 using Gymby.Application.ViewModels;
 using Gymby.Domain.Entities;
+using Gymby.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,70 +20,147 @@ public class CreateDiaryExerciseHandler
 
     public async Task<ExerciseVm> Handle(CreateDiaryExerciseCommand request, CancellationToken cancellationToken)
     {
-        var diary = await _dbContext.Diaries
-            .FirstOrDefaultAsync(d => d.Id == request.DiaryId, cancellationToken)
-            ?? throw new NotFoundEntityException(request.DiaryId, nameof(Diary));
-
-        var exercisePrototype = await _dbContext.ExercisePrototypes
-            .FirstOrDefaultAsync(e => e.Id == request.ExercisePrototypeId, cancellationToken)
-            ?? throw new NotFoundEntityException(request.ExercisePrototypeId, nameof(ExercisePrototype));
-
-        var diaryDay = await _dbContext.DiaryDays
-                .Include(d => d.Exercises)
-            .FirstOrDefaultAsync(d => d.Date == request.Date.Date && d.DiaryId == diary.Id, cancellationToken);
-
-        if(diaryDay == null)
+        if(request.DiaryId == null)
         {
-            var newDiaryDay = new Domain.Entities.DiaryDay()
-            {
-                Id = Guid.NewGuid().ToString(),
-                Date = request.Date.Date,
-                Diary = diary,
-                DiaryId = diary.Id,
-                Exercises = new List<Exercise>()
-            };
+           var diaryAccess = await _dbContext.DiaryAccess
+                .FirstOrDefaultAsync(d => d.UserId == request.UserId && d.Type == AccessType.Owner, cancellationToken)
+                    ?? throw new NotFoundEntityException(request.UserId, nameof(DiaryAccess));
 
-            var exercise = new Exercise()
+            var diary = await _dbContext.Diaries
+                .FirstOrDefaultAsync(d => d.Id == diaryAccess.DiaryId, cancellationToken)
+                    ?? throw new NotFoundEntityException(diaryAccess.DiaryId, nameof(Diary));
+
+            var exercisePrototype = await _dbContext.ExercisePrototypes
+                .FirstOrDefaultAsync(e => e.Id == request.ExercisePrototypeId, cancellationToken)
+                ?? throw new NotFoundEntityException(request.ExercisePrototypeId, nameof(ExercisePrototype));
+
+            var diaryDay = await _dbContext.DiaryDays
+                    .Include(d => d.Exercises)
+                .FirstOrDefaultAsync(d => d.Date == request.Date.Date && d.DiaryId == diaryAccess.DiaryId, cancellationToken);
+
+            if (diaryDay == null)
+            {
+                var newDiaryDay = new Domain.Entities.DiaryDay()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Date = request.Date.Date,
+                    Diary = diary,
+                    DiaryId = diary.Id,
+                    Exercises = new List<Exercise>()
+                };
+
+                var exercise = new Exercise()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Date = request.Date,
+                    DiaryDay = newDiaryDay,
+                    DiaryDayId = newDiaryDay.Id,
+                    ExercisePrototype = exercisePrototype,
+                    ExercisePrototypeId = exercisePrototype.Id,
+                    Name = request.Name,
+                    Approaches = new List<Approach>()
+                };
+
+                await _dbContext.DiaryDays.AddAsync(newDiaryDay, cancellationToken);
+                await _dbContext.Exercises.AddAsync(exercise, cancellationToken);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+
+                var result = _mapper.Map<ExerciseVm>(exercise);
+                result.Approaches = new List<ApproachVm>();
+
+                return result;
+            }
+
+            var newExercise = new Exercise()
             {
                 Id = Guid.NewGuid().ToString(),
                 Date = request.Date,
-                DiaryDay = newDiaryDay,
-                DiaryDayId = newDiaryDay.Id,
+                DiaryDay = diaryDay,
+                DiaryDayId = diaryDay.Id,
                 ExercisePrototype = exercisePrototype,
                 ExercisePrototypeId = exercisePrototype.Id,
                 Name = request.Name,
                 Approaches = new List<Approach>()
             };
 
-            await _dbContext.DiaryDays.AddAsync(newDiaryDay, cancellationToken);
-            await _dbContext.Exercises.AddAsync(exercise, cancellationToken);
+            await _dbContext.Exercises.AddAsync(newExercise, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            var result = _mapper.Map<ExerciseVm>(exercise);
-            result.Approaches = new List<ApproachVm>();
+            var res = _mapper.Map<ExerciseVm>(newExercise);
+            res.Approaches = new List<ApproachVm>();
 
-            return result;
+            return res;
         }
-
-        var newExercise = new Exercise()
+        else
         {
-            Id = Guid.NewGuid().ToString(),
-            Date = request.Date,
-            DiaryDay = diaryDay,
-            DiaryDayId = diaryDay.Id,
-            ExercisePrototype = exercisePrototype,
-            ExercisePrototypeId = exercisePrototype.Id,
-            Name = request.Name,
-            Approaches = new List<Approach>()
-        };
+            var diaryAccess = await _dbContext.DiaryAccess
+                .FirstOrDefaultAsync(d => d.UserId == request.UserId && d.DiaryId == request.DiaryId && d.Type == AccessType.Shared, cancellationToken)
+                    ?? throw new NotFoundEntityException(request.UserId, nameof(DiaryAccess));
 
-        await _dbContext.Exercises.AddAsync(newExercise, cancellationToken);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+            var diary = await _dbContext.Diaries
+                .FirstOrDefaultAsync(d => d.Id == diaryAccess.DiaryId, cancellationToken)
+                    ?? throw new NotFoundEntityException(diaryAccess.DiaryId, nameof(Diary));
 
-        var res = _mapper.Map<ExerciseVm>(newExercise);
-        res.Approaches = new List<ApproachVm>();
+            var exercisePrototype = await _dbContext.ExercisePrototypes
+                .FirstOrDefaultAsync(e => e.Id == request.ExercisePrototypeId, cancellationToken)
+                ?? throw new NotFoundEntityException(request.ExercisePrototypeId, nameof(ExercisePrototype));
 
-        return res;
+            var diaryDay = await _dbContext.DiaryDays
+                    .Include(d => d.Exercises)
+                .FirstOrDefaultAsync(d => d.Date == request.Date.Date && d.DiaryId == diaryAccess.DiaryId, cancellationToken);
 
+            if (diaryDay == null)
+            {
+                var newDiaryDay = new Domain.Entities.DiaryDay()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Date = request.Date.Date,
+                    Diary = diary,
+                    DiaryId = diary.Id,
+                    Exercises = new List<Exercise>()
+                };
+
+                var exercise = new Exercise()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Date = request.Date,
+                    DiaryDay = newDiaryDay,
+                    DiaryDayId = newDiaryDay.Id,
+                    ExercisePrototype = exercisePrototype,
+                    ExercisePrototypeId = exercisePrototype.Id,
+                    Name = request.Name,
+                    Approaches = new List<Approach>()
+                };
+
+                await _dbContext.DiaryDays.AddAsync(newDiaryDay, cancellationToken);
+                await _dbContext.Exercises.AddAsync(exercise, cancellationToken);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+
+                var result = _mapper.Map<ExerciseVm>(exercise);
+                result.Approaches = new List<ApproachVm>();
+
+                return result;
+            }
+
+            var newExercise = new Exercise()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Date = request.Date,
+                DiaryDay = diaryDay,
+                DiaryDayId = diaryDay.Id,
+                ExercisePrototype = exercisePrototype,
+                ExercisePrototypeId = exercisePrototype.Id,
+                Name = request.Name,
+                Approaches = new List<Approach>()
+            };
+
+            await _dbContext.Exercises.AddAsync(newExercise, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
+            var res = _mapper.Map<ExerciseVm>(newExercise);
+            res.Approaches = new List<ApproachVm>();
+
+            return res;
+        }
     }
 }

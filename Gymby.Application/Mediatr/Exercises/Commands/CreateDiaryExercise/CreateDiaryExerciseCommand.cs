@@ -6,7 +6,7 @@ namespace Gymby.Application.Mediatr.Exercises.Commands.CreateDiaryExercise;
 public class CreateDiaryExerciseCommand : IRequest<ExerciseVm>
 {
     public string UserId { get; set; } = null!;
-    public string DiaryId { get; set; } = null!;
+    public string? DiaryId { get; set; }
     public string ExercisePrototypeId { get; set; } = null!;
     public string? ProgramDayId { get; set;}
     public DateTime Date { get; set; }
