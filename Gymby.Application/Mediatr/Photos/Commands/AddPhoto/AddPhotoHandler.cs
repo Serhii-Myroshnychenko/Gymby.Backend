@@ -17,9 +17,6 @@ public class AddPhotoHandler
     public AddPhotoHandler(IApplicationDbContext dbContext, IMapper mapper, IFileService fileService) =>
         (_dbContext, _mapper, _fileService) = (dbContext, mapper, fileService);
 
-
-    // Fix photo names
-
     public async Task<List<PhotoVm>> Handle(AddPhotoCommand request, CancellationToken cancellationToken)
     {
         var photoType = request.Type == "Profiles" ? request.Options.Value.Profile : request.Options.Value.Measurement;
