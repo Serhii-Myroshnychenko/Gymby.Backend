@@ -4,10 +4,8 @@ using Gymby.Application.Mediatr.ExercisePrototypes.Queries.GetAllExercisePrototy
 using Gymby.Application.Mediatr.Exercises.Commands.CreateDiaryExercise;
 using Gymby.Application.Mediatr.Exercises.Commands.CreateProgramExercise;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
-using Gymby.Application.Mediatr.ProgramAccesses.AccessProgramToUserByUsername;
 using Gymby.Application.Mediatr.ProgramDays.Commands.CreateProgramDay;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
-using Gymby.Application.Mediatr.Programs.Queries.GetFreePrograms;
 using Gymby.UnitTests.Common.Exercise;
 
 namespace Gymby.UnitTests.Mediatr.DiaryDay.Queries.GetDiaryDay

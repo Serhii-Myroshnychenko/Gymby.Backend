@@ -7,17 +7,17 @@
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("sophia.anderson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointCreateProgramExercise = "https://gymby-api.azurewebsites.net/api/program/exercise/create";
             var apiEndpointUpdateProgramExercise = "https://gymby-api.azurewebsites.net/api/program/exercise/update";
             var apiEndpointDeleteProgramExercise = "https://gymby-api.azurewebsites.net/api/program/exercise/delete";
 
-            // Act
             var createJson = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Program", "CreateExercise.json"));
             var createContent = new StringContent(createJson, Encoding.UTF8, "application/json");
 
+            // Act
             var createResponse = await httpClient.PostAsync(apiEndpointCreateProgramExercise, createContent);
             var createResponseContent = await createResponse.Content.ReadAsStringAsync();
 
@@ -26,8 +26,8 @@
             var updateObj = new
             {
                 exerciseId = exerciseId,
-                exercisePrototypeId = "5224eb66-74df-4632-a43b-eaf561f33319",
-                programId = "3840e998-fb51-4a57-a2ac-3c15fd96ce1f",
+                exercisePrototypeId = "3b9a8c71-2e14-47fd-a5fe-68d3be7ff50e",
+                programId = "29ce9cb9-91df-4907-b8e1-b1b2401c4456",
                 name = "Update exercise"
             };
             var updateJson = JsonConvert.SerializeObject(updateObj);
@@ -35,7 +35,7 @@
             var deleteObj = new
             {
                 exerciseId = exerciseId,
-                programId = "3840e998-fb51-4a57-a2ac-3c15fd96ce1f"
+                programId = "29ce9cb9-91df-4907-b8e1-b1b2401c4456"
             };
             var deleteJson = JsonConvert.SerializeObject(deleteObj);
 
@@ -52,21 +52,60 @@
         }
 
         [Fact]
+        public async Task ExercisesControllerTests_UpdateAndDeleteProgramExercise_ShouldBeFail()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync("sophia.anderson@gmail.com", "TestUser123");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var apiEndpointUpdateProgramExercise = "https://gymby-api.azurewebsites.net/api/program/exercise/update";
+            var apiEndpointDeleteProgramExercise = "https://gymby-api.azurewebsites.net/api/program/exercise/delete";
+
+            var updateObj = new
+            {
+                exerciseId = "FAIL",
+                exercisePrototypeId = "3b9a8c71-2e14-47fd-a5fe-68d3be7ff50e",
+                programId = "29ce9cb9-91df-4907-b8e1-b1b2401c4456",
+                name = "Update exercise"
+            };
+            var updateJson = JsonConvert.SerializeObject(updateObj);
+
+            var deleteObj = new
+            {
+                exerciseId = "FAIL",
+                programId = "29ce9cb9-91df-4907-b8e1-b1b2401c4456"
+            };
+            var deleteJson = JsonConvert.SerializeObject(deleteObj);
+
+            var updateContent = new StringContent(updateJson, Encoding.UTF8, "application/json");
+            var deleteContent = new StringContent(deleteJson, Encoding.UTF8, "application/json");
+
+            // Act
+            var updateResponse = await httpClient.PostAsync(apiEndpointUpdateProgramExercise, updateContent);
+            var deleteResponse = await httpClient.PostAsync(apiEndpointDeleteProgramExercise, deleteContent);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.NotFound, updateResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.NotFound, deleteResponse.StatusCode);
+        }
+
+        [Fact]
         public async Task ExercisesControllerTests_CreateUpdateDeleteDiaryExercise_ShouldBeSuccess()
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("sophia.anderson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointCreateDiaryExercise = "https://gymby-api.azurewebsites.net/api/diary/exercise/create";
             var apiEndpointUpdateDiaryExercise = "https://gymby-api.azurewebsites.net/api/diary/exercise/update";
             var apiEndpointDeleteDiaryExercise = "https://gymby-api.azurewebsites.net/api/diary/exercise/delete";
 
-            // Act
             var createJson = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Program", "CreateDiaryExercise.json"));
             var createContent = new StringContent(createJson, Encoding.UTF8, "application/json");
 
+            // Act
             var createResponse = await httpClient.PostAsync(apiEndpointCreateDiaryExercise, createContent);
             var createResponseContent = await createResponse.Content.ReadAsStringAsync();
 
@@ -75,8 +114,8 @@
             var updateObj = new
             {
                 exerciseId = exerciseId,
-                exercisePrototypeId = "5224eb66-74df-4632-a43b-eaf561f33319",
-                programId = "3840e998-fb51-4a57-a2ac-3c15fd96ce1f",
+                exercisePrototypeId = "3b9a8c71-2e14-47fd-a5fe-68d3be7ff50e",
+                programId = "29ce9cb9-91df-4907-b8e1-b1b2401c4456",
                 name = "Update exercise"
             };
             var updateJson = JsonConvert.SerializeObject(updateObj);
@@ -84,7 +123,7 @@
             var deleteObj = new
             {
                 exerciseId = exerciseId,
-                programId = "3840e998-fb51-4a57-a2ac-3c15fd96ce1f"
+                programId = "29ce9cb9-91df-4907-b8e1-b1b2401c4456"
             };
             var deleteJson = JsonConvert.SerializeObject(deleteObj);
 
@@ -98,6 +137,45 @@
             Assert.Equal(HttpStatusCode.OK, createResponse.StatusCode);
             Assert.Equal(HttpStatusCode.OK, updateResponse.StatusCode);
             Assert.Equal(HttpStatusCode.OK, deleteResponse.StatusCode);
+        }
+
+        [Fact]
+        public async Task ExercisesControllerTests_UpdateAndDeleteDiaryExercise_ShouldBeFail()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync("sophia.anderson@gmail.com", "TestUser123");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var apiEndpointUpdateDiaryExercise = "https://gymby-api.azurewebsites.net/api/diary/exercise/update";
+            var apiEndpointDeleteDiaryExercise = "https://gymby-api.azurewebsites.net/api/diary/exercise/delete";
+
+            var updateObj = new
+            {
+                exerciseId = "FAIL",
+                exercisePrototypeId = "3b9a8c71-2e14-47fd-a5fe-68d3be7ff50e",
+                programId = "29ce9cb9-91df-4907-b8e1-b1b2401c4456",
+                name = "Update exercise"
+            };
+            var updateJson = JsonConvert.SerializeObject(updateObj);
+
+            var deleteObj = new
+            {
+                exerciseId = "FAIL",
+                programId = "29ce9cb9-91df-4907-b8e1-b1b2401c4456"
+            };
+            var deleteJson = JsonConvert.SerializeObject(deleteObj);
+
+            var updateContent = new StringContent(updateJson, Encoding.UTF8, "application/json");
+            var deleteContent = new StringContent(deleteJson, Encoding.UTF8, "application/json");
+
+            // Act
+            var updateResponse = await httpClient.PostAsync(apiEndpointUpdateDiaryExercise, updateContent);
+            var deleteResponse = await httpClient.PostAsync(apiEndpointDeleteDiaryExercise, deleteContent);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.NotFound, updateResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.NotFound, deleteResponse.StatusCode);
         }
     }
 }

@@ -1,14 +1,14 @@
 {
-  "profileId": "9ede3d99-cca8-49b3-b58c-c46e2a764bc8",
-  "username": "@test-user-profile",
-  "firstName": "Test",
-  "lastName": "User",
-  "description": "I am a test user",
-  "photoAvatarPath": "https://gymbystorage.blob.core.windows.net/pictures/6854f2d6-09a1-4ec6-8f22-e168d81ec36a/Avatar/ea6c158c-f0d3-42eb-a5f7-b6d20aecae00.png",
-  "instagramUrl": "https://www.instagram.com/",
-  "facebookUrl": "https://uk-ua.facebook.com/",
-  "telegramUsername": "@test-user-profile",
+  "profileId": "650894bd-5e13-44d9-a718-7a2a2f5763d0",
+  "username": "olivia_YerAVr",
+  "firstName": "Oliva",
+  "lastName": "Smith",
+  "description": "I have never exercised and aim to lose weight.",
+  "photoAvatarPath": "https://gymbystorage.blob.core.windows.net/pictures/708ac298-eb43-4ce4-b0fa-c0c958babc36/Avatar/7de4477e-a391-4c9b-a42d-c1792e60e08a.png",
+  "instagramUrl": "olivia_inst",
+  "facebookUrl": "olivia_facebook",
+  "telegramUsername": "olivia_smith_telegram",
   "isCoach": false,
-  "email": "userfortestprofile@gmail.com",
-  "photos": null
+  "email": "olivia.smith@gmail.com",
+  "photos": []
 }

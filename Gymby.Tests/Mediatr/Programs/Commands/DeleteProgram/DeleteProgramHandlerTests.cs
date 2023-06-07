@@ -67,11 +67,13 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.DeleteProgram
                                         new ApproachCM
                                         {
                                             Repeats = 10,
+                                            Interval = 60,
                                             Weight = 20.5
                                         },
                                         new ApproachCM
                                         {
                                             Repeats = 8,
+                                            Interval = 60,
                                             Weight = 22.5
                                         }
                                     }
@@ -85,6 +87,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.DeleteProgram
                                         new ApproachCM
                                         {
                                             Repeats = 12,
+                                            Interval = 60,
                                             Weight = 15.0
                                         }
                                     }

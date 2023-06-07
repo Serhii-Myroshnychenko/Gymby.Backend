@@ -9,14 +9,14 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/measurement";
 
             // Act
             var response = await httpClient.GetAsync(apiEndpoint);
-            var responseContent = await response.Content.ReadAsStringAsync();
+
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
@@ -26,15 +26,15 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/measurement/create";
 
-            // Act
             var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Measurement", "MeasurementDefault.json"));
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
+            // Act
             var response = await httpClient.PostAsync(apiEndpoint, jsonContent);
             var responseContent = await response.Content.ReadAsStringAsync();
 
@@ -55,46 +55,20 @@ namespace Gymby.ApiTests.Endpoints
             Assert.NotNull(addedMeasurement);
         }
 
-        //[Fact]
-        //public async Task MeasurementsControllerTests_AddMeasurement_ShouldBeFail()
-        //{
-        //    // Arrange
-        //    IAuthorization authorization = new Utils.Authorization();
-        //    var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
-        //    var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
-
-        //    var apiEndpoint = "https://gymby-api.azurewebsites.net/api/measurement/create";
-
-        //    // Act
-        //    var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Measurement","MeasurementFail.json"));
-        //    var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
-
-        //    var response = await httpClient.PostAsync(apiEndpoint, jsonContent);
-        //    var responseContent = await response.Content.ReadAsStringAsync();
-
-        //    var responseObject = JObject.Parse(responseContent);
-
-        //    var measurements = responseObject["measurements"];
-
-        //    // Assert
-        //    Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-        //    Assert.Null(measurements);
-        //}
-
         [Fact]
         public async Task MeasurementsControllerTestsEditMeasurement_ShouldBeSuccess()
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/measurement/edit";
 
-            // Act
             var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Measurement", "MeasurementEdit.json"));
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
+            // Act
             var response = await httpClient.PostAsync(apiEndpoint, jsonContent);
             var responseContent = await response.Content.ReadAsStringAsync();
 
@@ -115,16 +89,16 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointCreate = "https://gymby-api.azurewebsites.net/api/measurement/create";
             var apiEndpointDelete = "https://gymby-api.azurewebsites.net/api/measurement/delete";
 
-            // Act
             var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Measurement", "MeasurementDelete.json"));
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
+            // Act
             var response = await httpClient.PostAsync(apiEndpointCreate, jsonContent);
             var responseContent = await response.Content.ReadAsStringAsync();
             var responseObj = JObject.Parse(responseContent);
@@ -143,23 +117,30 @@ namespace Gymby.ApiTests.Endpoints
         }
 
         [Fact]
-        public async Task MeasurementsControllerTests_DeleteMeasurement_NonexistentMeasurement_ShouldBeSuccess()
+        public async Task MeasurementsControllerTests_EditAndDeleteNonExistentMeasurement_ShouldBeFail()
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
+            var apiEndpointUpdate = "https://gymby-api.azurewebsites.net/api/measurement/edit";
             var apiEndpointDelete = "https://gymby-api.azurewebsites.net/api/measurement/delete";
 
-            // Act
-            var deleteJson = @"{ ""id"": """ + Guid.NewGuid().ToString() + @""" }";
-            var deleteJsonContent = new StringContent(deleteJson, Encoding.UTF8, "application/json");
+            var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Measurement", "MeasurementFail.json"));
+            var jsonContentUpdate = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var deleteResponse = await httpClient.PostAsync(apiEndpointDelete, deleteJsonContent);
+            var jsonDelete = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Measurement", "MeasurementDeleteFail.json"));
+            var jsonContentDelete = new StringContent(jsonDelete, Encoding.UTF8, "application/json");
+
+            // Act
+            var responseUpdate = await httpClient.PostAsync(apiEndpointUpdate, jsonContentUpdate);
+            var responseDelete = await httpClient.PostAsync(apiEndpointDelete, jsonContentDelete);
 
             // Assert
-            Assert.Equal(HttpStatusCode.NotFound, deleteResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.BadRequest, responseUpdate.StatusCode);
+            Assert.Equal(HttpStatusCode.NotFound, responseDelete.StatusCode);
         }
     }
 }
+ 

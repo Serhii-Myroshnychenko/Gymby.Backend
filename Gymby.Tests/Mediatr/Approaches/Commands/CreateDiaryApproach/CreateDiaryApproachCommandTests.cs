@@ -12,6 +12,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateDiaryApproach
             var exerciseId = "testExerciseId";
             var repeats = 1;
             var weight = 11;
+            var interval = 60;
 
             // Act
             var command = new CreateDiaryApproachCommand
@@ -19,6 +20,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateDiaryApproach
                 UserId = userId,
                 ExerciseId = exerciseId,
                 Repeats = repeats,
+                Interval = interval,
                 Weight = weight
             };
 
@@ -27,6 +29,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateDiaryApproach
             Assert.Equal(exerciseId, command.ExerciseId);
             Assert.Equal(repeats, command.Repeats);
             Assert.Equal(weight, command.Weight);
+            Assert.Equal(interval, command.Interval);
         }
     }
 }

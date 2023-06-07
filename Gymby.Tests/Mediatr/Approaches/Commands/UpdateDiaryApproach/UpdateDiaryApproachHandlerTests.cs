@@ -131,6 +131,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateDiaryApproach
                 ExerciseId = exerciseId,
                 Weight = 30,
                 Repeats = 15,
+                Interval = 60,
                 UserId = ProfileContextFactory.UserBId.ToString(),
             }, CancellationToken.None);
 
@@ -142,6 +143,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateDiaryApproach
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Repeats = 1,
                 Weight = 1,
+                Interval = 60,
                 IsDone = true,
                 ApproachId = approachId ?? ""
             }, CancellationToken.None);
@@ -261,6 +263,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateDiaryApproach
                 ExerciseId = exerciseId,
                 Weight = 30,
                 Repeats = 15,
+                Interval = 60,
                 UserId = ProfileContextFactory.UserBId.ToString(),
             }, CancellationToken.None);
 
@@ -275,6 +278,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateDiaryApproach
                     UserId = ProfileContextFactory.UserBId.ToString(),
                     Repeats = 1,
                     Weight = 1,
+                    Interval = 60,
                     IsDone = true,
                     ApproachId = approachId
                 }, CancellationToken.None);

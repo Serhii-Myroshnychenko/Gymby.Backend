@@ -9,7 +9,7 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointCreate = "https://gymby-api.azurewebsites.net/api/photo/profile";
@@ -18,10 +18,10 @@ namespace Gymby.ApiTests.Endpoints
             string imagePath = FileBuilder.GetFilePath("Photo", "photo2.png");
             IFormFile formFile = new FormFile(File.OpenRead(imagePath), 0, new FileInfo(imagePath).Length, null, Path.GetFileName(imagePath));
 
-            // Act
             var content = new MultipartFormDataContent();
             content.Add(new StreamContent(formFile.OpenReadStream()), "photo", formFile.FileName);
 
+            // Act
             var responseCreate = await httpClient.PostAsync(apiEndpointCreate, content);
             var responseContentCreate = await responseCreate.Content.ReadAsStringAsync();
             var responseArray = JArray.Parse(responseContentCreate);
@@ -47,15 +47,15 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointCreate = "https://gymby-api.azurewebsites.net/api/photo/profile";
 
-            // Act
             var content = new MultipartFormDataContent();
             content.Add(new StringContent("1"), "PhotoId");
 
+            // Act
             var responseCreate = await httpClient.PostAsync(apiEndpointCreate, content);
 
             // Assert
@@ -67,17 +67,17 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("friendforkerol@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointDelete = "https://gymby-api.azurewebsites.net/api/photo/profile/delete";
 
             var photoId = Guid.NewGuid().ToString();
-
-            //Act
+            
             var contentDelete = new MultipartFormDataContent();
             contentDelete.Add(new StringContent(photoId), "PhotoId");
 
+            //Act
             var responseDelete = await httpClient.PostAsync(apiEndpointDelete, contentDelete);
 
             // Assert
@@ -89,7 +89,7 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("friendforkerol@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointCreate = "https://gymby-api.azurewebsites.net/api/photo/measurement";
@@ -98,10 +98,10 @@ namespace Gymby.ApiTests.Endpoints
             string imagePath = FileBuilder.GetFilePath("Photo", "photo2.png");
             IFormFile formFile = new FormFile(File.OpenRead(imagePath), 0, new FileInfo(imagePath).Length, null, Path.GetFileName(imagePath));
 
-            // Act
             var content = new MultipartFormDataContent();
             content.Add(new StreamContent(formFile.OpenReadStream()), "photo", formFile.FileName);
 
+            // Act
             var responseCreate = await httpClient.PostAsync(apiEndpointCreate, content);
             var responseContentCreate = await responseCreate.Content.ReadAsStringAsync();
             var responseArray = JArray.Parse(responseContentCreate);
@@ -127,17 +127,15 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("friendforkerol@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointCreate = "https://gymby-api.azurewebsites.net/api/photo/measurement";
 
-            var photoId = Guid.NewGuid().ToString();
-
-            //Act
             var content = new MultipartFormDataContent();
             content.Add(new StringContent("1"), "PhotoId");
 
+            //Act
             var responseCreate = await httpClient.PostAsync(apiEndpointCreate, content);
 
             // Assert
@@ -149,17 +147,15 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("friendforkerol@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointDelete = "https://gymby-api.azurewebsites.net/api/photo/measurement/delete";
 
-            var photoId = Guid.NewGuid().ToString();
+            var contentDelete = new MultipartFormDataContent();
+            contentDelete.Add(new StringContent("1"), "PhotoId");
 
             //Act
-            var contentDelete = new MultipartFormDataContent();
-            contentDelete.Add(new StringContent(photoId), "PhotoId");
-
             var responseDelete = await httpClient.PostAsync(apiEndpointDelete, contentDelete);
 
             // Assert

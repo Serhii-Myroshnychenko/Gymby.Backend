@@ -109,6 +109,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
                 ExerciseId = resultProgramExerciseId,
                 Weight = 30,
                 Repeats = 15,
+                Interval = 60,
                 UserId = ProfileContextFactory.UserBId.ToString(),
             }, CancellationToken.None);
 
@@ -121,6 +122,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
                 ProgramId = programId,
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Repeats = 1,
+                Interval = 60,
                 Weight = 1,
                 ApproachId = approachId ?? ""
             }, CancellationToken.None);
@@ -218,6 +220,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
                 ExerciseId = resultProgramExerciseId,
                 Weight = 30,
                 Repeats = 15,
+                Interval = 60,
                 UserId = ProfileContextFactory.UserBId.ToString(),
             }, CancellationToken.None);
 
@@ -232,6 +235,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
                     ProgramId = programId,
                     UserId = ProfileContextFactory.UserAId.ToString(),
                     Repeats = 1,
+                    Interval = 60,
                     Weight = 1,
                     ApproachId = approachId ?? ""
                 }, CancellationToken.None);
@@ -325,6 +329,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
                 ExerciseId = resultProgramExerciseId,
                 Weight = 30,
                 Repeats = 15,
+                Interval = 60,
                 UserId = ProfileContextFactory.UserBId.ToString(),
             }, CancellationToken.None);
 
@@ -340,6 +345,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
                     ProgramId = programId,
                     UserId = ProfileContextFactory.UserBId.ToString(),
                     Repeats = 1,
+                    Interval = 60,
                     Weight = 1,
                     ApproachId = approachId ?? ""
                 }, CancellationToken.None);
@@ -433,6 +439,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
                 ExerciseId = resultProgramExerciseId,
                 Weight = 30,
                 Repeats = 15,
+                Interval = 60,
                 UserId = ProfileContextFactory.UserBId.ToString(),
             }, CancellationToken.None);
 
@@ -447,6 +454,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
                     ProgramId = programId,
                     UserId = ProfileContextFactory.UserBId.ToString(),
                     Repeats = 1,
+                    Interval = 60,
                     Weight = 1,
                     ApproachId = approachId ?? ""
                 }, CancellationToken.None);

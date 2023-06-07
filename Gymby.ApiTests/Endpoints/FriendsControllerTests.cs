@@ -8,7 +8,7 @@
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("james.thomas@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/friend/friends";
@@ -25,7 +25,7 @@
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("james.thomas@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/friend/pending-friends";
@@ -42,18 +42,17 @@
         {
             // Arrange
             IAuthorization authorizationForInvite = new Utils.Authorization();
-            var accessTokenForInvite = await authorizationForInvite.GetAccessTokenAsync("friendinviteacceptdelete@gmail.com", "TestUser123");
+            var accessTokenForInvite = await authorizationForInvite.GetAccessTokenAsync("james.thomas@gmail.com", "TestUser123");
             var httpClientForInvite = Utils.Authorization.GetAuthenticatedHttpClient(accessTokenForInvite);
 
             IAuthorization authorizationForAccept = new Utils.Authorization();
-            var accessTokenForAccept = await authorizationForAccept.GetAccessTokenAsync("testtesttestreject@gmail.com", "TestUser123");
+            var accessTokenForAccept = await authorizationForAccept.GetAccessTokenAsync("sophia.anderson@gmail.com", "TestUser123");
             var httpClientForAccept = Utils.Authorization.GetAuthenticatedHttpClient(accessTokenForAccept);
 
             var apiEndpointInvite = "https://gymby-api.azurewebsites.net/api/friend/invite";
             var apiEndpointAccept = "https://gymby-api.azurewebsites.net/api/friend/accept-request";
             var apiEndpointDelete = "https://gymby-api.azurewebsites.net/api/friend/delete-request";
 
-            // Act
             var jsonInvite = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "FriendInvite.json"));
             var jsonContentInvite = new StringContent(jsonInvite, Encoding.UTF8, "application/json");
 
@@ -63,6 +62,7 @@
             var jsonDelete = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "DeleteFriend.json"));
             var jsonContentDelete = new StringContent(jsonDelete, Encoding.UTF8, "application/json");
 
+            // Act
             var responseInvite = await httpClientForInvite.PostAsync(apiEndpointInvite, jsonContentInvite);
             var responseAccept = await httpClientForAccept.PostAsync(apiEndpointAccept, jsonContentAccept);
             var responseDelete = await httpClientForAccept.PostAsync(apiEndpointDelete, jsonContentDelete);
@@ -78,27 +78,27 @@
         {
             // Arrange
             IAuthorization authorizationForInvite = new Utils.Authorization();
-            var accessTokenForInvite = await authorizationForInvite.GetAccessTokenAsync("friendinviteacceptdelete@gmail.com", "TestUser123");
+            var accessTokenForInvite = await authorizationForInvite.GetAccessTokenAsync("james.thomas@gmail.com", "TestUser123");
             var httpClientForInvite = Utils.Authorization.GetAuthenticatedHttpClient(accessTokenForInvite);
 
             IAuthorization authorizationForReject = new Utils.Authorization();
-            var accessTokenForReject = await authorizationForReject.GetAccessTokenAsync("testtesttestreject@gmail.com", "TestUser123");
+            var accessTokenForReject = await authorizationForReject.GetAccessTokenAsync("olivia.smith@gmail.com", "TestUser123");
             var httpClientForReject = Utils.Authorization.GetAuthenticatedHttpClient(accessTokenForReject);
 
             var apiEndpointInvite = "https://gymby-api.azurewebsites.net/api/friend/invite";
             var apiEndpointReject = "https://gymby-api.azurewebsites.net/api/friend/reject-request";
             var apiEndpointDelete = "https://gymby-api.azurewebsites.net/api/friend/delete-request";
 
-            // Act
-            var jsonInvite = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "FriendInvite.json"));
+            var jsonInvite = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "FriendInvite2.json"));
             var jsonContentInvite = new StringContent(jsonInvite, Encoding.UTF8, "application/json");
 
-            var jsonReject = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "DeleteFriend.json"));
+            var jsonReject = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "RejectFriend.json"));
             var jsonContentReject = new StringContent(jsonReject, Encoding.UTF8, "application/json");
 
-            var jsonDelete = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "DeleteFriend.json"));
+            var jsonDelete = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "RejectFriend.json"));
             var jsonContentDelete = new StringContent(jsonDelete, Encoding.UTF8, "application/json");
 
+            // Act
             var responseInvite = await httpClientForInvite.PostAsync(apiEndpointInvite, jsonContentInvite);
             var responseReject = await httpClientForReject.PostAsync(apiEndpointReject, jsonContentReject);
             var responseDelete = await httpClientForReject.PostAsync(apiEndpointDelete, jsonContentDelete);
@@ -114,15 +114,15 @@
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("james.thomas@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/friend/invite";
 
-            // Act
             var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "NonexistentUsername.json"));
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
+            // Act
             var response = await httpClient.PostAsync(apiEndpoint, jsonContent);
 
             // Assert
@@ -134,15 +134,15 @@
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("friendforinvite@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("james.thomas@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/friend/accept-request";
 
-            // Act
             var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "NonexistentUsername.json"));
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
+            // Act
             var response = await httpClient.PostAsync(apiEndpoint, jsonContent);
 
             // Assert
@@ -154,15 +154,15 @@
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("james.thomas@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/friend/reject-request";
 
-            // Act
             var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "NonexistentUsername.json"));
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
+            // Act
             var response = await httpClient.PostAsync(apiEndpoint, jsonContent);
 
             // Assert
@@ -174,15 +174,15 @@
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("james.thomas@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/friend/delete-request";
 
-            // Act
             var json = await File.ReadAllTextAsync(FileBuilder.GetFilePath("Friend", "NonexistentUsername.json"));
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
+            // Act
             var response = await httpClient.PostAsync(apiEndpoint, jsonContent);
 
             // Assert

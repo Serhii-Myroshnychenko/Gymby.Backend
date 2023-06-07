@@ -36,12 +36,14 @@ namespace Gymby.UnitTests.Common.Exercise
                                         {
                                             Id = ApproachId_A.ToString(),
                                             Repeats = 10,
+                                            Interval = 60,
                                             Weight = 20.5
                                         },
                                         new Approach
                                         {
                                             Id = ApproachId_B.ToString(),
                                             Repeats = 8,
+                                            Interval = 60,
                                             Weight = 22.5
                                         }
                     }

@@ -2,14 +2,6 @@
 {
     public class ProfilePageTests : TestBase
     {
-        private const string BaseUrl = "https://gymby-web.azurewebsites.net/";
-        private const string DemoEmail = "demonstration1@gmail.com";
-        private const string DemoPassword = "TestUser123";
-        private const string AvatarFilePath = "D:\\Project\\Gymby.Backend\\Gymby.UITests\\Data\\ProfilePage\\tommy3.jpg";
-        private const string PhotoFilePath1 = "D:\\Project\\Gymby.Backend\\Gymby.UITests\\Data\\ProfilePage\\tommy1.jpg";
-        private const string PhotoFilePath2 = "D:\\Project\\Gymby.Backend\\Gymby.UITests\\Data\\ProfilePage\\tommy2.jpg";
-        private const string PhotoFilePath3 = "D:\\Project\\Gymby.Backend\\Gymby.UITests\\Data\\ProfilePage\\tommy4.jpeg";
-
         [Fact]
         public void AuthorizationAndProfileDataFill()
         {
