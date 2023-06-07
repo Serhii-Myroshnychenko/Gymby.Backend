@@ -1,4 +1,5 @@
 ﻿using Gymby.Application.Common.Exceptions;
+using Microsoft.IdentityModel.Tokens;
 using System.Net;
 using System.Text.Json;
 using ValidationException = FluentValidation.ValidationException;
@@ -25,7 +26,7 @@ public class ExceptionHandlerMiddleware
 
     private Task HandleExceptionAsync(HttpContext context, Exception ex)
     {
-        var code = HttpStatusCode.InternalServerError;
+        var code = HttpStatusCode.BadRequest;
         var result = string.Empty;
 
         switch (ex)
@@ -50,9 +51,9 @@ public class ExceptionHandlerMiddleware
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)code;
 
-        if(result == null)
+        if(result.IsNullOrEmpty())
         {
-            result = JsonSerializer.Serialize(new {error = ex.Message});
+            return context.Response.WriteAsync(ex.Message);
         }
 
         return context.Response.WriteAsync(result);
