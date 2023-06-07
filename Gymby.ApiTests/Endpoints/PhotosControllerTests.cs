@@ -113,7 +113,7 @@ namespace Gymby.ApiTests.Endpoints
             var photoId = newestObject?["id"]?.ToString();
 
             var contentDelete = new MultipartFormDataContent();
-            contentDelete.Add(new StringContent(photoId), "PhotoId");
+            contentDelete.Add(new StringContent(photoId ?? ""), "PhotoId");
 
             var responseDelete = await httpClient.PostAsync(apiEndpointDelete, contentDelete);
 
