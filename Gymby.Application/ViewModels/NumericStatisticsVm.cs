@@ -6,6 +6,6 @@ public class NumericStatisticsVm
     public int СountOfTrainings { get; set; }
     public int CountOfExecutedApproaches { get; set; }
     public int MaxApproachesCountPerTraining { get; set; }
-    public int MaxTonnagePerTraining { get; set; }
+    public double MaxTonnagePerTraining { get; set; }
     public int MaxExercisesCountPerTraining { get; set; }
 }
