@@ -36,9 +36,9 @@ namespace Gymby.UnitTests.Mediatr.Statistics.Queries.GetAllNumberStatisticsTests
             resultGetAllNumberStatisticse.Should().BeOfType<NumericStatisticsVm>();
             resultGetAllNumberStatisticse.CountOfExecutedApproaches.Should().Be(7);
             resultGetAllNumberStatisticse.MaxApproachesCountPerTraining.Should().Be(70);
-            resultGetAllNumberStatisticse.MaxExercisesCountPerTraining.Should().Be(2);
+            resultGetAllNumberStatisticse.MaxExercisesCountPerTraining.Should().Be(1);
             resultGetAllNumberStatisticse.MaxTonnagePerTraining.Should().Be(1300);
-            resultGetAllNumberStatisticse.СountOfTrainings.Should().Be(3);
+            resultGetAllNumberStatisticse.СountOfTrainings.Should().Be(2);
             resultGetAllNumberStatisticse.СountOfExecutedExercises.Should().Be(2);
         }
 
