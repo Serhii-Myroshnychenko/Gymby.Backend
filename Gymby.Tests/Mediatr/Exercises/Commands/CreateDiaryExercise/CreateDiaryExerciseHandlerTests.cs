@@ -118,7 +118,7 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateDiaryExercise
             var resultDiaryExercise = await handlerDiaryExercise.Handle(new CreateDiaryExerciseCommand()
             {
                 ProgramDayId = programDayId,
-                DiaryId = diaryId,
+                DiaryId = null,
                 Name = "ExerciseNameInDiary",
                 Date = dateValue,
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -206,7 +206,7 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateDiaryExercise
                 await handlerDiaryExercise.Handle(new CreateDiaryExerciseCommand()
                 {
                     ProgramDayId = programDayId,
-                    DiaryId = diaryId,
+                    DiaryId = null,
                     Name = "ExerciseNameInDiary",
                     Date = dateValue,
                     UserId = ProfileContextFactory.UserBId.ToString(),
@@ -214,11 +214,11 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateDiaryExercise
                 }, CancellationToken.None);
             });
 
-            Assert.Equal($"Entity \"{diaryId}\" ({nameof(Domain.Entities.Diary)}) not found", exception.Message); 
+            Assert.Equal($"Entity \"{ProfileContextFactory.UserBId.ToString()}\" ({nameof(Domain.Entities.DiaryAccess)}) not found", exception.Message); 
         }
 
         [Fact]
-        public async Task CreateDiaryExerciseHandler_NonexistentExersicePrototype_ShouldBeSuccess()
+        public async Task CreateDiaryExerciseHandler_NonexistentExersicePrototype_ShouldBeFail()
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
@@ -313,7 +313,7 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateDiaryExercise
                 await handlerDiaryExercise.Handle(new CreateDiaryExerciseCommand()
                 {
                     ProgramDayId = programDayId,
-                    DiaryId = diaryId,
+                    DiaryId = null,
                     Name = "ExerciseNameInDiary",
                     Date = dateValue,
                     UserId = ProfileContextFactory.UserBId.ToString(),

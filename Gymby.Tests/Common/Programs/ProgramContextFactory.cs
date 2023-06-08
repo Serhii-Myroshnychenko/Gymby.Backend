@@ -38,11 +38,13 @@
                                         new Approach
                                         {
                                             Repeats = 10,
+                                            Interval = 60,
                                             Weight = 20.5
                                         },
                                         new Approach
                                         {
                                             Repeats = 8,
+                                            Interval = 60,
                                             Weight = 22.5
                                         }
                                     }
@@ -56,6 +58,7 @@
                                         new Approach
                                         {
                                             Repeats = 12,
+                                            Interval = 60,
                                             Weight = 15.0
                                         }
                                     }
@@ -76,11 +79,13 @@
                                         new Approach
                                         {
                                             Repeats = 10,
+                                            Interval = 60,
                                             Weight = 30
                                         },
                                         new Approach
                                         {
                                             Repeats = 8,
+                                            Interval = 60,
                                             Weight = 35
                                         }
                                     }

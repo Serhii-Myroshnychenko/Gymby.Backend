@@ -1,14 +1,14 @@
 {
-  "profileId": "9ede3d99-cca8-49b3-b58c-c46e2a764bc8",
-  "username": "@test-user-profile",
-  "firstName": "Test",
-  "lastName": "User",
-  "description": "I am a test user",
-  "photoAvatarPath": "https://gymbystorage.blob.core.windows.net/pictures/6854f2d6-09a1-4ec6-8f22-e168d81ec36a/Avatar/ea6c158c-f0d3-42eb-a5f7-b6d20aecae00.png",
-  "instagramUrl": "https://www.instagram.com/",
-  "facebookUrl": "https://uk-ua.facebook.com/",
-  "telegramUsername": "@test-user-profile",
+  "profileId": "6dc8f58c-ae8c-4761-a8db-d2d02ac1c1bf",
+  "username": "user_DNpMzz",
+  "firstName": "James",
+  "lastName": "Thomas",
+  "description": "I play sports and want to make friends to play sports together.",
+  "photoAvatarPath": "https://gymbystorage.blob.core.windows.net/pictures/8fc07be4-9a9f-49be-a843-2d2a4956ae01/Avatar/9a9988c9-da2e-4e5f-a9db-89d761d1138c.jpg",
+  "instagramUrl": "james_inst",
+  "facebookUrl": "null",
+  "telegramUsername": "james_telegram",
   "isCoach": false,
-  "email": "userfortestprofile@gmail.com",
-  "photos": null
+  "email": "james.thomas@gmail.com",
+  "photos": []
 }

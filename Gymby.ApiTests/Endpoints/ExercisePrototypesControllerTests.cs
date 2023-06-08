@@ -9,11 +9,11 @@ namespace Gymby.ApiTests.Endpoints
     public class ExercisePrototypesControllerTests
     {
         [Fact]
-        public async Task ExercisePrototypesControllerTestsGetExercisePrototypes_ShouldBeSuccess()
+        public async Task ExercisePrototypesControllerTests_GetExercisePrototypes_ShouldBeSuccess()
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("krolikdiary@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("sophia.anderson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointGetExercisePrototypes = "https://gymby-api.azurewebsites.net/api/diary/exercise-prototypes";

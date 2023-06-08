@@ -4,10 +4,8 @@ using Gymby.Application.Mediatr.ExercisePrototypes.Queries.GetAllExercisePrototy
 using Gymby.Application.Mediatr.Exercises.Commands.CreateDiaryExercise;
 using Gymby.Application.Mediatr.Exercises.Commands.CreateProgramExercise;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
-using Gymby.Application.Mediatr.ProgramAccesses.AccessProgramToUserByUsername;
 using Gymby.Application.Mediatr.ProgramDays.Commands.CreateProgramDay;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
-using Gymby.Application.Mediatr.Programs.Queries.GetFreePrograms;
 using Gymby.UnitTests.Common.Exercise;
 
 namespace Gymby.UnitTests.Mediatr.DiaryDay.Queries.GetDiaryDay
@@ -121,7 +119,7 @@ namespace Gymby.UnitTests.Mediatr.DiaryDay.Queries.GetDiaryDay
             var resultDiaryExercise = await handlerDiaryExercise.Handle(new CreateDiaryExerciseCommand()
             {
                 ProgramDayId = programDayId,
-                DiaryId = diaryId,
+                DiaryId = null,
                 Name = "ExerciseNameInDiary",
                 Date = dateValue,
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -131,7 +129,7 @@ namespace Gymby.UnitTests.Mediatr.DiaryDay.Queries.GetDiaryDay
             var resultGetDiaryDay = await handlerGetDiaryDay.Handle(new GetDiaryDayCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
-                DiaryId = diaryId,
+                DiaryId = null,
                 Date = dateValue
             }, CancellationToken.None);
 

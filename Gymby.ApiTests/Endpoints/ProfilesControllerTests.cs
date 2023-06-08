@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Gymby.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace Gymby.ApiTests.Endpoints
 {
@@ -9,7 +10,7 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile";
@@ -25,7 +26,7 @@ namespace Gymby.ApiTests.Endpoints
         public async Task ProfilesControllerTests_GetMyProfile_WithoutAuthorization_ShouldBeUnauthorized()
         {
             // Arrange
-            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient("test");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient("da4f16bc-36e6-429b-ae0b-88a2fdcc4d7");
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile";
 
@@ -41,7 +42,7 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("friendforreject@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("olivia.smith@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/update";
@@ -49,23 +50,32 @@ namespace Gymby.ApiTests.Endpoints
             string imagePath = FileBuilder.GetFilePath("Profile", "avatar.png");
             IFormFile formFile = new FormFile(File.OpenRead(imagePath), 0, new FileInfo(imagePath).Length, null, Path.GetFileName(imagePath));
 
-            // Act
             var content = new MultipartFormDataContent();
-            content.Add(new StringContent("2464371e-a8e6-4cbe-a0d5-d46955284786"), "profileId");
-            content.Add(new StringContent("@friendforreject"), "username");
-            content.Add(new StringContent("Test"), "firstName");
-            content.Add(new StringContent("User"), "lastName");
-            content.Add(new StringContent("I am a test user1"), "description");
+            content.Add(new StringContent("650894bd-5e13-44d9-a718-7a2a2f5763d0"), "profileId");
+            content.Add(new StringContent("olivia_YerAVr"), "username");
+            content.Add(new StringContent("Oliva"), "firstName");
+            content.Add(new StringContent("Smith"), "lastName");
+            content.Add(new StringContent("I have never exercised and aim to lose weight."), "description");
             content.Add(new StreamContent(formFile.OpenReadStream()), "photoAvatarPath", formFile.FileName);
-            content.Add(new StringContent("https://www.instagram.com/"), "instagramUrl");
-            content.Add(new StringContent("https://uk-ua.facebook.com/"), "facebookUrl");
-            content.Add(new StringContent("@friendforreject"), "telegramUsername");
-            content.Add(new StringContent("true"), "isCoach");
-            content.Add(new StringContent("friendforreject@gmail.com"), "email");
+            content.Add(new StringContent("olivia_inst"), "instagramUrl");
+            content.Add(new StringContent("olivia_facebook"), "facebookUrl");
+            content.Add(new StringContent("olivia_smith_telegram"), "telegramUsername");
+            content.Add(new StringContent("false"), "isCoach");
+            content.Add(new StringContent("olivia.smith@gmail.com"), "email");
 
+            // Act
             var response = await httpClient.PostAsync(apiEndpoint, content);
+            string responseContent = await response.Content.ReadAsStringAsync();
+
+            var updateProfileResponse = JsonConvert.DeserializeObject<Profile>(responseContent);
 
             // Assert
+            Assert.Equal("Oliva", updateProfileResponse?.FirstName);
+            Assert.Equal("Smith", updateProfileResponse?.LastName);
+            Assert.Equal("olivia_YerAVr", updateProfileResponse?.Username);
+            Assert.Equal("I have never exercised and aim to lose weight.", updateProfileResponse?.Description);
+            Assert.Equal("olivia_inst", updateProfileResponse?.InstagramUrl);
+            Assert.Equal("olivia_smith_telegram", updateProfileResponse?.TelegramUsername);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -74,10 +84,10 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
-            var username = "@test-user-profile";
+            var username = "user_DNpMzz";
             var apiEndpoint = $"https://gymby-api.azurewebsites.net//api/profile/{username}";
 
             // Act
@@ -98,7 +108,7 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("userfortest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var username = "@test";
@@ -116,7 +126,33 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/search";
+            var queryString = "?query=olivia";
+
+            // Act
+            var response = await httpClient.GetAsync(apiEndpoint + queryString);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var profiles = JArray.Parse(responseContent);
+            foreach (var profile in profiles)
+            {
+                var username = profile["username"]?.ToString();
+                Assert.Contains("olivia", username);
+            }
+        }
+
+        [Fact]
+        public async Task ProfilesControllerTests_QueryProfile_ExistentUsersSecondCase_ShouldBeFail()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/search";
@@ -138,37 +174,11 @@ namespace Gymby.ApiTests.Endpoints
         }
 
         [Fact]
-        public async Task ProfilesControllerTests_QueryProfile_ExistentUsersSecondCase_ShouldBeFail()
-        {
-            // Arrange
-            IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
-            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
-
-            var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/search";
-            var queryString = "?query=test";
-
-            // Act
-            var response = await httpClient.GetAsync(apiEndpoint + queryString);
-            var responseContent = await response.Content.ReadAsStringAsync();
-
-            // Assert
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-
-            var profiles = JArray.Parse(responseContent);
-            foreach (var profile in profiles)
-            {
-                var username = profile["username"]?.ToString();
-                Assert.Contains("test", username);
-            }
-        }
-
-        [Fact]
         public async Task ProfilesControllerTests_QueryProfile_NonxistentUsers_ShouldBeFail()
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/search";
@@ -186,11 +196,11 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/search";
-            var queryString = "?query=user&type=trainers";
+            var queryString = "?query=sophia&type=trainers";
 
             // Act
             var response = await httpClient.GetAsync(apiEndpoint + queryString);
@@ -203,7 +213,7 @@ namespace Gymby.ApiTests.Endpoints
             foreach (var profile in profiles)
             {
                 var username = profile["username"]?.ToString();
-                Assert.Contains("user", username);
+                Assert.Contains("sophia", username);
 
                 var isCoach = profile["isCoach"]?.Value<bool>();
                 Assert.True(isCoach);
@@ -215,7 +225,7 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/search";
@@ -241,11 +251,11 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("james.thomas@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/friends/search";
-            var queryString = "?query=friend";
+            var queryString = "?query=user_RfGvG4";
 
             // Act
             var response = await httpClient.GetAsync(apiEndpoint + queryString);
@@ -258,7 +268,7 @@ namespace Gymby.ApiTests.Endpoints
             foreach (var profile in profiles)
             {
                 var username = profile["username"]?.ToString();
-                Assert.Contains("friend", username);
+                Assert.Contains("user_RfGvG4", username);
             }
         }
 
@@ -267,11 +277,11 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("james.thomas@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/profile/friends/search";
-            var queryString = "?query=friend&type=trainers";
+            var queryString = "?query=sophia&type=trainers";
 
             // Act
             var response = await httpClient.GetAsync(apiEndpoint + queryString);
@@ -284,7 +294,7 @@ namespace Gymby.ApiTests.Endpoints
             foreach (var profile in profiles)
             {
                 var username = profile["username"]?.ToString();
-                Assert.Contains("coach", username);
+                Assert.Contains("sophia", username);
 
                 var isCoach = profile["isCoach"]?.Value<bool>();
                 Assert.True(isCoach);

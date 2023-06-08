@@ -5,11 +5,11 @@ namespace Gymby.ApiTests.Endpoints
     public class ProgramsControllerTests
     {
         [Fact]
-        public async Task ProgramsConrollerTests_CreateProgram_ShouldBeSuccess()
+        public async Task ProgramsConrollerTests_CreateUpdateDeleteProgram_ShouldBeSuccess()
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("sophia.anderson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointCreate = "https://gymby-api.azurewebsites.net/api/program/create";
@@ -18,31 +18,33 @@ namespace Gymby.ApiTests.Endpoints
 
             var CreateProgramDto = new CreateProgramDto
             {
-                Name = "Program for TEST d",
-                Description = "Program Description shared",
+                Name = "Program for Weight Gain",
+                Description = "This program is designed for individuals aiming to gain weight.",
                 Level = "Advanced",
                 Type = "WeightGain",
                 ProgramDays = new List<CreateProgramProgramDayDto>
                 {
                     new CreateProgramProgramDayDto
                     {
-                        Name = "Day 1 shared",
+                        Name = "Day 1",
                         Exercises = new List<CreateProgramExerciseDto>
                         {
                             new CreateProgramExerciseDto
                             {
-                                Name = "Exercise 1 TEST",
-                                ExercisePrototypeId = "5224eb66-74df-4632-a43b-eaf561f33319",
+                                Name = "Exercise 1",
+                                ExercisePrototypeId = "44d8be67-327a-4081-a73a-fb5d3eaa7818",
                                 Approaches = new List<CreateProgramApproacheDto>
                                 {
                                     new CreateProgramApproacheDto
                                     {
                                         Repeats = 10,
+                                        Interval = 90,
                                         Weight = 20.5
                                     },
                                     new CreateProgramApproacheDto
                                     {
                                         Repeats = 8,
+                                        Interval = 90,
                                         Weight = 22.5
                                     }
                                 }
@@ -51,28 +53,31 @@ namespace Gymby.ApiTests.Endpoints
                     },
                     new CreateProgramProgramDayDto
                     {
-                        Name = "Day 2 Test",
+                        Name = "Day 2",
                         Exercises = new List<CreateProgramExerciseDto>
                         {
                             new CreateProgramExerciseDto
                             {
-                                Name = "Exercise 3 Test",
-                                ExercisePrototypeId = "5224eb66-74df-4632-a43b-eaf561f33319",
+                                Name = "Exercise 1",
+                                ExercisePrototypeId = "2c59eab8-5634-4d8c-880c-54188b8db01f",
                                 Approaches = new List<CreateProgramApproacheDto>
                                 {
                                     new CreateProgramApproacheDto
                                     {
                                         Repeats = 10,
+                                        Interval = 120,
                                         Weight = 30.0
                                     },
                                     new CreateProgramApproacheDto
                                     {
                                         Repeats = 8,
+                                        Interval = 120,
                                         Weight = 35.0
                                     },
                                     new CreateProgramApproacheDto
                                     {
                                         Repeats = 6,
+                                        Interval = 120,
                                         Weight = 40.0
                                     }
                                 }
@@ -120,10 +125,10 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("sophia.anderson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
-            var apiEndpointGetProgramById = "https://gymby-api.azurewebsites.net/api/program/64a2c50e-cd39-48e6-a152-9f539a36af61";
+            var apiEndpointGetProgramById = "https://gymby-api.azurewebsites.net/api/program/90dfd1b9-4053-43d7-b211-c616b3c79db9";
 
             // Act
             var responseGetProgramById = await httpClient.GetAsync(apiEndpointGetProgramById);
@@ -144,7 +149,7 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointGetFreePrograms = "https://gymby-api.azurewebsites.net/api/programs/free";
@@ -161,7 +166,7 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("sophia.anderson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointGetPersonalPrograms = "https://gymby-api.azurewebsites.net/api/programs/personal";
@@ -178,7 +183,7 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programsshared1@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("olivia.smith@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointGetSharedPrograms = "https://gymby-api.azurewebsites.net/api/programs/shared";
@@ -195,7 +200,7 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("olivia.smith@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpointGetSharedPrograms = "https://gymby-api.azurewebsites.net/api/diary/all-programs";
@@ -212,11 +217,11 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("olivia.smith@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/program/search";
-            var queryString = "?query=gym";
+            var queryString = "?query=gain";
 
             // Act
             var response = await httpClient.GetAsync(apiEndpoint + queryString);
@@ -229,7 +234,7 @@ namespace Gymby.ApiTests.Endpoints
             foreach (var program in programs)
             {
                 var name = program["name"]?.ToString();
-                Assert.Contains("gym", name);
+                Assert.Contains("gain", name);
             }
         }
 
@@ -238,11 +243,11 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("olivia.smith@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/program/search";
-            var queryString = "?level=beginner";
+            var queryString = "?level=Advance";
 
             // Act
             var response = await httpClient.GetAsync(apiEndpoint + queryString);
@@ -255,7 +260,7 @@ namespace Gymby.ApiTests.Endpoints
             foreach (var program in programs)
             {
                 var name = program["level"]?.ToString();
-                Assert.Contains("Beginner", name);
+                Assert.Contains("Advance", name);
             }
         }
 
@@ -264,11 +269,11 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("olivia.smith@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/program/search";
-            var queryString = "?type=endurance";
+            var queryString = "?type=WeightGain";
 
             // Act
             var response = await httpClient.GetAsync(apiEndpoint + queryString);
@@ -281,8 +286,44 @@ namespace Gymby.ApiTests.Endpoints
             foreach (var program in programs)
             {
                 var name = program["type"]?.ToString();
-                Assert.Contains("Endurance", name);
+                Assert.Contains("WeightGain", name);
             }
+        }
+
+        [Fact]
+        public async Task ProgramsConrollerTests_UpdateAndDeleteNonexistentProgram_ShouldBeFail()
+        {
+            // Arrange
+            IAuthorization authorization = new Utils.Authorization();
+            var accessToken = await authorization.GetAccessTokenAsync("sophia.anderson@gmail.com", "TestUser123");
+            var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
+
+            var apiEndpointUpdate = "https://gymby-api.azurewebsites.net/api/program/update";
+            var apiEndpointDelete = "https://gymby-api.azurewebsites.net/api/program/delete";
+
+            var updateProgramDto = new UpdateProgramDto
+            {
+                Name = "PROGRAM UPDATE",
+                Description = "DESCRIPTION UPDATE",
+                Level = "Beginner",
+                Type = "WeightLoss",
+                ProgramId = "FAIL" ?? ""
+            };
+
+            var deleteObj = new { programId = "FAIL" };
+            var jsonDelete = JsonConvert.SerializeObject(deleteObj);
+
+            var contentDelete = new StringContent(jsonDelete, Encoding.UTF8, "application/json");
+            string jsonPayloadUpdate = JsonConvert.SerializeObject(updateProgramDto, Formatting.Indented);
+            var contentUpdate = new StringContent(jsonPayloadUpdate, Encoding.UTF8, "application/json");
+
+            // Act
+            var responseUpdate = await httpClient.PostAsync(apiEndpointUpdate, contentUpdate);
+            var responseDelete = await httpClient.PostAsync(apiEndpointDelete, contentDelete);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.BadRequest, responseUpdate.StatusCode);
+            Assert.Equal(HttpStatusCode.NotFound, responseDelete.StatusCode);
         }
 
         //[Fact]
@@ -290,7 +331,7 @@ namespace Gymby.ApiTests.Endpoints
         //{
         //    // Arrange
         //    IAuthorization authorization = new Utils.Authorization();
-        //    var accessToken = await authorization.GetAccessTokenAsync("programstest@gmail.com", "TestUser123");
+        //    var accessToken = await authorization.GetAccessTokenAsync("sophia.anderson@gmail.com", "TestUser123");
         //    var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
         //    var apiEndpointProgramAccess = "https://gymby-api.azurewebsites.net/api/program/access";

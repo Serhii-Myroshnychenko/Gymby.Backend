@@ -1,80 +1,85 @@
 {
-  "id": "64a2c50e-cd39-48e6-a152-9f539a36af61",
-  "name": "Program for TEST",
+  "id": "90dfd1b9-4053-43d7-b211-c616b3c79db9",
+  "name": "Program for Weight Gain",
   "isPublic": false,
-  "description": "Program Description shared",
-  "level": 1,
-  "type": 1,
+  "description": "This program is designed for individuals aiming to gain weight.",
+  "level": "Advanced",
+  "type": "WeightGain",
   "programDays": [
     {
-      "id": "9f5317b5-46d7-4d3b-9c66-f174a9d800a7",
-      "programId": "64a2c50e-cd39-48e6-a152-9f539a36af61",
-      "name": "Day 2 Test",
+      "id": "0cdbf086-a6e4-4c06-a462-e999f027545d",
+      "programId": "90dfd1b9-4053-43d7-b211-c616b3c79db9",
+      "name": "Day 1",
       "exercises": [
         {
-          "id": "d4d62060-de4c-4173-bd34-b6c691d7f00a",
+          "id": "ab61d77b-e7fc-4396-8016-398b57f77aa2",
           "diaryDayId": null,
-          "exercisePrototypeId": "5224eb66-74df-4632-a43b-eaf561f33319",
-          "programDayId": "9f5317b5-46d7-4d3b-9c66-f174a9d800a7",
+          "exercisePrototypeId": "44d8be67-327a-4081-a73a-fb5d3eaa7818",
+          "programDayId": "0cdbf086-a6e4-4c06-a462-e999f027545d",
           "date": null,
-          "name": "Exercise 3 Test",
+          "name": "Exercise 1",
           "approaches": [
             {
-              "id": "490b3fed-da7e-4cc8-b17a-38d684c2703e",
-              "exerciseId": "d4d62060-de4c-4173-bd34-b6c691d7f00a",
-              "repeats": 6,
-              "weight": 40,
-              "isDone": false,
-              "creationDate": "2023-06-03T12:51:04.4618878"
-            },
-            {
-              "id": "49899c26-beac-4307-928c-035f55b6fdd5",
-              "exerciseId": "d4d62060-de4c-4173-bd34-b6c691d7f00a",
+              "id": "a013c03d-fa2a-413b-91e3-b61891060e67",
+              "exerciseId": "ab61d77b-e7fc-4396-8016-398b57f77aa2",
               "repeats": 10,
-              "weight": 30,
+              "weight": 20.5,
               "isDone": false,
-              "creationDate": "2023-06-03T12:51:04.4618867"
+              "interval": 90,
+              "creationDate": "2023-06-07T12:24:47.0468841"
             },
             {
-              "id": "4ad8fe66-7912-47b3-b116-40c1da91a60f",
-              "exerciseId": "d4d62060-de4c-4173-bd34-b6c691d7f00a",
+              "id": "46523516-6d27-4320-aba0-ff4311545eac",
+              "exerciseId": "ab61d77b-e7fc-4396-8016-398b57f77aa2",
               "repeats": 8,
-              "weight": 35,
+              "weight": 22.5,
               "isDone": false,
-              "creationDate": "2023-06-03T12:51:04.4618873"
+              "interval": 90,
+              "creationDate": "2023-06-07T12:24:47.0468861"
             }
           ]
         }
       ]
     },
     {
-      "id": "a3d07a6a-5053-4c23-8b9c-01aeadc64492",
-      "programId": "64a2c50e-cd39-48e6-a152-9f539a36af61",
-      "name": "Day 1 shared",
+      "id": "f11d7978-44fc-4c0a-b8e2-4d74fd7e240f",
+      "programId": "90dfd1b9-4053-43d7-b211-c616b3c79db9",
+      "name": "Day 2",
       "exercises": [
         {
-          "id": "661181a8-e54a-44f6-87ef-491cb6579c7e",
+          "id": "79e150ef-9922-4653-bd65-57cb74d70648",
           "diaryDayId": null,
-          "exercisePrototypeId": "5224eb66-74df-4632-a43b-eaf561f33319",
-          "programDayId": "a3d07a6a-5053-4c23-8b9c-01aeadc64492",
+          "exercisePrototypeId": "2c59eab8-5634-4d8c-880c-54188b8db01f",
+          "programDayId": "f11d7978-44fc-4c0a-b8e2-4d74fd7e240f",
           "date": null,
-          "name": "Exercise 1 TEST",
+          "name": "Exercise 1",
           "approaches": [
             {
-              "id": "51077036-b359-4267-ac2a-4ae4903bf721",
-              "exerciseId": "661181a8-e54a-44f6-87ef-491cb6579c7e",
+              "id": "b407d689-8656-41b7-84e5-ce74a64f2b40",
+              "exerciseId": "79e150ef-9922-4653-bd65-57cb74d70648",
               "repeats": 10,
-              "weight": 20.5,
+              "weight": 30,
               "isDone": false,
-              "creationDate": "2023-06-03T12:51:04.4618832"
+              "interval": 120,
+              "creationDate": "2023-06-07T12:24:47.0468885"
             },
             {
-              "id": "7eb3dece-5926-4ba3-81c4-74a5542e7697",
-              "exerciseId": "661181a8-e54a-44f6-87ef-491cb6579c7e",
+              "id": "d29073ef-a600-4763-90da-c090fe63f238",
+              "exerciseId": "79e150ef-9922-4653-bd65-57cb74d70648",
               "repeats": 8,
-              "weight": 22.5,
+              "weight": 35,
               "isDone": false,
-              "creationDate": "2023-06-03T12:51:04.461885"
+              "interval": 120,
+              "creationDate": "2023-06-07T12:24:47.0468891"
+            },
+            {
+              "id": "bf53112f-f27c-4c87-a11f-b0259176754e",
+              "exerciseId": "79e150ef-9922-4653-bd65-57cb74d70648",
+              "repeats": 6,
+              "weight": 40,
+              "isDone": false,
+              "interval": 120,
+              "creationDate": "2023-06-07T12:24:47.0468896"
             }
           ]
         }
