@@ -116,7 +116,7 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Queries.GetAllAvailableDiaries
             }, CancellationToken.None);
 
             // Assert
-            result.Count.Should().Be(2);
+            result.Count.Should().Be(1);
             result.FirstOrDefault(d => d.DiaryId == diary.Id);
         }
 
@@ -143,7 +143,7 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Queries.GetAllAvailableDiaries
                 Id = Guid.NewGuid().ToString(),
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 DiaryId = diary.Id,
-                Type = AccessType.Owner,
+                Type = AccessType.Shared,
                 Diary = diary
             };
 

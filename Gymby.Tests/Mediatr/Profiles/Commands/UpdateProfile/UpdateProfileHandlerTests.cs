@@ -33,6 +33,26 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Commands.UpdateProfile
 
             var appConfigOptions = Options.Create(new AppConfig());
 
+            var diary = new Diary
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "My Diary",
+                CreationDate = DateTime.Now
+            };
+
+            var diaryAccess = new Gymby.Domain.Entities.DiaryAccess
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserId = ProfileContextFactory.UserBId.ToString(),
+                DiaryId = diary.Id,
+                Type = AccessType.Owner,
+                Diary = diary
+            };
+
+            Context.Diaries.Add(diary);
+            Context.DiaryAccess.Add(diaryAccess);
+            await Context.SaveChangesAsync();
+
             // Act
             await handler.Handle(new UpdateProfileCommand(appConfigOptions)
             {
