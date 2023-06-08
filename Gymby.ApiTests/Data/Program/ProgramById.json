@@ -20,15 +20,6 @@
           "name": "Exercise 1",
           "approaches": [
             {
-              "id": "46523516-6d27-4320-aba0-ff4311545eac",
-              "exerciseId": "ab61d77b-e7fc-4396-8016-398b57f77aa2",
-              "repeats": 8,
-              "weight": 22.5,
-              "isDone": false,
-              "interval": 90,
-              "creationDate": "2023-06-07T12:24:47.0468861"
-            },
-            {
               "id": "a013c03d-fa2a-413b-91e3-b61891060e67",
               "exerciseId": "ab61d77b-e7fc-4396-8016-398b57f77aa2",
               "repeats": 10,
@@ -36,6 +27,15 @@
               "isDone": false,
               "interval": 90,
               "creationDate": "2023-06-07T12:24:47.0468841"
+            },
+            {
+              "id": "46523516-6d27-4320-aba0-ff4311545eac",
+              "exerciseId": "ab61d77b-e7fc-4396-8016-398b57f77aa2",
+              "repeats": 8,
+              "weight": 22.5,
+              "isDone": false,
+              "interval": 90,
+              "creationDate": "2023-06-07T12:24:47.0468861"
             }
           ]
         }
@@ -64,15 +64,6 @@
               "creationDate": "2023-06-07T12:24:47.0468885"
             },
             {
-              "id": "bf53112f-f27c-4c87-a11f-b0259176754e",
-              "exerciseId": "79e150ef-9922-4653-bd65-57cb74d70648",
-              "repeats": 6,
-              "weight": 40,
-              "isDone": false,
-              "interval": 120,
-              "creationDate": "2023-06-07T12:24:47.0468896"
-            },
-            {
               "id": "d29073ef-a600-4763-90da-c090fe63f238",
               "exerciseId": "79e150ef-9922-4653-bd65-57cb74d70648",
               "repeats": 8,
@@ -80,6 +71,15 @@
               "isDone": false,
               "interval": 120,
               "creationDate": "2023-06-07T12:24:47.0468891"
+            },
+            {
+              "id": "bf53112f-f27c-4c87-a11f-b0259176754e",
+              "exerciseId": "79e150ef-9922-4653-bd65-57cb74d70648",
+              "repeats": 6,
+              "weight": 40,
+              "isDone": false,
+              "interval": 120,
+              "creationDate": "2023-06-07T12:24:47.0468896"
             }
           ]
         }

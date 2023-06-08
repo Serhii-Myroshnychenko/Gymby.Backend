@@ -87,7 +87,7 @@ namespace Gymby.ApiTests.Endpoints
             var accessToken = await authorization.GetAccessTokenAsync("ethan.johnson@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
-            var username = "olivia_YerAVr";
+            var username = "user_DNpMzz";
             var apiEndpoint = $"https://gymby-api.azurewebsites.net//api/profile/{username}";
 
             // Act

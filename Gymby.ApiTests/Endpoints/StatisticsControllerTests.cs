@@ -13,7 +13,7 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("samuel.rodriguez@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("stanis.barateon@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/statistics/numeric";
@@ -36,8 +36,8 @@ namespace Gymby.ApiTests.Endpoints
             Assert.Equal(5, countOfExecutedExercises);
             Assert.Equal(3, countOfTrainings);
             Assert.Equal(11, countOfExecutedApproaches);
-            Assert.Equal(68, maxApproachesCountPerTraining);
-            Assert.Equal(680, maxTonnagePerTraining);
+            Assert.Equal(60, maxApproachesCountPerTraining);
+            Assert.Equal(1452, maxTonnagePerTraining);
             Assert.Equal(3, maxExercisesCountPerTraining);
         }
 
@@ -46,7 +46,7 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("samuel.rodriguez@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("stanis.barateon@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/statistics/graph/exercises-done";
@@ -72,7 +72,7 @@ namespace Gymby.ApiTests.Endpoints
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
-            var accessToken = await authorization.GetAccessTokenAsync("samuel.rodriguez@gmail.com", "TestUser123");
+            var accessToken = await authorization.GetAccessTokenAsync("stanis.barateon@gmail.com", "TestUser123");
             var httpClient = Utils.Authorization.GetAuthenticatedHttpClient(accessToken);
 
             var apiEndpoint = "https://gymby-api.azurewebsites.net/api/statistics/graph/approaches-done";
