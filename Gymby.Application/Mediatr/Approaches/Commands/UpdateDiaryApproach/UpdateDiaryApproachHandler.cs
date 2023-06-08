@@ -40,7 +40,9 @@ public class UpdateDiaryApproachHandler
         var result = _mapper.Map<ExerciseVm>(exercise);
 
         result.Approaches = _mapper.Map<List<ApproachVm>>(await _dbContext.Approaches
-            .Where(a => a.ExerciseId == request.ExerciseId).ToListAsync(cancellationToken));
+            .Where(a => a.ExerciseId == request.ExerciseId)
+            .OrderBy(a => a.CreationDate)
+            .ToListAsync(cancellationToken));
 
         return result;
     }

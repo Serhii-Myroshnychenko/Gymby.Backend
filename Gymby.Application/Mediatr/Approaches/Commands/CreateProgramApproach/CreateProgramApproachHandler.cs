@@ -56,6 +56,7 @@ public class CreateProgramApproachHandler
 
         result.Approaches = _mapper.Map<List<ApproachVm>>(await _dbContext.Approaches
             .Where(ex => ex.ExerciseId == request.ExerciseId)
+            .OrderBy(a => a.CreationDate)
             .ToListAsync(cancellationToken));
         
         return result;

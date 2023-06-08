@@ -35,6 +35,25 @@ public class GetProgramByIdHandler
                 ?? throw new InsufficientRightsException("You do not have permissions to view this program");
         }
 
+        if (program.ProgramDays != null && program.ProgramDays.Count > 0)
+        {
+            foreach (var programDay in program.ProgramDays)
+            {
+                if (programDay.Exercises != null && programDay.Exercises.Count > 0)
+                {
+                    programDay.Exercises = programDay.Exercises.OrderBy(e => e.Date).ToList();
+
+                    foreach (var exercise in programDay.Exercises)
+                    {
+                        if (exercise.Approaches != null && exercise.Approaches.Count > 0)
+                        {
+                            exercise.Approaches = exercise.Approaches.OrderBy(e => e.CreationDate).ToList();
+                        }
+                    }
+                }
+            }
+        }
+
         return _mapper.Map<ProgramVm>(program);
     }
 }

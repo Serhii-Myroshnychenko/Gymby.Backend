@@ -3,6 +3,8 @@ using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
 using Gymby.Application.Utils;
 using Gymby.Application.ViewModels;
+using Gymby.Domain.Entities;
+using Gymby.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -54,6 +56,15 @@ public class UpdateProfileHandler
                 .FirstOrDefaultAsync(cancellationToken);
             if (entityWithGivenUsername == null)
             {
+                var diaryAccess = await _dbContext.DiaryAccess
+                    .FirstOrDefaultAsync(d => d.UserId == entity.UserId && d.Type == AccessType.Owner, cancellationToken)
+                        ?? throw new NotFoundEntityException(entity.UserId, nameof(DiaryAccess));
+
+                var diary = await _dbContext.Diaries
+                    .FirstOrDefaultAsync(d => d.Id == diaryAccess.DiaryId, cancellationToken)
+                        ?? throw new NotFoundEntityException(diaryAccess.DiaryId, nameof(Diary));
+
+                diary.Name = updateProfile.Username + " diary";
                 entity.Username = updateProfile.Username;
             }
             else

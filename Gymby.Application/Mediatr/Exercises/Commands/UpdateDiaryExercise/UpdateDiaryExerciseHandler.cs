@@ -30,7 +30,10 @@ public class UpdateDiaryExerciseHandler
         exercise.Name = request.Name;
         exercise.ExercisePrototypeId = request.ExercisePrototypeId;
         exercise.ExercisePrototype = exercisePrototype;
-        exercise.Approaches = await _dbContext.Approaches.Where(a => a.ExerciseId == exercise.Id).ToListAsync(cancellationToken);
+        exercise.Approaches = await _dbContext.Approaches
+            .Where(a => a.ExerciseId == exercise.Id)
+            .OrderBy(a => a.CreationDate)
+            .ToListAsync(cancellationToken);
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 
