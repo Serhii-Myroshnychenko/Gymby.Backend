@@ -48,6 +48,8 @@ public class DeleteMeasurementHandler
             }
         }
 
+        measurements = measurements.OrderBy(m => m.Date).ToList();
+
         return new MeasurementsList()
         {
             Measurements = _mapper.Map<List<MeasurementVm>>(measurements),

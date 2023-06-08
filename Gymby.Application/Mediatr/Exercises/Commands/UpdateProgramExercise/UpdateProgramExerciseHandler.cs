@@ -44,7 +44,10 @@ public class UpdateProgramExerciseHandler
         programExercise.Name = request.Name;
         programExercise.ExercisePrototypeId = request.ExercisePrototypeId;
         programExercise.ExercisePrototype = exercisePrototype;
-        programExercise.Approaches = await _dbContext.Approaches.Where(a => a.ExerciseId == programExercise.Id).ToListAsync(cancellationToken);
+        programExercise.Approaches = await _dbContext.Approaches
+            .Where(a => a.ExerciseId == programExercise.Id)
+            .OrderBy(a => a.CreationDate)
+            .ToListAsync(cancellationToken);
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 

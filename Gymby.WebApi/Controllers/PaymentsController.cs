@@ -8,7 +8,7 @@ namespace Gymby.WebApi.Controllers;
 public class PaymentsController : BaseController
 {
     [HttpPost("webhook")]
-    public async Task<IActionResult> SubscriptionWebhook(string username, [FromForm] string data, [FromForm] string signature)
+    public async Task<IActionResult> SubscriptionWebhook(string? username, [FromForm] string data, [FromForm] string signature)
     {
         var command = new HandleSubscriptionCommand()
         {

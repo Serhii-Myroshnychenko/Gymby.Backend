@@ -1,5 +1,6 @@
 ﻿using Gymby.Application.Interfaces;
 using Gymby.Application.ViewModels;
+using Gymby.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +17,7 @@ public class GetAllAvailableDiariesHandler
     public async Task<List<AvailableDiariesVm>> Handle(GetAllAvailableDiariesQuery request, CancellationToken cancellationToken)
     {
         var diariesAccesses = await _dbContext.DiaryAccess
-            .Where(d => d.UserId == request.UserId)
+            .Where(d => d.UserId == request.UserId && d.Type == AccessType.Shared)
             .Select(d => d.DiaryId)
             .ToListAsync(cancellationToken);
 

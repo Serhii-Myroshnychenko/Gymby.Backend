@@ -44,12 +44,16 @@ public class UpdateProgramDayHandler
         var result = _mapper.Map<ProgramDayVm>(programDay);
 
         result.Exercises = _mapper.Map<List<ExerciseVm>>(await _dbContext.Exercises
-            .Where(e => e.ProgramDayId == request.ProgramDayId).ToListAsync(cancellationToken));
+            .Where(e => e.ProgramDayId == request.ProgramDayId)
+            .OrderBy(e => e.Date)
+            .ToListAsync(cancellationToken));
 
         foreach (var exercise in result.Exercises)
         {
             exercise.Approaches = _mapper.Map<List<ApproachVm>>(await _dbContext.Approaches
-                .Where(a => a.ExerciseId == exercise.Id).ToListAsync(cancellationToken));
+                .Where(a => a.ExerciseId == exercise.Id)
+                .OrderBy(a => a.CreationDate)
+                .ToListAsync(cancellationToken));
         }
 
         return result;
