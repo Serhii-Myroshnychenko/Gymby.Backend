@@ -24,7 +24,7 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Commands.AccessToMyDiaryByUsername
         {
             // Arrange
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerAccessToMyDiaryByUsername = new AccessToMyDiaryByUsernameHandler(Context, Mapper, FileService);
+            var handlerAccessToMyDiaryByUsername = new AccessToMyDiaryByUsernameHandler(Context);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
@@ -99,7 +99,7 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Commands.AccessToMyDiaryByUsername
         {
             // Arrange
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerAccessToMyDiaryByUsername = new AccessToMyDiaryByUsernameHandler(Context, Mapper, FileService);
+            var handlerAccessToMyDiaryByUsername = new AccessToMyDiaryByUsernameHandler(Context);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 

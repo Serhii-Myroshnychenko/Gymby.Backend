@@ -34,7 +34,7 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.CreateDiary
         {
             // Arrange
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerCreateDiary = new CreateDiaryHandler(Context, Mapper, FileService);
+            var handlerCreateDiary = new CreateDiaryHandler(Context);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 

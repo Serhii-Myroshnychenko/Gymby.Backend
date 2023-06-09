@@ -29,12 +29,12 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateDiaryApproach
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
             var handlerDiaryExercise = new CreateDiaryExerciseHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerApproachCreate = new CreateDiaryApproachHandler(Context, Mapper, FileService);
-            var handlerApproachUpdate = new UpdateDiaryApproachHandler(Context, Mapper, FileService);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper);
+            var handlerApproachCreate = new CreateDiaryApproachHandler(Context, Mapper);
+            var handlerApproachUpdate = new UpdateDiaryApproachHandler(Context, Mapper);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
@@ -161,12 +161,12 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateDiaryApproach
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
             var handlerDiaryExercise = new CreateDiaryExerciseHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerApproachCreate = new CreateDiaryApproachHandler(Context, Mapper, FileService);
-            var handlerApproachUpdate = new UpdateDiaryApproachHandler(Context, Mapper, FileService);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper);
+            var handlerApproachCreate = new CreateDiaryApproachHandler(Context, Mapper);
+            var handlerApproachUpdate = new UpdateDiaryApproachHandler(Context, Mapper);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 

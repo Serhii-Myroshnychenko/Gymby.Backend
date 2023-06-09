@@ -29,10 +29,10 @@ namespace Gymby.UnitTests.Mediatr.DiaryDay.Queries.GetDiaryDay
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
+            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper);
             var handlerDiaryExercise = new CreateDiaryExerciseHandler(Context, Mapper);
             var handlerGetDiaryDay = new GetDiaryDayHandler(Context, Mapper);
 

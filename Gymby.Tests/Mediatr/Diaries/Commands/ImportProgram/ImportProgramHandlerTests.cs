@@ -36,13 +36,13 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgram
         {
             // Arrange
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerCreateDiary = new CreateDiaryHandler(Context, Mapper, FileService);
+            var handlerCreateDiary = new CreateDiaryHandler(Context);
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerImportProgramDay = new ImportProgramDayHandler(Context, Mapper);
-            var handlerImportProgram = new ImportProgramHandler(Context, Mapper, _mediator);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
+            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper);
+            var handlerImportProgramDay = new ImportProgramDayHandler(Context);
+            var handlerImportProgram = new ImportProgramHandler(Context, _mediator);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
@@ -157,13 +157,13 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgram
         {
             // Arrange
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerCreateDiary = new CreateDiaryHandler(Context, Mapper, FileService);
+            var handlerCreateDiary = new CreateDiaryHandler(Context);
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerImportProgramDay = new ImportProgramDayHandler(Context, Mapper);
-            var handlerImportProgram = new ImportProgramHandler(Context, Mapper, _mediator);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
+            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper);
+            var handlerImportProgramDay = new ImportProgramDayHandler(Context);
+            var handlerImportProgram = new ImportProgramHandler(Context, _mediator);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
@@ -260,13 +260,13 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgram
         {
             // Arrange
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerCreateDiary = new CreateDiaryHandler(Context, Mapper, FileService);
+            var handlerCreateDiary = new CreateDiaryHandler(Context);
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerImportProgramDay = new ImportProgramDayHandler(Context, Mapper);
-            var handlerImportProgram = new ImportProgramHandler(Context, Mapper, _mediator);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
+            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper);
+            var handlerImportProgramDay = new ImportProgramDayHandler(Context);
+            var handlerImportProgram = new ImportProgramHandler(Context, _mediator);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
@@ -381,14 +381,14 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgram
         {
             // Arrange
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerCreateDiary = new CreateDiaryHandler(Context, Mapper, FileService);
+            var handlerCreateDiary = new CreateDiaryHandler(Context);
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerImportProgramDay = new ImportProgramDayHandler(Context, Mapper);
-            var handlerImportProgram = new ImportProgramHandler(Context, Mapper, _mediator);
-            var handlerAccessToMyDiaryByUsername = new AccessToMyDiaryByUsernameHandler(Context, Mapper, FileService);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
+            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper);
+            var handlerImportProgramDay = new ImportProgramDayHandler(Context);
+            var handlerImportProgram = new ImportProgramHandler(Context, _mediator);
+            var handlerAccessToMyDiaryByUsername = new AccessToMyDiaryByUsernameHandler(Context);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
@@ -523,13 +523,13 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgram
         {
             // Arrange
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerCreateDiary = new CreateDiaryHandler(Context, Mapper, FileService);
+            var handlerCreateDiary = new CreateDiaryHandler(Context);
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerImportProgramDay = new ImportProgramDayHandler(Context, Mapper);
-            var handlerImportProgram = new ImportProgramHandler(Context, Mapper, _mediator);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
+            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper);
+            var handlerImportProgramDay = new ImportProgramDayHandler(Context);
+            var handlerImportProgram = new ImportProgramHandler(Context, _mediator);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
             var programId = Guid.NewGuid().ToString();

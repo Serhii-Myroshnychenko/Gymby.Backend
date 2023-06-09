@@ -30,12 +30,12 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
+            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerApproachCreate = new CreateProgramApproachHandler(Context, Mapper, FileService);
-            var handlerApproachUpdate = new UpdateProgramApproachHandler(Context, Mapper, FileService);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper);
+            var handlerApproachCreate = new CreateProgramApproachHandler(Context, Mapper);
+            var handlerApproachUpdate = new UpdateProgramApproachHandler(Context, Mapper);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
@@ -140,13 +140,13 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
+            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerExerciseUpdate = new UpdateProgramExerciseHandler(Context, Mapper, FileService);
-            var handlerApproachCreate = new CreateProgramApproachHandler(Context, Mapper, FileService);
-            var handlerApproachUpdate = new UpdateProgramApproachHandler(Context, Mapper, FileService);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper);
+            var handlerExerciseUpdate = new UpdateProgramExerciseHandler(Context, Mapper);
+            var handlerApproachCreate = new CreateProgramApproachHandler(Context, Mapper);
+            var handlerApproachUpdate = new UpdateProgramApproachHandler(Context, Mapper);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
@@ -249,13 +249,13 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
+            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerExerciseUpdate = new UpdateProgramExerciseHandler(Context, Mapper, FileService);
-            var handlerApproachCreate = new CreateProgramApproachHandler(Context, Mapper, FileService);
-            var handlerApproachUpdate = new UpdateProgramApproachHandler(Context, Mapper, FileService);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper);
+            var handlerExerciseUpdate = new UpdateProgramExerciseHandler(Context, Mapper);
+            var handlerApproachCreate = new CreateProgramApproachHandler(Context, Mapper);
+            var handlerApproachUpdate = new UpdateProgramApproachHandler(Context, Mapper);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
@@ -359,13 +359,13 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
+            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerExerciseUpdate = new UpdateProgramExerciseHandler(Context, Mapper, FileService);
-            var handlerApproachCreate = new CreateProgramApproachHandler(Context, Mapper, FileService);
-            var handlerApproachUpdate = new UpdateProgramApproachHandler(Context, Mapper, FileService);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper);
+            var handlerExerciseUpdate = new UpdateProgramExerciseHandler(Context, Mapper);
+            var handlerApproachCreate = new CreateProgramApproachHandler(Context, Mapper);
+            var handlerApproachUpdate = new UpdateProgramApproachHandler(Context, Mapper);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 

@@ -20,7 +20,7 @@ namespace Gymby.UnitTests.Mediatr.Statistics.Queries.GetExercisesDoneCountByDate
         public async Task GetExercisesDoneCountByDateHandler_ShouldBeSuccess()
         {
             // Arrange
-            var handlerGetExercisesDoneCountByDate = new GetExercisesDoneCountByDateHandler(Context, Mapper);
+            var handlerGetExercisesDoneCountByDate = new GetExercisesDoneCountByDateHandler(Context);
 
             // Act
             var resultGetExercisesDoneCountByDate = await handlerGetExercisesDoneCountByDate.Handle(new GetExercisesDoneCountByDateQuery()
@@ -41,7 +41,7 @@ namespace Gymby.UnitTests.Mediatr.Statistics.Queries.GetExercisesDoneCountByDate
         public async Task GetExercisesDoneCountByDateHandler_ShouldBeFail()
         {
             // Arrange
-            var handlerGetExercisesDoneCountByDate = new GetExercisesDoneCountByDateHandler(Context, Mapper);
+            var handlerGetExercisesDoneCountByDate = new GetExercisesDoneCountByDateHandler(Context);
 
             // Act
             // Assert

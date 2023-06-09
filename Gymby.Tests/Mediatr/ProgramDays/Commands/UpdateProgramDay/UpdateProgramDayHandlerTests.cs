@@ -31,8 +31,8 @@ namespace Gymby.UnitTests.Mediatr.ProgramDays.Commands.UpdateProgramDay
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramDayUpdate = new UpdateProgramDayHandler(Context, Mapper, FileService);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
+            var handlerProgramDayUpdate = new UpdateProgramDayHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
@@ -83,10 +83,10 @@ namespace Gymby.UnitTests.Mediatr.ProgramDays.Commands.UpdateProgramDay
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
             var handlerProfileSecond = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerProgramDayUpdate = new UpdateProgramDayHandler(Context, Mapper, FileService);
+            var handlerProgramDayUpdate = new UpdateProgramDayHandler(Context, Mapper);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
