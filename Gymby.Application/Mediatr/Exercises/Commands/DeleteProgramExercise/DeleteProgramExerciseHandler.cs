@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Gymby.Application.Common.Exceptions;
+﻿using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
 using Gymby.Domain.Entities;
 using Gymby.Domain.Enums;
@@ -12,11 +11,9 @@ public class DeleteProgramExerciseHandler
     : IRequestHandler<DeleteProgramExerciseCommand, Unit>
 {
     private readonly IApplicationDbContext _dbContext;
-    private readonly IMapper _mapper;
-    private readonly IFileService _fileService;
 
-    public DeleteProgramExerciseHandler(IApplicationDbContext dbContext, IMapper mapper, IFileService fileService) =>
-        (_dbContext, _mapper, _fileService) = (dbContext, mapper, fileService);
+    public DeleteProgramExerciseHandler(IApplicationDbContext dbContext) =>
+        (_dbContext) = (dbContext);
 
     public async Task<Unit> Handle(DeleteProgramExerciseCommand request, CancellationToken cancellationToken)
     {
@@ -45,6 +42,7 @@ public class DeleteProgramExerciseHandler
         }
 
         _dbContext.Exercises.Remove(programExercise);
+
         await _dbContext.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;

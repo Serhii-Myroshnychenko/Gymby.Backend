@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Gymby.Application.Common.Exceptions;
+﻿using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
 using Gymby.Domain.Entities;
 using Gymby.Domain.Enums;
@@ -12,10 +11,9 @@ public class ImportProgramDayHandler
     : IRequestHandler<ImportProgramDayCommand, Unit>
 {
     private readonly IApplicationDbContext _dbContext;
-    private readonly IMapper _mapper;
 
-    public ImportProgramDayHandler(IApplicationDbContext dbContext, IMapper mapper) =>
-        (_dbContext, _mapper) = (dbContext, mapper);
+    public ImportProgramDayHandler(IApplicationDbContext dbContext) =>
+        (_dbContext) = (dbContext);
 
     public async Task<Unit> Handle(ImportProgramDayCommand request, CancellationToken cancellationToken)
     {

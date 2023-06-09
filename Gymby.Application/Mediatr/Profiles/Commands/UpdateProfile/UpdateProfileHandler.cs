@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
-using Gymby.Application.Utils;
 using Gymby.Application.ViewModels;
 using Gymby.Domain.Entities;
 using Gymby.Domain.Enums;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gymby.Application.Mediatr.Profiles.Commands.UpdateProfile;

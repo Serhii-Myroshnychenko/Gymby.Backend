@@ -16,11 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Images\Profiles\" />
-    <Folder Include="Images\Measurements\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Gymby.Application\Gymby.Application.csproj" />
     <ProjectReference Include="..\Gymby.Persistence\Gymby.Persistence.csproj" />
   </ItemGroup>

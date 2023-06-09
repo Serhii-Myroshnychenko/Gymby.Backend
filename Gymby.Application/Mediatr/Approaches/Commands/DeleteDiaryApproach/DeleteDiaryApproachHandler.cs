@@ -13,10 +13,9 @@ public class DeleteDiaryApproachHandler
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
-    private readonly IFileService _fileService;
 
-    public DeleteDiaryApproachHandler(IApplicationDbContext dbContext, IMapper mapper, IFileService fileService) =>
-        (_dbContext, _mapper, _fileService) = (dbContext, mapper, fileService);
+    public DeleteDiaryApproachHandler(IApplicationDbContext dbContext, IMapper mapper) =>
+        (_dbContext, _mapper) = (dbContext, mapper);
 
     public async Task<ExerciseVm> Handle(DeleteDiaryApproachCommand request, CancellationToken cancellationToken)
     {

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Gymby.Application.Interfaces;
 using Gymby.Application.ViewModels;
-using Gymby.Domain.Entities;
 using Gymby.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

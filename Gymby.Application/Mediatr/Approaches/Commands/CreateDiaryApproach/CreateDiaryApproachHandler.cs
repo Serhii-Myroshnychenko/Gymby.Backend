@@ -13,10 +13,9 @@ public class CreateDiaryApproachHandler
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
-    private readonly IFileService _fileService;
 
-    public CreateDiaryApproachHandler(IApplicationDbContext dbContext, IMapper mapper, IFileService fileService) =>
-        (_dbContext, _mapper, _fileService) = (dbContext, mapper, fileService);
+    public CreateDiaryApproachHandler(IApplicationDbContext dbContext, IMapper mapper) =>
+        (_dbContext, _mapper) = (dbContext, mapper);
 
     public async Task<ExerciseVm> Handle(CreateDiaryApproachCommand request, CancellationToken cancellationToken)
     {

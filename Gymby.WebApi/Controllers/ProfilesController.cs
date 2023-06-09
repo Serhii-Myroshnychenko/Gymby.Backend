@@ -9,9 +9,6 @@ using Gymby.WebApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using System.Text.Json;
-using System.Web;
 
 namespace Gymby.WebApi.Controllers;
 

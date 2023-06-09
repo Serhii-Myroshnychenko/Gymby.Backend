@@ -14,10 +14,9 @@ public class UpdateProgramDayHandler
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
-    private readonly IFileService _fileService;
 
-    public UpdateProgramDayHandler(IApplicationDbContext dbContext, IMapper mapper, IFileService fileService) =>
-        (_dbContext, _mapper, _fileService) = (dbContext, mapper, fileService);
+    public UpdateProgramDayHandler(IApplicationDbContext dbContext, IMapper mapper) =>
+        (_dbContext, _mapper) = (dbContext, mapper);
 
     public async Task<ProgramDayVm> Handle(UpdateProgramDayCommand request, CancellationToken cancellationToken)
     {

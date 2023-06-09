@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
-using Gymby.Application.Services;
 using Gymby.Application.ViewModels;
 using Gymby.Domain.Enums;
 using MediatR;
