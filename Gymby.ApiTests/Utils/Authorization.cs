@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Gymby.ApiTests.Utils
+﻿namespace Gymby.ApiTests.Utils
 {
     public class Authorization : IAuthorization
     {
@@ -15,8 +9,6 @@ namespace Gymby.ApiTests.Utils
 
             var clientId = "test";
             var clientSecret = "secret";
-            //var username = "userfortest@gmail.com";
-            //var password = "TestUser123";
             var scope = "GymbyWebAPI";
 
             var httpClient = new HttpClient();

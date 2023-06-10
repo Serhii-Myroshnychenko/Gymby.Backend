@@ -1,6 +1,4 @@
-﻿using Azure;
-
-namespace Gymby.ApiTests.Endpoints
+﻿namespace Gymby.ApiTests.Endpoints
 {
     public class MeasurementsControllerTests
     {

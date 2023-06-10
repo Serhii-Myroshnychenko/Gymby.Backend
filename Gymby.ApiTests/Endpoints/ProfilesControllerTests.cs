@@ -122,7 +122,7 @@ namespace Gymby.ApiTests.Endpoints
         }
 
         [Fact]
-        public async Task ProfilesControllerTests_QueryProfile_ExistentUsersFirstCase_ShouldBeFail()
+        public async Task ProfilesControllerTests_QueryProfile_ExistentUsersFirstCase_ShouldBeSuccess()
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
@@ -148,7 +148,7 @@ namespace Gymby.ApiTests.Endpoints
         }
 
         [Fact]
-        public async Task ProfilesControllerTests_QueryProfile_ExistentUsersSecondCase_ShouldBeFail()
+        public async Task ProfilesControllerTests_QueryProfile_ExistentUsersSecondCase_ShouldBeSuccess()
         {
             // Arrange
             IAuthorization authorization = new Utils.Authorization();
