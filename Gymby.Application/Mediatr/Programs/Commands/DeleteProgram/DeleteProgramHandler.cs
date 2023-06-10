@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Gymby.Application.Common.Exceptions;
+﻿using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
 using Gymby.Domain.Entities;
 using Gymby.Domain.Enums;

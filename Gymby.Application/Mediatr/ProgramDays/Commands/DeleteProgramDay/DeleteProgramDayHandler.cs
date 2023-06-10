@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Gymby.Application.Common.Exceptions;
+﻿using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
 using Gymby.Domain.Entities;
 using Gymby.Domain.Enums;
@@ -12,11 +11,9 @@ public class DeleteProgramDayHandler
     : IRequestHandler<DeleteProgramDayCommand, Unit>
 {
     private readonly IApplicationDbContext _dbContext;
-    private readonly IMapper _mapper;
-    private readonly IFileService _fileService;
 
-    public DeleteProgramDayHandler(IApplicationDbContext dbContext, IMapper mapper, IFileService fileService) =>
-        (_dbContext, _mapper, _fileService) = (dbContext, mapper, fileService);
+    public DeleteProgramDayHandler(IApplicationDbContext dbContext) =>
+        (_dbContext) = (dbContext);
 
     public async Task<Unit> Handle(DeleteProgramDayCommand request, CancellationToken cancellationToken)
     {

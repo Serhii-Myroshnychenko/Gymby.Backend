@@ -29,7 +29,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetProgramById
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerGetProgramById = new GetProgramByIdHandler(Context, Mapper, FileService);
+            var handlerGetProgramById = new GetProgramByIdHandler(Context, Mapper);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
@@ -70,7 +70,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetProgramById
         public async Task GetProgramByIdHandler_WhenProgramsCountZero_ShouldBeSuccess()
         {
             // Arrange
-            var handlerGetProgramById = new GetProgramByIdHandler(Context, Mapper, FileService);
+            var handlerGetProgramById = new GetProgramByIdHandler(Context, Mapper);
 
             // Act
             //Assert

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
-using Gymby.Application.Mediatr.Approaches.Commands.CreateProgramApproach;
 using Gymby.Application.ViewModels;
 using Gymby.Domain.Entities;
 using Gymby.Domain.Enums;
@@ -15,10 +14,9 @@ public class UpdateProgramApproachHandler
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
-    private readonly IFileService _fileService;
 
-    public UpdateProgramApproachHandler(IApplicationDbContext dbContext, IMapper mapper, IFileService fileService) =>
-        (_dbContext, _mapper, _fileService) = (dbContext, mapper, fileService);
+    public UpdateProgramApproachHandler(IApplicationDbContext dbContext, IMapper mapper) =>
+        (_dbContext, _mapper) = (dbContext, mapper);
 
     public async Task<ExerciseVm> Handle(UpdateProgramApproachCommand request, CancellationToken cancellationToken)
     {

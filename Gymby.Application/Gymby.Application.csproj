@@ -35,8 +35,6 @@
     <Folder Include="Mediatr\Approaches\Queries\" />
     <Folder Include="Mediatr\DiaryDay\Commands\" />
     <Folder Include="Mediatr\Exercises\Queries\" />
-    <Folder Include="Mediatr\Photos\Queries\" />
-    <Folder Include="Mediatr\ProgramDays\Queries\" />
   </ItemGroup>
 
 </Project>

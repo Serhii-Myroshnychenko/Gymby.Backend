@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Gymby.Application.Common.Exceptions;
+﻿using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
 using Gymby.Application.ViewModels;
 using Gymby.Domain.Entities;
@@ -13,10 +12,9 @@ public class GetApproachesDoneCountByDateHandler
     : IRequestHandler<GetApproachesDoneCountByDateQuery, List<ExercisesDoneCountVm>>
 {
     private readonly IApplicationDbContext _dbContext;
-    private readonly IMapper _mapper;
 
-    public GetApproachesDoneCountByDateHandler(IApplicationDbContext dbContext, IMapper mapper) =>
-        (_dbContext, _mapper) = (dbContext, mapper);
+    public GetApproachesDoneCountByDateHandler(IApplicationDbContext dbContext) =>
+        (_dbContext) = (dbContext);
 
     public async Task<List<ExercisesDoneCountVm>> Handle(GetApproachesDoneCountByDateQuery request, CancellationToken cancellationToken)
     {

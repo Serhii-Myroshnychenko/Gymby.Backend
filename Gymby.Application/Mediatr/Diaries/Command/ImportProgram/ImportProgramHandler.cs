@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Gymby.Application.Common.Exceptions;
+﻿using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
 using Gymby.Application.Mediatr.Diaries.Command.ImportProgramDay;
 using Gymby.Application.Utils;
@@ -14,11 +13,10 @@ public class ImportProgramHandler
     : IRequestHandler<ImportProgramCommand, Unit>
 {
     private readonly IApplicationDbContext _dbContext;
-    private readonly IMapper _mapper;
     private readonly IMediator _mediator;
 
-    public ImportProgramHandler(IApplicationDbContext dbContext, IMapper mapper, IMediator mediator) =>
-        (_dbContext, _mapper, _mediator) = (dbContext, mapper, mediator);
+    public ImportProgramHandler(IApplicationDbContext dbContext, IMediator mediator) =>
+        (_dbContext, _mediator) = (dbContext, mediator);
 
     public async Task<Unit> Handle(ImportProgramCommand request, CancellationToken cancellationToken)
     {

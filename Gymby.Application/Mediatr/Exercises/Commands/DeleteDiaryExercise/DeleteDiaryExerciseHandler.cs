@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Gymby.Application.Common.Exceptions;
+﻿using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
 using Gymby.Domain.Entities;
 using MediatR;
@@ -11,10 +10,9 @@ public class DeleteDiaryExerciseHandler
     : IRequestHandler<DeleteDiaryExerciseCommand, Unit>
 {
     private readonly IApplicationDbContext _dbContext;
-    private readonly IMapper _mapper;
 
-    public DeleteDiaryExerciseHandler(IApplicationDbContext dbContext, IMapper mapper) =>
-        (_dbContext, _mapper) = (dbContext, mapper);
+    public DeleteDiaryExerciseHandler(IApplicationDbContext dbContext) =>
+        (_dbContext) = (dbContext);
 
     public async Task<Unit> Handle(DeleteDiaryExerciseCommand request, CancellationToken cancellationToken)
     {

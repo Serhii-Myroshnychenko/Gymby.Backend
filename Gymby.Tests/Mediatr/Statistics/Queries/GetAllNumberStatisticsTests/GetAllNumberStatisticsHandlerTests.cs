@@ -23,7 +23,7 @@ namespace Gymby.UnitTests.Mediatr.Statistics.Queries.GetAllNumberStatisticsTests
         public async Task GetAllNumberStatisticsHandler_ShouldBeSuccess()
         {
             // Arrange
-            var handlerGetAllNumberStatistics = new GetAllNumberStatisticsHandler(Context, Mapper);
+            var handlerGetAllNumberStatistics = new GetAllNumberStatisticsHandler(Context);
 
             // Act
             var resultGetAllNumberStatisticse = await handlerGetAllNumberStatistics.Handle(new GetAllNumberStatisticsQuery()
@@ -46,7 +46,7 @@ namespace Gymby.UnitTests.Mediatr.Statistics.Queries.GetAllNumberStatisticsTests
         public async Task GetAllNumberStatisticsHandler_ShouldBeFail()
         {
             // Arrange
-            var handlerGetAllNumberStatistics = new GetAllNumberStatisticsHandler(Context, Mapper);
+            var handlerGetAllNumberStatistics = new GetAllNumberStatisticsHandler(Context);
 
             // Act
             // Assert

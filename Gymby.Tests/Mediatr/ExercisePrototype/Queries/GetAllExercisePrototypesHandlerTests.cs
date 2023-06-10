@@ -28,7 +28,7 @@ namespace Gymby.UnitTests.Mediatr.ExercisePrototype.Queries
         public async Task GetMyProfileHandler_ShouldGetProfileDetails()
         {
             // Arrange
-            var handler = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
+            var handler = new GetAllExercisePrototypesHandler(Context, Mapper);
 
             // Act
             var result = await handler.Handle(

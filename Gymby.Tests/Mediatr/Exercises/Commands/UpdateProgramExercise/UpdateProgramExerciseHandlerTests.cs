@@ -28,11 +28,11 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateProgramExercise
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
+            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerExerciseUpdate = new UpdateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper);
+            var handlerExerciseUpdate = new UpdateProgramExerciseHandler(Context, Mapper);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
@@ -121,11 +121,11 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateProgramExercise
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
+            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerExerciseUpdate = new UpdateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper);
+            var handlerExerciseUpdate = new UpdateProgramExerciseHandler(Context, Mapper);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
             var appConfigOptionsProfile1 = Options.Create(new AppConfig());
@@ -215,11 +215,11 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateProgramExercise
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
+            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerExerciseUpdate = new UpdateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper);
+            var handlerExerciseUpdate = new UpdateProgramExerciseHandler(Context, Mapper);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
             var appConfigOptionsProfile1 = Options.Create(new AppConfig());
@@ -310,11 +310,11 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateProgramExercise
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
-            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper, FileService);
-            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerProgramDay = new CreateProgramDayHandler(Context, Mapper);
+            var handlerProgramExercise = new CreateProgramExerciseHandler(Context, Mapper);
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper, FileService);
-            var handlerExerciseUpdate = new UpdateProgramExerciseHandler(Context, Mapper, FileService);
+            var handlerExercisePrototype = new GetAllExercisePrototypesHandler(Context, Mapper);
+            var handlerExerciseUpdate = new UpdateProgramExerciseHandler(Context, Mapper);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
             var appConfigOptionsProfile1 = Options.Create(new AppConfig());

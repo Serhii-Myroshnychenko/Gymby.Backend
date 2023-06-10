@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Gymby.Application.Common.Exceptions;
+﻿using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
 using Gymby.Application.ViewModels;
 using Gymby.Domain.Entities;
@@ -13,10 +12,9 @@ public class GetDiaryCalendarRepresentationHandler
     : IRequestHandler<GetDiaryCalendarRepresentationQuery, List<DiaryCalendarRepresentationVm>>
 {
     private readonly IApplicationDbContext _dbContext;
-    private readonly IMapper _mapper;
 
-    public GetDiaryCalendarRepresentationHandler(IApplicationDbContext dbContext, IMapper mapper) =>
-        (_dbContext, _mapper) = (dbContext, mapper);
+    public GetDiaryCalendarRepresentationHandler(IApplicationDbContext dbContext) =>
+        (_dbContext) = (dbContext);
 
     public async Task<List<DiaryCalendarRepresentationVm>> Handle(GetDiaryCalendarRepresentationQuery request, CancellationToken cancellationToken)
     {

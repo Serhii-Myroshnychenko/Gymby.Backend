@@ -13,10 +13,9 @@ public class UpdateDiaryApproachHandler
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
-    private readonly IFileService _fileService;
 
-    public UpdateDiaryApproachHandler(IApplicationDbContext dbContext, IMapper mapper, IFileService fileService) =>
-        (_dbContext, _mapper, _fileService) = (dbContext, mapper, fileService);
+    public UpdateDiaryApproachHandler(IApplicationDbContext dbContext, IMapper mapper) =>
+        (_dbContext, _mapper) = (dbContext, mapper);
 
     public async Task<ExerciseVm> Handle(UpdateDiaryApproachCommand request, CancellationToken cancellationToken)
     {

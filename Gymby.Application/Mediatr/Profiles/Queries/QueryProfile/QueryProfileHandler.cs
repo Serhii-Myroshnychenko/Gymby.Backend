@@ -4,7 +4,6 @@ using Gymby.Application.Mediatr.Friends.Queries.GetMyFriendsList;
 using Gymby.Application.ViewModels;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace Gymby.Application.Mediatr.Profiles.Queries.QueryProfile;
 

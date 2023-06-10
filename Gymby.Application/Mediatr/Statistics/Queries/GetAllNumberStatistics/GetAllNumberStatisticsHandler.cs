@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Gymby.Application.Common.Exceptions;
+﻿using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
 using Gymby.Application.ViewModels;
 using Gymby.Domain.Entities;
@@ -13,10 +12,9 @@ public class GetAllNumberStatisticsHandler
     : IRequestHandler<GetAllNumberStatisticsQuery, NumericStatisticsVm>
 {
     private readonly IApplicationDbContext _dbContext;
-    private readonly IMapper _mapper;
 
-    public GetAllNumberStatisticsHandler(IApplicationDbContext dbContext, IMapper mapper) =>
-        (_dbContext, _mapper) = (dbContext, mapper);
+    public GetAllNumberStatisticsHandler(IApplicationDbContext dbContext) =>
+        (_dbContext) = (dbContext);
 
     public async Task<NumericStatisticsVm> Handle(GetAllNumberStatisticsQuery request, CancellationToken cancellationToken)
     {

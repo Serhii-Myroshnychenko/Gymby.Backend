@@ -20,7 +20,7 @@ namespace Gymby.UnitTests.Mediatr.Statistics.Queries.GetApproachesDoneCountByDat
         public async Task GetApproachesDoneCountByDateHandler_ShouldBeSuccess()
         {
             // Arrange
-            var handlerGetApproachesDoneCountByDate = new GetApproachesDoneCountByDateHandler(Context, Mapper);
+            var handlerGetApproachesDoneCountByDate = new GetApproachesDoneCountByDateHandler(Context);
 
             // Act
             var resultGetApproachesDoneCountByDate = await handlerGetApproachesDoneCountByDate.Handle(new GetApproachesDoneCountByDateQuery()
@@ -41,7 +41,7 @@ namespace Gymby.UnitTests.Mediatr.Statistics.Queries.GetApproachesDoneCountByDat
         public async Task GetApproachesDoneCountByDateHandler_ShouldBeFail()
         {
             // Arrange
-            var handlerGetApproachesDoneCountByDate = new GetApproachesDoneCountByDateHandler(Context, Mapper);
+            var handlerGetApproachesDoneCountByDate = new GetApproachesDoneCountByDateHandler(Context);
 
             // Act
             // Assert

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
 using Gymby.Application.ViewModels;
@@ -101,7 +100,6 @@ public class CreateProgramHandler
                 }
             }
         }
-
 
         await _dbContext.Programs.AddAsync(program, cancellationToken);
         await _dbContext.ProgramAccesses.AddAsync(programAccess, cancellationToken);

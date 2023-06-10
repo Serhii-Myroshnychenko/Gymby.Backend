@@ -25,7 +25,7 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Queries.GetAllAvailableDiaries
         {
             // Arrange
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
-            var handlerAccessToMyDiaryByUsername = new AccessToMyDiaryByUsernameHandler(Context, Mapper, FileService);
+            var handlerAccessToMyDiaryByUsername = new AccessToMyDiaryByUsernameHandler(Context);
             var handlerGetAllAvailableDiaries = new GetAllAvailableDiariesHandler(Context);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());

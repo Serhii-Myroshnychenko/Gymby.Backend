@@ -13,10 +13,6 @@ using System.Reflection;
 
 var configuration = GetConfiguration();
 
-//Log.Logger = new LoggerConfiguration()
-//    .WriteTo.Console()
-//    .MinimumLevel.Information().CreateLogger();
-
 Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .WriteTo.File("GymbyLogs-.txt", rollingInterval:

@@ -4,8 +4,7 @@ using MediatR;
 using Gymby.Application.Common.Exceptions;
 using Gymby.Domain.Enums;
 using Gymby.Application.ViewModels;
-using Azure.Core;
-using Gymby.Application.Services;
+
 using AutoMapper;
 
 namespace Gymby.Application.Mediatr.Friends.Commands.AcceptFriendship;
