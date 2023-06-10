@@ -21,7 +21,7 @@ public class GetPersonalProgramsHandler
     {
         var profile = await _dbContext.Profiles
             .FirstOrDefaultAsync(c => c.UserId == request.UserId && c.IsCoach == true, cancellationToken)
-            ?? throw new InsufficientRightsException("You are not trainer");
+            ?? throw new InsufficientRightsException("You are not a trainer");
 
         var programsId = await _dbContext.ProgramAccesses
             .Where(p => p.UserId == request.UserId && p.Type == AccessType.Owner)

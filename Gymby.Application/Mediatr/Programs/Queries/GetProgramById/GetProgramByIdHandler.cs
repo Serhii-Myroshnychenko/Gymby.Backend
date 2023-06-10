@@ -33,6 +33,8 @@ public class GetProgramByIdHandler
                 ?? throw new InsufficientRightsException("You do not have permissions to view this program");
         }
 
+        program.ProgramDays = program.ProgramDays.OrderBy(p => p.Name).ToList();
+
         if (program.ProgramDays != null && program.ProgramDays.Count > 0)
         {
             foreach (var programDay in program.ProgramDays)

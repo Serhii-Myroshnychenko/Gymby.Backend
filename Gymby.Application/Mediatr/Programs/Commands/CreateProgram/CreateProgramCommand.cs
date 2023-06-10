@@ -1,6 +1,5 @@
 ﻿using Gymby.Application.CommandModels.CreateProgramModels;
 using Gymby.Application.ViewModels;
-using Gymby.Domain.Enums;
 using MediatR;
 
 namespace Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
