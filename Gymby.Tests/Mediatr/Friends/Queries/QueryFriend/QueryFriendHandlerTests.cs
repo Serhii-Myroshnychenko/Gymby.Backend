@@ -25,7 +25,7 @@ namespace Gymby.UnitTests.Mediatr.Friends.Queries.QueryFriend
         public async Task QueryFriendHandler_SearchOneFriend_ShouldBeSuccess()
         {
             // Arrange
-            var handlerQueryFriend = new QueryProfileHandler(Context, Mapper, _mediator);
+            var handlerQueryFriend = new QueryProfileHandler(Context, Mapper, _mediator, FileService);
             var appConfigOptionsFriend = Options.Create(new AppConfig());
 
             // Act
@@ -46,7 +46,7 @@ namespace Gymby.UnitTests.Mediatr.Friends.Queries.QueryFriend
         public async Task QueryFriendHandler_SearchAllFriend_ShouldBeSuccess()
         {
             // Arrange
-            var handlerQueryFriend = new QueryProfileHandler(Context, Mapper, _mediator);
+            var handlerQueryFriend = new QueryProfileHandler(Context, Mapper, _mediator, FileService);
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
             // Act
@@ -67,7 +67,7 @@ namespace Gymby.UnitTests.Mediatr.Friends.Queries.QueryFriend
         public async Task QueryFriendHandler_SearchOneCoach_ShouldBeSuccess()
         {
             // Arrange
-            var handlerQueryFriend = new QueryProfileHandler(Context, Mapper, _mediator);
+            var handlerQueryFriend = new QueryProfileHandler(Context, Mapper, _mediator, FileService);
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
             // Act
@@ -93,7 +93,7 @@ namespace Gymby.UnitTests.Mediatr.Friends.Queries.QueryFriend
         public async Task QueryFriendHandler_SearchAllCoach_ShouldBeSuccess()
         {
             // Arrange
-            var handlerQueryFriend = new QueryProfileHandler(Context, Mapper, _mediator);
+            var handlerQueryFriend = new QueryProfileHandler(Context, Mapper, _mediator, FileService);
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
             // Act
