@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gymby.Application.Mediatr.Diaries.Command.ImportProgram;
 
-public class ImportProgramHandler 
+public class ImportProgramHandler
     : IRequestHandler<ImportProgramCommand, Unit>
 {
     private readonly IApplicationDbContext _dbContext;

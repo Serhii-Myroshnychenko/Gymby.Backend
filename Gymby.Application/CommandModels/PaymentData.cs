@@ -5,7 +5,7 @@ namespace Gymby.Application.CommandModels;
 
 public class PaymentData
 {
-    [JsonProperty("pa   yment_id")]
+    [JsonProperty("payment_id")]
     public long PaymentId { get; set; }
     [JsonProperty("action")]
     public string? Action { get; set; }

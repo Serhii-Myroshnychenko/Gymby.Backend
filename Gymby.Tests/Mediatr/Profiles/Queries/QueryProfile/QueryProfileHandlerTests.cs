@@ -8,6 +8,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.QueryProfile
         private readonly ApplicationDbContext Context;
         private readonly IMapper Mapper;
         private readonly IMediator _mediator;
+        private readonly IFileService _fileService;
 
         public QueryProfileHandlerTests()
         {
@@ -15,13 +16,14 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.QueryProfile
             Context = fixture.Context;
             Mapper = fixture.Mapper;
             _mediator = fixture.Mediator;
+            _fileService = fixture.FileService;
         }
 
         [Fact]
         public async Task QueryProfileHandler_SearchAmongAllUsers_ShouldBeSuccess()
         {
             // Arrange
-            var handlerQueryProfile = new QueryProfileHandler(Context, Mapper, _mediator);
+            var handlerQueryProfile = new QueryProfileHandler(Context, Mapper, _mediator, _fileService);
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
             // Act
@@ -42,7 +44,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.QueryProfile
         public async Task QueryProfileHandler_SearchAmongCoach_ShouldBeSuccess()
         {
             // Arrange
-            var handlerQueryProfile = new QueryProfileHandler(Context, Mapper, _mediator);
+            var handlerQueryProfile = new QueryProfileHandler(Context, Mapper, _mediator, _fileService);
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
             // Act
@@ -64,7 +66,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.QueryProfile
         public async Task QueryProfileHandler_SearchNonexestentUsername_ShouldBeSuccess()
         {
             // Arrange
-            var handlerQueryProfile = new QueryProfileHandler(Context, Mapper, _mediator);
+            var handlerQueryProfile = new QueryProfileHandler(Context, Mapper, _mediator , _fileService);
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
             // Act
@@ -84,7 +86,7 @@ namespace Gymby.UnitTests.Mediatr.Profiles.Queries.QueryProfile
         public async Task QueryProfileHandler_SearchWhenOneUserHasThisUsername_ShouldBeSuccess()
         {
             // Arrange
-            var handlerQueryProfile = new QueryProfileHandler(Context, Mapper, _mediator);
+            var handlerQueryProfile = new QueryProfileHandler(Context, Mapper, _mediator, _fileService);
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
             // Act

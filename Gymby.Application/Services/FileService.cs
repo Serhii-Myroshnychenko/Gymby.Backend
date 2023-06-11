@@ -14,7 +14,8 @@ public class FileService : IFileService
     {
         _blobServiceClient = blobServiceClient;
     }
-    public async Task AddPhotoAsync(string containerName, string userId, string folderName, IFormFile file, string newFileName)
+    public async Task AddPhotoAsync(string containerName, string userId, 
+        string folderName, IFormFile file, string newFileName)
     {
         BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
 
