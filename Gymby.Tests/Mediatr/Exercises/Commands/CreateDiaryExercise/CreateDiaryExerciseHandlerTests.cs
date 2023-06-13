@@ -2,12 +2,10 @@
 using Gymby.Application.Mediatr.ExercisePrototypes.Queries.GetAllExercisePrototypes;
 using Gymby.Application.Mediatr.Exercises.Commands.CreateDiaryExercise;
 using Gymby.Application.Mediatr.Exercises.Commands.CreateProgramExercise;
-using Gymby.Application.Mediatr.Exercises.Commands.DeleteProgramExercise;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
 using Gymby.Application.Mediatr.ProgramDays.Commands.CreateProgramDay;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
 using Gymby.UnitTests.Common.Exercise;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateDiaryExercise
 {
@@ -62,7 +60,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateDiaryExercise
 
             var diaryId = diary.Id;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -115,6 +112,7 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateDiaryExercise
             var exercisePrototype = resultExercisePrototype[0].Id;
             DateTime dateValue = DateTime.Parse("2023-06-14T14:29:43.385Z");
 
+            // Act
             var resultDiaryExercise = await handlerDiaryExercise.Handle(new CreateDiaryExerciseCommand()
             {
                 ProgramDayId = programDayId,
@@ -147,7 +145,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateDiaryExercise
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
             var diaryId = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -200,7 +197,8 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateDiaryExercise
             var exercisePrototype = resultExercisePrototype[0].Id;
             DateTime dateValue = DateTime.Parse("2023-06-14T14:29:43.385Z");
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerDiaryExercise.Handle(new CreateDiaryExerciseCommand()
@@ -254,7 +252,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateDiaryExercise
 
             var diaryId = diary.Id;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -307,7 +304,8 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateDiaryExercise
             var exercisePrototypeId = Guid.NewGuid().ToString();
             DateTime dateValue = DateTime.Parse("2023-06-14T14:29:43.385Z");
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerDiaryExercise.Handle(new CreateDiaryExerciseCommand()

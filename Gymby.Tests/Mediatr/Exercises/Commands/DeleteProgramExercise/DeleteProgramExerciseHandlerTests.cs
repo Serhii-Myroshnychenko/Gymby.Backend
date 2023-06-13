@@ -38,7 +38,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.DeleteProgramExercise
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -100,6 +99,7 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.DeleteProgramExercise
 
             var resultProgramExerciseId = resultProgramExercise.Id;
 
+            // Act
             var resultProgramExerciseDelete = await handlerExerciseDelete.Handle(new DeleteProgramExerciseCommand()
             {
                 ExerciseId = resultProgramExerciseId,
@@ -127,7 +127,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.DeleteProgramExercise
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -189,7 +188,8 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.DeleteProgramExercise
 
             var resultProgramExerciseId = resultProgramExercise.Id;
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<InsufficientRightsException>(async () =>
             {
                 await handlerExerciseDelete.Handle(new DeleteProgramExerciseCommand()
@@ -219,7 +219,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.DeleteProgramExercise
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -281,7 +280,8 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.DeleteProgramExercise
 
             var resultProgramExerciseId = Guid.NewGuid().ToString();
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerExerciseDelete.Handle(new DeleteProgramExerciseCommand()

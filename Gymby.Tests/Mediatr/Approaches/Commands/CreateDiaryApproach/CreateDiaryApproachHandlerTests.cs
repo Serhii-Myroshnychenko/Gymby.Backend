@@ -60,7 +60,6 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateDiaryApproach
 
             var diaryId = diary.Id;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -124,6 +123,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateDiaryApproach
 
             var exerciseId = resultDiaryExercise.Id;
 
+            // Act
             var resultProgramApproach = await handlerDiaryApproach.Handle(new CreateDiaryApproachCommand()
             {
                 ExerciseId = exerciseId,
@@ -177,7 +177,6 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateDiaryApproach
 
             var diaryId = diary.Id;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -241,7 +240,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateDiaryApproach
 
             var exerciseId = Guid.NewGuid().ToString();
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerDiaryApproach.Handle(new CreateDiaryApproachCommand()

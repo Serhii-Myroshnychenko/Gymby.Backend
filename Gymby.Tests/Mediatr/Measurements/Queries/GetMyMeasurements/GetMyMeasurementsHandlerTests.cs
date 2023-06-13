@@ -35,7 +35,7 @@ namespace Gymby.UnitTests.Mediatr.Measurements.Queries.GetMyMeasurements
             // Assert
             Assert.NotNull(result);
             result.ShouldBeOfType<MeasurementsList>();
-            result.Measurements.Count().ShouldBe(2);
+            result?.Measurements?.Count().ShouldBe(2);
 
             foreach (var measurement in result.Measurements)
             {
@@ -67,7 +67,7 @@ namespace Gymby.UnitTests.Mediatr.Measurements.Queries.GetMyMeasurements
             // Assert
             Assert.NotNull(result);
             result.ShouldBeOfType<MeasurementsList>();
-            result.Measurements.Count().ShouldBe(0);
+            result?.Measurements?.Count().ShouldBe(0);
         }
     }
 }

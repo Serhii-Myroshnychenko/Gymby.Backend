@@ -36,7 +36,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -87,6 +86,7 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
 
             var exercisePrototype = resultExercisePrototype[0].Id;
 
+            // Act
             var resultProgramExercise = await handlerProgramExercise.Handle(new CreateProgramExerciseCommand()
             {
                 ProgramId = programId,
@@ -103,7 +103,7 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
         }
 
         [Fact]
-        public async Task CreateProgramExerciseHandler_WhenUserNotCoach_ShouldBeSuccess()
+        public async Task CreateProgramExerciseHandler_WhenUserNotCoach_ShouldBeFail()
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
@@ -117,7 +117,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -151,7 +150,8 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
            
             var programDayId = resultProgramDay.Id;
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<InsufficientRightsException>(async () =>
             {
                 await handlerProgramExercise.Handle(new CreateProgramExerciseCommand()
@@ -168,7 +168,7 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
         }
 
         [Fact]
-        public async Task CreateProgramExerciseHandler_WhenNonexistentProgramDay_ShouldBeSuccess()
+        public async Task CreateProgramExerciseHandler_WhenNonexistentProgramDay_ShouldBeFail()
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
@@ -182,7 +182,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -216,7 +215,8 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
 
             var programDayId = Guid.NewGuid().ToString();
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerProgramExercise.Handle(new CreateProgramExerciseCommand()
@@ -233,7 +233,7 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
         }
 
         [Fact]
-        public async Task CreateProgramExerciseHandler_WhenNonexistentExercisePrototype_ShouldBeSuccess()
+        public async Task CreateProgramExerciseHandler_WhenNonexistentExercisePrototype_ShouldBeFail()
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
@@ -247,7 +247,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -282,7 +281,8 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.CreateProgramExercise
             var programDayId = resultProgramDay.Id;
             var nonexistentExercisePrototype = Guid.NewGuid().ToString();
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerProgramExercise.Handle(new CreateProgramExerciseCommand()

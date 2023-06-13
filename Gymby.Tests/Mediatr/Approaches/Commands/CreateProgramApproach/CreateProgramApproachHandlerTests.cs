@@ -39,7 +39,6 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateProgramApproach
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -101,6 +100,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateProgramApproach
 
             var exerciseId = resultProgramExercise.Id;
 
+            // Act
             var resultProgramApproach = await handlerProgramApproach.Handle(new CreateProgramApproachCommand()
             {
                 ProgramId = programId,
@@ -133,7 +133,6 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateProgramApproach
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -195,7 +194,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateProgramApproach
 
             var exerciseId = resultProgramExercise.Id;
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<InsufficientRightsException>(async () =>
             {
                 await handlerProgramApproach.Handle(new CreateProgramApproachCommand()
@@ -228,7 +228,6 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateProgramApproach
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -290,7 +289,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.CreateProgramApproach
 
             var exerciseId = Guid.NewGuid().ToString();
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerProgramApproach.Handle(new CreateProgramApproachCommand()

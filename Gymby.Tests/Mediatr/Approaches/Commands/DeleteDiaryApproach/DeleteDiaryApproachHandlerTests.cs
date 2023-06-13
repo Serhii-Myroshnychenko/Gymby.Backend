@@ -62,7 +62,6 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteDiaryApproach
 
             var diaryId = diary.Id;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -137,6 +136,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteDiaryApproach
 
             var approachId = resultDiaryApproach?.Approaches?.FirstOrDefault()?.Id;
 
+            // Act
             var resultDiaryApproachDelete = await handlerApproachDelete.Handle(new DeleteDiaryApproachCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -185,7 +185,6 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteDiaryApproach
 
             var diaryId = diary.Id;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -260,7 +259,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.DeleteDiaryApproach
 
             var approachId = Guid.NewGuid().ToString();
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerApproachDelete.Handle(new DeleteDiaryApproachCommand()

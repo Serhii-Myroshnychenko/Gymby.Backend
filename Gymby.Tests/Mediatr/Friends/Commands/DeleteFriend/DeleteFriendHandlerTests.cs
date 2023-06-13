@@ -32,7 +32,6 @@ namespace Gymby.UnitTests.Mediatr.Friends.Commands.DeleteFriend
             var handlerForInvite = new InviteFriendHandler(Context);
             var handlerForDelete = new DeleteFriendHandler(Context, Mapper, FileService);
 
-            // Act
             await handlerForInvite.Handle(new InviteFriendCommand()
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),
@@ -45,6 +44,7 @@ namespace Gymby.UnitTests.Mediatr.Friends.Commands.DeleteFriend
                 Username = ProfileContextFactory.FriendUsernameForAcceptOrReject,
             }, CancellationToken.None);
 
+            // Act
             var delete = await handlerForDelete.Handle(new DeleteFriendCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -65,7 +65,6 @@ namespace Gymby.UnitTests.Mediatr.Friends.Commands.DeleteFriend
             var handlerForInvite = new InviteFriendHandler(Context);
             var handlerForDelete = new DeleteFriendHandler(Context, Mapper, FileService);
 
-            // Act
             await handlerForInvite.Handle(new InviteFriendCommand()
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),
@@ -78,6 +77,7 @@ namespace Gymby.UnitTests.Mediatr.Friends.Commands.DeleteFriend
                 Username = ProfileContextFactory.FriendUsernameForAcceptOrReject,
             }, CancellationToken.None);
 
+            // Act
             var delete = await handlerForDelete.Handle(new DeleteFriendCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -96,7 +96,8 @@ namespace Gymby.UnitTests.Mediatr.Friends.Commands.DeleteFriend
             // Arrange
             var handlerForDelete = new DeleteFriendHandler(Context, Mapper, FileService);
 
-            // Act & Assert
+            // Act
+            // Assert
             await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerForDelete.Handle(new DeleteFriendCommand()

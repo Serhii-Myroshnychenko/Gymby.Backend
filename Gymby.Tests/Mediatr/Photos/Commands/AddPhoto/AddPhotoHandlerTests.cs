@@ -31,13 +31,13 @@ namespace Gymby.UnitTests.Mediatr.Photos.Commands.AddPhoto
             photoMock.Setup(p => p.FileName).Returns("path/photoD1.jpg");
             var photo = photoMock.Object;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Email = "user-b@gmail.com"
             }, CancellationToken.None);
 
+            // Act
             var photoId = await handler.Handle(new AddPhotoCommand(appConfigOptionsPhoto, appConfigOptionsPhoto.Value.Profile)
             {
                 Photo = photo,

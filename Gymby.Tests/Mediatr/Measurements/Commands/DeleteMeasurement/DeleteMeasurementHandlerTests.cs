@@ -36,7 +36,6 @@ namespace Gymby.UnitTests.Mediatr.Measurements.Commands.DeleteMeasurement
             photoMock.Setup(p => p.FileName).Returns("path/photoD1.jpg");
             var photo = photoMock.Object;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -61,6 +60,7 @@ namespace Gymby.UnitTests.Mediatr.Measurements.Commands.DeleteMeasurement
 
             var photoId = addPhotoResult.First().Id;
 
+            // Act
             await handlerDeleteMeasurement.Handle(new DeleteMeasurementCommand(appConfigOptionsMeasurement)
             {
                 Id = measurementId,

@@ -62,7 +62,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateDiaryExercise
 
             var diaryId = diary.Id;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -127,6 +126,7 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateDiaryExercise
 
             var resultDiaryExerciseId = resultDiaryExercise.Id;
 
+            // Act
             var resultDiaryExerciseUpdate = await handlerDiaryExerciseUpdate.Handle(new UpdateDiaryExerciseCommand()
             {
                 ExerciseId = resultDiaryExerciseId,
@@ -180,7 +180,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateDiaryExercise
 
             var diaryId = diary.Id;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -243,7 +242,8 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateDiaryExercise
                 ExercisePrototypeId = exercisePrototype
             }, CancellationToken.None);
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerDiaryExerciseUpdate.Handle(new UpdateDiaryExerciseCommand()
@@ -297,7 +297,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateDiaryExercise
 
             var diaryId = diary.Id;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -362,7 +361,8 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateDiaryExercise
 
             var resultDiaryExerciseId = resultDiaryExercise.Id;
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerDiaryExerciseUpdate.Handle(new UpdateDiaryExerciseCommand()

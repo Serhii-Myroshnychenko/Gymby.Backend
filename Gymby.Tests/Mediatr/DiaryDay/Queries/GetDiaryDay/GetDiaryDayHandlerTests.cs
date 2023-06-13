@@ -62,7 +62,6 @@ namespace Gymby.UnitTests.Mediatr.DiaryDay.Queries.GetDiaryDay
 
             var diaryId = diary.Id;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -126,6 +125,7 @@ namespace Gymby.UnitTests.Mediatr.DiaryDay.Queries.GetDiaryDay
                 ExercisePrototypeId = exercisePrototype
             }, CancellationToken.None);
 
+            // Act
             var resultGetDiaryDay = await handlerGetDiaryDay.Handle(new GetDiaryDayCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),

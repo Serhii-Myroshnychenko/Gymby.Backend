@@ -1,17 +1,7 @@
 ﻿using AutoMapper;
 using Gymby.Application.Mediatr.Diaries.Command.CreateDiary;
-using Gymby.Application.Mediatr.ExercisePrototypes.Queries.GetAllExercisePrototypes;
-using Gymby.Application.Mediatr.Exercises.Commands.CreateDiaryExercise;
-using Gymby.Application.Mediatr.Exercises.Commands.CreateProgramExercise;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
-using Gymby.Application.Mediatr.ProgramDays.Commands.CreateProgramDay;
-using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
 using Gymby.UnitTests.Common.Exercise;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gymby.UnitTests.Mediatr.Diaries.Commands.CreateDiary
 {
@@ -38,7 +28,6 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.CreateDiary
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -53,6 +42,7 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.CreateDiary
                 await Context.SaveChangesAsync();
             }
 
+            // Act
             var resultCreateDiary = await handlerCreateDiary.Handle(new CreateDiaryCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString()

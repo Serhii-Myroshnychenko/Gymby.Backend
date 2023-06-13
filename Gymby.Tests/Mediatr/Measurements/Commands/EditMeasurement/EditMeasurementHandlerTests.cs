@@ -4,11 +4,6 @@ using Gymby.Application.Mediatr.Measurements.Commands.EditMeasurement;
 using Gymby.Application.Mediatr.Measurements.Queries.GetMyMeasurements;
 using Gymby.Application.Mediatr.Photos.Commands.AddPhoto;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gymby.UnitTests.Mediatr.Measurements.Commands.EditMeasurement
 {
@@ -46,7 +41,6 @@ namespace Gymby.UnitTests.Mediatr.Measurements.Commands.EditMeasurement
             photoMock.Setup(p => p.FileName).Returns("path/photoD1.jpg");
             var photo = photoMock.Object;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = UserCId.ToString(),
@@ -70,6 +64,7 @@ namespace Gymby.UnitTests.Mediatr.Measurements.Commands.EditMeasurement
             var firstMeasurement = measurementId.Measurements[0];
             var id = firstMeasurement.Id;
 
+            // Act
             await handlerEditMeasurement.Handle(new EditMeasurementCommand()
             {
                 Id = id,

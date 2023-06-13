@@ -32,7 +32,6 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetFreePrograms
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -64,6 +63,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetFreePrograms
                 await Context.SaveChangesAsync();
             }
 
+            // Act
             var resultGetFreePrograms = await handlerGetFreePrograms.Handle(new GetFreeProgramsQuery()
             {
                 UserId = ProfileContextFactory.UserAId.ToString()
@@ -76,7 +76,6 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetFreePrograms
         [Fact]
         public async Task GetFreeProgramsHandler_WhenProgramsCountZero_ShouldBeSuccess()
         {
-
             // Arrange
             var handlerGetFreePrograms = new GetFreeProgramsHandler(Context, Mapper);
 

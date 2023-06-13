@@ -3,7 +3,6 @@ using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
 using Gymby.Application.Mediatr.ProgramAccesses.AccessProgramToUserByUsername;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
 using Gymby.Application.Mediatr.Programs.Queries.GetAllProgramsInDiary;
-using Gymby.Application.Mediatr.Programs.Queries.GetFreePrograms;
 using Gymby.UnitTests.Common.Programs;
 
 namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetAllProgramsInDiary
@@ -33,7 +32,6 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetAllProgramsInDiary
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -98,6 +96,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetAllProgramsInDiary
                 Type = "WeightGain"
             }, CancellationToken.None);
 
+            // Act
             var resultGetAllProgramsInDiary = await handlerGetAllProgramsInDiary.Handle(new GetAllProgramsInDiaryQuery()
             {
                 UserId = ProfileContextFactory.UserAId.ToString()
@@ -118,7 +117,6 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetAllProgramsInDiary
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -166,6 +164,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetAllProgramsInDiary
                 Type = "WeightGain"
             }, CancellationToken.None);
 
+            // Act
             var resultGetAllProgramsInDiary = await handlerGetAllProgramsInDiary.Handle(new GetAllProgramsInDiaryQuery()
             {
                 UserId = ProfileContextFactory.UserAId.ToString()
@@ -186,7 +185,6 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetAllProgramsInDiary
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -225,6 +223,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetAllProgramsInDiary
                 await Context.SaveChangesAsync();
             }
 
+            // Act
             var resultGetAllProgramsInDiary = await handlerGetAllProgramsInDiary.Handle(new GetAllProgramsInDiaryQuery()
             {
                 UserId = ProfileContextFactory.UserAId.ToString()
@@ -245,7 +244,6 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetAllProgramsInDiary
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -267,6 +265,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetAllProgramsInDiary
                     Type = "WeightGain"
                 }, CancellationToken.None);
 
+                // Act
                 var resultGetAllProgramsInDiary = await handlerGetAllProgramsInDiary.Handle(new GetAllProgramsInDiaryQuery()
                 {
                     UserId = ProfileContextFactory.UserBId.ToString()
@@ -288,7 +287,6 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetAllProgramsInDiary
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -327,7 +325,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetAllProgramsInDiary
                 Username = ProfileContextFactory.FriendForPending
             }, CancellationToken.None);
 
-
+            // Act
             var resultGetAllProgramsInDiary = await handlerGetAllProgramsInDiary.Handle(new GetAllProgramsInDiaryQuery()
             {
                 UserId = ProfileContextFactory.UserAId.ToString()

@@ -25,13 +25,13 @@ namespace Gymby.UnitTests.Mediatr.Friends.Commands.AcceptFriendship
             var handlerForAccept = new AcceptFriendshipHandler(Context, Mapper, FileService);
             var handlerForInvite = new InviteFriendHandler(Context);
 
-            // Act
             await handlerForInvite.Handle(new InviteFriendCommand()
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),
                 Username = ProfileContextFactory.FriendUsernameForInvite
             }, CancellationToken.None);
 
+            // Act
             var result = await handlerForAccept.Handle(new AcceptFriendshipCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -71,13 +71,13 @@ namespace Gymby.UnitTests.Mediatr.Friends.Commands.AcceptFriendship
             var handler = new AcceptFriendshipHandler(Context, Mapper, FileService);
             var handlerForInvite = new InviteFriendHandler(Context);
 
-            // Act
             await handlerForInvite.Handle(new InviteFriendCommand()
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),
                 Username = ProfileContextFactory.FriendUsernameForInvite
             }, CancellationToken.None);
 
+            // Act
             await handler.Handle(new AcceptFriendshipCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),

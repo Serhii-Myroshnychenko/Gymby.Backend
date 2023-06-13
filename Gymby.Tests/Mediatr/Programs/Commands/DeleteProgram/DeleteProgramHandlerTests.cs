@@ -3,13 +3,7 @@ using Gymby.Application.CommandModels.CreateProgramModels;
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
 using Gymby.Application.Mediatr.Programs.Commands.DeleteProgram;
-using Gymby.Application.Mediatr.Programs.Commands.UpdateProgram;
 using Gymby.UnitTests.Common.Programs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gymby.UnitTests.Mediatr.Programs.Commands.DeleteProgram
 {
@@ -37,7 +31,6 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.DeleteProgram
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -99,6 +92,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.DeleteProgram
 
             var programId = resultCreate.Id;
 
+            // Act
             var resultDelete = await handlerProgramDelete.Handle(new DeleteProgramCommand()
             {
                 ProgramId = programId,
@@ -112,7 +106,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.DeleteProgram
         }
 
         [Fact]
-        public async Task DeleteProgramHandler_WhenIncorrectProgramId_ShouldBeSuccess()
+        public async Task DeleteProgramHandler_WhenIncorrectProgramId_ShouldBeFail()
         {
             // Arrange
             var handlerProgramCreate = new CreateProgramHandler(Context, Mapper);
@@ -121,8 +115,6 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.DeleteProgram
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
             var programId = Guid.NewGuid().ToString();
-
-            // Act
 
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
@@ -139,7 +131,8 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.DeleteProgram
                 Type = "WeightGain"
             }, CancellationToken.None);
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerProgramDelete.Handle(new DeleteProgramCommand()

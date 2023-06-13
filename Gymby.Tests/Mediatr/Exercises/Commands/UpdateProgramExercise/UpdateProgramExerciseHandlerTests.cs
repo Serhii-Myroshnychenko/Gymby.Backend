@@ -38,7 +38,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateProgramExercise
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -100,6 +99,7 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateProgramExercise
 
             var resultProgramExerciseId = resultProgramExercise.Id;
 
+            // Act
             var resultProgramExerciseUpdate = await handlerExerciseUpdate.Handle(new UpdateProgramExerciseCommand()
             {
                 ExerciseId = resultProgramExerciseId,
@@ -132,7 +132,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateProgramExercise
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -194,7 +193,8 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateProgramExercise
 
             var resultProgramExerciseId = resultProgramExercise.Id;
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<InsufficientRightsException>(async () =>
             {
                 await handlerExerciseUpdate.Handle(new UpdateProgramExerciseCommand()
@@ -226,7 +226,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateProgramExercise
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -288,7 +287,8 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateProgramExercise
 
             var resultProgramExerciseId = Guid.NewGuid().ToString();
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerExerciseUpdate.Handle(new UpdateProgramExerciseCommand()
@@ -322,7 +322,6 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateProgramExercise
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
             var nonexistentExercisePrototype = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -384,7 +383,8 @@ namespace Gymby.UnitTests.Mediatr.Exercises.Commands.UpdateProgramExercise
 
             var resultProgramExerciseId = resultProgramExercise.Id;
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerExerciseUpdate.Handle(new UpdateProgramExerciseCommand()

@@ -33,7 +33,6 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetProgramById
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -51,6 +50,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetProgramById
 
             var programId = resultProgram.Id;
 
+            // Act
             var resultGetProgramById = await handlerGetProgramById.Handle(new GetProgramByIdQuery()
             {
                 ProgramId = programId,
@@ -73,7 +73,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetProgramById
             var handlerGetProgramById = new GetProgramByIdHandler(Context, Mapper);
 
             // Act
-            //Assert
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerGetProgramById.Handle(new GetProgramByIdQuery()

@@ -69,7 +69,6 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Commands.AccessToMyDiaryByUsername
 
             var diaryId = diary.Id;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -84,6 +83,7 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Commands.AccessToMyDiaryByUsername
                 await Context.SaveChangesAsync();
             }
 
+            // Act
             var result = await handlerAccessToMyDiaryByUsername.Handle(new AccessToMyDiaryByUsernameCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -127,7 +127,6 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Commands.AccessToMyDiaryByUsername
 
             var diaryId = diary.Id;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -142,7 +141,8 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Commands.AccessToMyDiaryByUsername
                 await Context.SaveChangesAsync();
             }
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerAccessToMyDiaryByUsername.Handle(new AccessToMyDiaryByUsernameCommand()

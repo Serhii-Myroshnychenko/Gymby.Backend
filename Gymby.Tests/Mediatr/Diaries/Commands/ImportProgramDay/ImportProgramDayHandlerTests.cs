@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Gymby.Application.Mediatr.Approaches.Commands.UpdateProgramApproach;
 using Gymby.Application.Mediatr.Diaries.Command.CreateDiary;
 using Gymby.Application.Mediatr.Diaries.Command.ImportProgramDay;
 using Gymby.Application.Mediatr.DiaryAccesses.Commands.AccessToMyDiaryByUsername;
@@ -41,7 +40,6 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgramDay
             var appConfigOptionsProfile = Options.Create(new AppConfig());
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -111,6 +109,7 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgramDay
 
             var exerciseId = resultProgramExercise.Id;
 
+            // Act
             var resultImport = await handlerImportProgramDay.Handle(new ImportProgramDayCommand()
             {
                 ProgramId = programId,
@@ -165,7 +164,6 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgramDay
             Context.Profiles.Add(profile);
             await Context.SaveChangesAsync();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -241,6 +239,7 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgramDay
                 Username = "user-chandler"
             }, CancellationToken.None);
 
+            // Act
             var resultImport = await handlerImportProgramDay.Handle(new ImportProgramDayCommand()
             {
                 ProgramId = programId,
@@ -274,7 +273,6 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgramDay
             var appConfigOptionsProfile = Options.Create(new AppConfig());
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -344,8 +342,9 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgramDay
 
             var exerciseId = resultProgramExercise.Id;
 
-            var nonexistentProgramId = Guid.NewGuid().ToString(); 
+            var nonexistentProgramId = Guid.NewGuid().ToString();
 
+            // Act
             // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
@@ -377,7 +376,6 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgramDay
             var appConfigOptionsProfile = Options.Create(new AppConfig());
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -449,6 +447,7 @@ namespace Gymby.UnitTests.Mediatr.Diaries.Commands.ImportProgramDay
 
             var nonexistentProgramDayId = Guid.NewGuid().ToString();
 
+            // Act
             // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {

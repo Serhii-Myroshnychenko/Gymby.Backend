@@ -1,12 +1,6 @@
 ﻿using AutoMapper;
 using Gymby.Application.Mediatr.Friends.Commands.InviteFriend;
-using Gymby.Application.Mediatr.Friends.Queries.GetMyFriendsList;
 using Gymby.Application.Mediatr.Friends.Queries.GetPendingFriendsList;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gymby.UnitTests.Mediatr.Friends.Queries.GetPendingFriendsList
 {
@@ -33,7 +27,6 @@ namespace Gymby.UnitTests.Mediatr.Friends.Queries.GetPendingFriendsList
             var handlerForInvite = new InviteFriendHandler(Context);
             var appConfigOptionsFriend = Options.Create(new AppConfig());
 
-            // Act
             await handlerForInvite.Handle(new InviteFriendCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -46,6 +39,7 @@ namespace Gymby.UnitTests.Mediatr.Friends.Queries.GetPendingFriendsList
                 Username = ProfileContextFactory.FriendUsernameForAcceptOrReject
             }, CancellationToken.None);
 
+            // Act
             var result = await handler.Handle(new GetPendingFriendsListQuery(appConfigOptionsFriend)
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),

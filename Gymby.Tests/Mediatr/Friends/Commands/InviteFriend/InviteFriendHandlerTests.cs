@@ -1,5 +1,4 @@
 ﻿using Gymby.Application.Mediatr.Friends.Commands.InviteFriend;
-using Gymby.UnitTests.Common.Friends;
 
 namespace Gymby.UnitTests.Mediatr.Friends.Commands.InviteFriend
 {

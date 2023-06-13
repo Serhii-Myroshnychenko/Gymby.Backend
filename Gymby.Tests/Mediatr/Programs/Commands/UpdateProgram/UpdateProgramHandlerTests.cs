@@ -31,7 +31,6 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.UpdateProgram
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -90,6 +89,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.UpdateProgram
 
             var programId = resultCreate.Id;
 
+            // Act
             var resultUpdate = await handlerProgramUpdate.Handle(new UpdateProgramCommand()
             {
                 ProgramId = programId,
@@ -139,7 +139,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.UpdateProgram
         }
 
         [Fact]
-        public async Task UpdateProgramHandler_WhenUserNotOwner_ShouldBeSuccess()
+        public async Task UpdateProgramHandler_WhenUserNotOwner_ShouldBeFail()
         {
             // Arrange
             var handlerProgramCreate = new CreateProgramHandler(Context, Mapper);
@@ -147,8 +147,6 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.UpdateProgram
             var handlerProfile = new GetMyProfileHandler(Context, Mapper, FileService);
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
-
-            // Act
             
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
@@ -167,7 +165,8 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.UpdateProgram
 
             var programId = resultCreate.Id;
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<InsufficientRightsException>(async () =>
             {
                 await handlerProgramUpdate.Handle(new UpdateProgramCommand()

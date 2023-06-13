@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Gymby.Application.Mediatr.Friends.Queries.QueryFriends;
 using Gymby.Application.Mediatr.Profiles.Queries.QueryProfile;
 using Gymby.UnitTests.Common.Friends;
 

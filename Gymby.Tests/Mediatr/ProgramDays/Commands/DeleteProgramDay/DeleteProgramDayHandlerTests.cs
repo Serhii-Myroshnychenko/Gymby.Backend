@@ -2,14 +2,8 @@
 using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
 using Gymby.Application.Mediatr.ProgramDays.Commands.CreateProgramDay;
 using Gymby.Application.Mediatr.ProgramDays.Commands.DeleteProgramDay;
-using Gymby.Application.Mediatr.ProgramDays.Commands.UpdateProgramDay;
 using Gymby.Application.Mediatr.Programs.Commands.CreateProgram;
 using Gymby.UnitTests.Common.Programs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gymby.UnitTests.Mediatr.ProgramDays.Commands.DeleteProgramDay
 {
@@ -38,7 +32,6 @@ namespace Gymby.UnitTests.Mediatr.ProgramDays.Commands.DeleteProgramDay
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -65,6 +58,7 @@ namespace Gymby.UnitTests.Mediatr.ProgramDays.Commands.DeleteProgramDay
             
             var programDayId = resultProgramDay.Id;
 
+            // Act
             var resultProgramDayDelete = await handlerProgramDayDelete.Handle(new DeleteProgramDayCommand()
             {
                 ProgramId = programId,
@@ -79,7 +73,7 @@ namespace Gymby.UnitTests.Mediatr.ProgramDays.Commands.DeleteProgramDay
         }
 
         [Fact]
-        public async Task DeleteProgramDayHandler_WhenUserNotCoach_ShouldBeSuccess()
+        public async Task DeleteProgramDayHandler_WhenUserNotCoach_ShouldBeFail()
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
@@ -90,7 +84,6 @@ namespace Gymby.UnitTests.Mediatr.ProgramDays.Commands.DeleteProgramDay
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -123,7 +116,8 @@ namespace Gymby.UnitTests.Mediatr.ProgramDays.Commands.DeleteProgramDay
 
             var programDayId = resultProgramDay.Id;
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<InsufficientRightsException>(async () =>
             {
                 await handlerProgramDayDelete.Handle(new DeleteProgramDayCommand()

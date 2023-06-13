@@ -33,7 +33,6 @@ namespace Gymby.UnitTests.Mediatr.Photos.Commands.DeletePhoto
             photoMock.Setup(p => p.FileName).Returns("path/photoD1.jpg");
             var photo = photoMock.Object;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -48,6 +47,7 @@ namespace Gymby.UnitTests.Mediatr.Photos.Commands.DeletePhoto
 
             var photoId = addPhotoResult.First().Id;
 
+            // Act
             await handlerDeletePhoto.Handle(new DeletePhotoCommand(appConfigOptionsPhoto, appConfigOptionsPhoto.Value.Profile)
             {
                 PhotoId = photoId,
@@ -87,7 +87,6 @@ namespace Gymby.UnitTests.Mediatr.Photos.Commands.DeletePhoto
             var photoMock = new Mock<IFormFile>();
             var photo = photoMock.Object;
 
-            // Act
             var addPhotoResult = await handlerAddPhoto.Handle(new AddPhotoCommand(appConfigOptionsPhoto, appConfigOptionsPhoto.Value.Profile)
             {
                 Photo = photo,
@@ -96,6 +95,7 @@ namespace Gymby.UnitTests.Mediatr.Photos.Commands.DeletePhoto
 
             var photoId = addPhotoResult.First().Id;
 
+            // Act
             // Assert
             await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
                 await handlerDeletePhoto.Handle(new DeletePhotoCommand(appConfigOptionsPhoto, appConfigOptionsPhoto.Value.Profile)

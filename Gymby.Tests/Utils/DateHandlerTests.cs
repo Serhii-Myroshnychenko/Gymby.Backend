@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Gymby.UnitTests.Utils
+﻿namespace Gymby.UnitTests.Utils
 {
     public class DateHandlerTests
     {

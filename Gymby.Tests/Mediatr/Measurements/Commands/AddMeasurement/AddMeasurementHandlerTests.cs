@@ -36,13 +36,13 @@ namespace Gymby.UnitTests.Mediatr.Measurements.Commands.AddMeasurement
             photoMock.Setup(p => p.FileName).Returns("path/photoD1.jpg");
             var photo = photoMock.Object;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = UserCId.ToString(),
                 Email = "user-b@gmail.com"
             }, CancellationToken.None);
 
+            // Act
             var result = await handler.Handle(new AddMeasurementCommand()
             {
                 Type = MeasurementType.Shoulders,
@@ -90,13 +90,13 @@ namespace Gymby.UnitTests.Mediatr.Measurements.Commands.AddMeasurement
             photoMock.Setup(p => p.FileName).Returns("path/photoD1.jpg");
             var photo = photoMock.Object;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = UserCId.ToString(),
                 Email = "user-b@gmail.com"
             }, CancellationToken.None);
 
+            // Act
             var result = await handler.Handle(new AddMeasurementCommand()
             {
                 Type = MeasurementType.Weight,

@@ -89,7 +89,6 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Queries.GetAllAvailableDiaries
 
             var diaryId = diary.Id;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -110,6 +109,7 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Queries.GetAllAvailableDiaries
                 Username = "user-chandler"
             }, CancellationToken.None);
 
+            // Act
             var result = await handlerGetAllAvailableDiaries.Handle(new GetAllAvailableDiariesQuery()
             {
                 UserId = profileId.ToString()
@@ -153,13 +153,13 @@ namespace Gymby.UnitTests.Mediatr.DiaryAccess.Queries.GetAllAvailableDiaries
 
             var diaryId = diary.Id;
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Email = "user-b@gmail.com"
             }, CancellationToken.None);
 
+            // Act
             var result = await handlerGetAllAvailableDiaries.Handle(new GetAllAvailableDiariesQuery()
             {
                 UserId = ProfileContextFactory.UserBId.ToString()

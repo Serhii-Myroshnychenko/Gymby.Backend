@@ -25,13 +25,13 @@ namespace Gymby.UnitTests.Mediatr.Friends.Commands.RejectFriendship
             var handler = new RejectFriendshipHandler(Context, Mapper, FileService);
             var handlerForInvite = new InviteFriendHandler(Context);
 
-            // Act
             await handlerForInvite.Handle(new InviteFriendCommand()
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),
                 Username = ProfileContextFactory.FriendUsernameForInvite
             }, CancellationToken.None);
 
+            // Act
             var result = await handler.Handle(new RejectFriendshipCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -43,9 +43,9 @@ namespace Gymby.UnitTests.Mediatr.Friends.Commands.RejectFriendship
             // Assert
             Assert.NotNull(result);
             Assert.NotNull(savedFriendship);
-            Assert.Equal(ProfileContextFactory.UserAId.ToString(), savedFriendship.SenderId);
-            Assert.Equal(ProfileContextFactory.UserBId.ToString(), savedFriendship.ReceiverId);
-            Assert.Equal(Status.Rejected, savedFriendship.Status);
+            Assert.Equal(ProfileContextFactory.UserAId.ToString(), savedFriendship?.SenderId);
+            Assert.Equal(ProfileContextFactory.UserBId.ToString(), savedFriendship?.ReceiverId);
+            Assert.Equal(Status.Rejected, savedFriendship?.Status);
         }
 
         [Fact]
@@ -71,7 +71,6 @@ namespace Gymby.UnitTests.Mediatr.Friends.Commands.RejectFriendship
             var handler = new RejectFriendshipHandler(Context, Mapper, FileService);
             var handlerForInvite = new InviteFriendHandler(Context);
 
-            // Act
             await handlerForInvite.Handle(new InviteFriendCommand()
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),
@@ -84,6 +83,7 @@ namespace Gymby.UnitTests.Mediatr.Friends.Commands.RejectFriendship
                 Username = ProfileContextFactory.FriendUsernameForAcceptOrReject
             }, CancellationToken.None);
 
+            // Act
             // Assert
             await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             await handler.Handle(new RejectFriendshipCommand()

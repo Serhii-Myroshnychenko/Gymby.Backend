@@ -30,7 +30,6 @@ namespace Gymby.UnitTests.Mediatr.ProgramDays.Commands.CreateProgramDay
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -48,6 +47,7 @@ namespace Gymby.UnitTests.Mediatr.ProgramDays.Commands.CreateProgramDay
 
             var programId = resultProgram.Id;
 
+            // Act
             var resultProgramDay = await handlerProgramDay.Handle(new CreateProgramDayCommand()
             {
                 ProgramId = programId,
@@ -62,7 +62,7 @@ namespace Gymby.UnitTests.Mediatr.ProgramDays.Commands.CreateProgramDay
         }
 
         [Fact]
-        public async Task CreateProgramDayHandler_WhenUserNotCoach_ShouldBeSuccess()
+        public async Task CreateProgramDayHandler_WhenUserNotCoach_ShouldBeFail()
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
@@ -71,14 +71,14 @@ namespace Gymby.UnitTests.Mediatr.ProgramDays.Commands.CreateProgramDay
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
-            //Assert
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),
                 Email = "user-c@gmail.com"
             }, CancellationToken.None);
 
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<InsufficientRightsException>(async () =>
             {
                 await handlerProgramDay.Handle(new CreateProgramDayCommand()

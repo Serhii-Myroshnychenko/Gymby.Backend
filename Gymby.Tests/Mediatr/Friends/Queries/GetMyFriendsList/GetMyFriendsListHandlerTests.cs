@@ -28,7 +28,6 @@ namespace Gymby.UnitTests.Mediatr.Friends.Queries.GetMyFriendsList
             var handlerForInvite = new InviteFriendHandler(Context);
             var appConfigOptionsFriend= Options.Create(new AppConfig());
 
-            // Act
             await handlerForInvite.Handle(new InviteFriendCommand()
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),
@@ -53,10 +52,11 @@ namespace Gymby.UnitTests.Mediatr.Friends.Queries.GetMyFriendsList
                 Username = ProfileContextFactory.FriendUsernameForAcceptOrReject
             }, CancellationToken.None);
 
+            // Act
             var result = await handler.Handle(new GetMyFriendsListQuery(appConfigOptionsFriend)
-                {
-                    UserId = ProfileContextFactory.UserAId.ToString(),
-                }, CancellationToken.None);
+            {
+                UserId = ProfileContextFactory.UserAId.ToString(),
+            }, CancellationToken.None);
 
             // Assert
             result.Count.ShouldBe(2);

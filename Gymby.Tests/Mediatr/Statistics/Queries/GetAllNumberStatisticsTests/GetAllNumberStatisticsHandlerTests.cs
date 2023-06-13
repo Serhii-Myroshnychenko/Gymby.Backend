@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using Gymby.Application.Mediatr.Statistics.Queries.GetAllNumberStatistics;
-using Gymby.Application.Mediatr.Statistics.Queries.GetApproachesDoneCouneByDate;
-using Gymby.Application.Mediatr.Statistics.Queries.GetExercisesDoneCountByDate;
 using Gymby.UnitTests.Common.Statistics;
 
 namespace Gymby.UnitTests.Mediatr.Statistics.Queries.GetAllNumberStatisticsTests

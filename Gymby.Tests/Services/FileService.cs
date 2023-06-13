@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace Gymby.UnitTests.Services
+﻿namespace Gymby.UnitTests.Services
 {
     public class FileService : IFileService
     {

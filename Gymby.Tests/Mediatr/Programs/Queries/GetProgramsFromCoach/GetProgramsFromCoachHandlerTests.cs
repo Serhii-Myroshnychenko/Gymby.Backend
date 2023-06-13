@@ -32,7 +32,6 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetProgramsFromCoach
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -57,6 +56,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Queries.GetProgramsFromCoach
                 Username = ProfileContextFactory.FriendForPending
             }, CancellationToken.None);
 
+            // Act
             var resultGetProgramsfromCoach = await handlerGetProgramFromCoach.Handle(new GetProgramsFromCoachQuery()
             {
                 UserId = ProfileContextFactory.UserAId.ToString()

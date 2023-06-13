@@ -1,12 +1,6 @@
 ﻿using AutoMapper;
 using Gymby.Application.Mediatr.ExercisePrototypes.Queries.GetAllExercisePrototypes;
-using Gymby.Application.Mediatr.Profiles.Queries.GetMyProfile;
 using Gymby.UnitTests.Common.ExercisePrototype;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gymby.UnitTests.Mediatr.ExercisePrototype.Queries
 {
@@ -14,18 +8,16 @@ namespace Gymby.UnitTests.Mediatr.ExercisePrototype.Queries
     {
         private readonly ApplicationDbContext Context;
         private readonly IMapper Mapper;
-        private readonly IFileService FileService;
 
         public GetAllExercisePrototypesHandlerTests()
         {
             ExercisePrototypeQueryTestFixture fixture = new ExercisePrototypeQueryTestFixture();
             Context = fixture.Context;
             Mapper = fixture.Mapper;
-            FileService = fixture.FileService;
         }
 
         [Fact]
-        public async Task GetMyProfileHandler_ShouldGetProfileDetails()
+        public async Task GetAllExercisePrototypesHandler_ShouldBeSuccess()
         {
             // Arrange
             var handler = new GetAllExercisePrototypesHandler(Context, Mapper);

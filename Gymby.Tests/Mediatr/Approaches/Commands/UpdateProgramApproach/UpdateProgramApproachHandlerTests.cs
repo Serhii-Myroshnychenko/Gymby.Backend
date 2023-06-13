@@ -41,7 +41,6 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -116,6 +115,7 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
 
             var approachId = resultProgramApproach?.Approaches?.FirstOrDefault()?.Id;
 
+            // Act
             var resultProgramApproachUpdate = await handlerApproachUpdate.Handle(new UpdateProgramApproachCommand()
             {
                 ExerciseId = resultProgramExerciseId,
@@ -152,7 +152,6 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -226,7 +225,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
 
             var approachId = resultProgramApproach?.Approaches?.FirstOrDefault()?.Id;
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<InsufficientRightsException>(async () =>
             {
                 await handlerApproachUpdate.Handle(new UpdateProgramApproachCommand()
@@ -261,7 +261,6 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -336,7 +335,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
             var approachId = resultProgramApproach?.Approaches?.FirstOrDefault()?.Id;
             var exerciseId = Guid.NewGuid().ToString();
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerApproachUpdate.Handle(new UpdateProgramApproachCommand()
@@ -371,7 +371,6 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
 
             var ExercisePrototypeId_A = Guid.NewGuid().ToString();
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -445,7 +444,8 @@ namespace Gymby.UnitTests.Mediatr.Approaches.Commands.UpdateProgramApproach
 
             var approachId = Guid.NewGuid().ToString();
 
-            //Assert
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<NotFoundEntityException>(async () =>
             {
                 await handlerApproachUpdate.Handle(new UpdateProgramApproachCommand()

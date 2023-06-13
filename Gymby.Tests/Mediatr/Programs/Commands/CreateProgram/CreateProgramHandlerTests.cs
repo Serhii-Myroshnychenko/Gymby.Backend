@@ -29,13 +29,13 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
                 Email = "user-b@gmail.com"
             }, CancellationToken.None);
 
+            // Act
             var result = await handlerProgram.Handle(new CreateProgramCommand()
             {
                 UserId = ProfileContextFactory.UserBId.ToString(),
@@ -128,7 +128,7 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
         }
 
         [Fact]
-        public async Task CreateProgramHandler_WhenUserNotCoach_ShouldBeSuccess()
+        public async Task CreateProgramHandler_WhenUserNotCoach_ShouldBeFail()
         {
             // Arrange
             var handlerProgram = new CreateProgramHandler(Context, Mapper);
@@ -136,14 +136,14 @@ namespace Gymby.UnitTests.Mediatr.Programs.Commands.CreateProgram
 
             var appConfigOptionsProfile = Options.Create(new AppConfig());
 
-            // Act
-            //Assert
             await handlerProfile.Handle(new GetMyProfileQuery(appConfigOptionsProfile)
             {
                 UserId = ProfileContextFactory.UserAId.ToString(),
                 Email = "user-c@gmail.com"
             }, CancellationToken.None);
 
+            // Act
+            // Assert
             var exception = await Assert.ThrowsAsync<InsufficientRightsException>(async () =>
             {
                 await handlerProgram.Handle(new CreateProgramCommand()
