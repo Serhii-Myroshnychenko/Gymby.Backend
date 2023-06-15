@@ -23,31 +23,31 @@ public class GetMyProfileHandler
 
         var photos = await _dbContext.Photos.Where(p => p.UserId == query.UserId && p.IsMeasurement == false).ToListAsync(cancellationToken);
 
-        if(profile == null)
-        {
-            var username = UsernameHandler.GenerateUsername();
-            var existingUsernames = new HashSet<string>(_dbContext.Profiles.Select(p => p.Username)!);
+        //if(profile == null)
+        //{
+        //    var username = UsernameHandler.GenerateUsername();
+        //    var existingUsernames = new HashSet<string>(_dbContext.Profiles.Select(p => p.Username)!);
 
-            while (existingUsernames.Contains(username))
-            {
-                username = UsernameHandler.GenerateUsername();
-            }
+        //    while (existingUsernames.Contains(username))
+        //    {
+        //        username = UsernameHandler.GenerateUsername();
+        //    }
 
-            var newProfile = new Domain.Entities.Profile()
-            {
-                Id = Guid.NewGuid().ToString(),
-                UserId = query.UserId,
-                Email = query.Email,
-                Username = username,
-                IsCoach = false
+        //    var newProfile = new Domain.Entities.Profile()
+        //    {
+        //        Id = Guid.NewGuid().ToString(),
+        //        UserId = query.UserId,
+        //        Email = query.Email,
+        //        Username = username,
+        //        IsCoach = false
 
-            };
+        //    };
 
-            await _dbContext.Profiles.AddAsync(newProfile, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+        //    await _dbContext.Profiles.AddAsync(newProfile, cancellationToken);
+        //    await _dbContext.SaveChangesAsync(cancellationToken);
 
-            profile = newProfile;
-        }
+        //    profile = newProfile;
+        //}
             
         var result = _mapper.Map<ProfileVm>(profile);
 

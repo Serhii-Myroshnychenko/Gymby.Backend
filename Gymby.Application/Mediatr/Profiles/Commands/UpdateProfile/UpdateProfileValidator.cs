@@ -2,7 +2,8 @@
 
 namespace Gymby.Application.Mediatr.Profiles.Commands.UpdateProfile;
 
-public class UpdateProfileValidator : AbstractValidator<UpdateProfileCommand>
+public class UpdateProfileValidator 
+    : AbstractValidator<UpdateProfileCommand>
 {
     public UpdateProfileValidator()
     {

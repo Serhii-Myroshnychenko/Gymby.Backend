@@ -71,7 +71,6 @@ public class UpdateProfileHandler
             }
         }
 
-        
         entity.FirstName = updateProfile.FirstName;
         entity.LastName = updateProfile.LastName;
         entity.Description = updateProfile.Description;

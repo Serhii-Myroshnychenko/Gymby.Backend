@@ -97,7 +97,7 @@ public class ImportProgramDayHandler
         else
         {
             var diaryAccess = await _dbContext.DiaryAccess
-                .FirstOrDefaultAsync(d => d.DiaryId == request.DiaryId && d.Type == AccessType.Shared, cancellationToken);
+                .FirstOrDefaultAsync(d => d.DiaryId == request.DiaryId && d.Type == AccessType.Shared && d.UserId == request.UserId, cancellationToken);
 
             var diary = await _dbContext.Diaries
                 .FirstOrDefaultAsync(d => d.Id == diaryAccess!.DiaryId, cancellationToken);

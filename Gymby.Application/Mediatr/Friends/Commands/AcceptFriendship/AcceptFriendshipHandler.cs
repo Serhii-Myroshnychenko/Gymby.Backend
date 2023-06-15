@@ -56,7 +56,7 @@ public class AcceptFriendshipHandler
         {
             if (friendsProfiles[i].PhotoAvatarPath != null)
             {
-                friendsProfiles[i].PhotoAvatarPath = await _fileService.GetPhotoAsync(command.Options.Value.ContainerName, command.UserId, command.Options.Value.Avatar, friendsProfiles[i].PhotoAvatarPath!);
+                friendsProfiles[i].PhotoAvatarPath = await _fileService.GetPhotoAsync(command.Options.Value.ContainerName, friendsProfiles[i].UserId, command.Options.Value.Avatar, friendsProfiles[i].PhotoAvatarPath!);
             }
         }
         var result = _mapper.Map<List<ProfileVm>>(friendsProfiles);
