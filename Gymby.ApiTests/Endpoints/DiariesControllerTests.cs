@@ -203,7 +203,7 @@
             var responseImportProgramDayToDiary = await httpClient.PostAsync(apiEndpointGetSharedPrograms, content);
 
             // Assert
-            Assert.Equal(HttpStatusCode.BadRequest, responseImportProgramDayToDiary.StatusCode);
+            Assert.Equal(HttpStatusCode.NotFound, responseImportProgramDayToDiary.StatusCode);
         }
 
         //[Fact]
