@@ -1,8 +1,5 @@
-﻿using AutoMapper;
-using Gymby.Application.Common.Exceptions;
+﻿using Gymby.Application.Common.Exceptions;
 using Gymby.Application.Interfaces;
-using Gymby.Application.Mediatr.Friends.Queries.GetPendingFriendsList;
-using Gymby.Application.ViewModels;
 using Gymby.Domain.Entities;
 using Gymby.Domain.Enums;
 using MediatR;

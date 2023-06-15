@@ -45,6 +45,7 @@ public class CreateProgramExerciseHandler
             ExercisePrototypeId = request.ExercisePrototypeId,
             ExercisePrototype = exercisePrototype,
             Name = request.Name,
+            Date = DateTime.Now,
         };
 
         if(programDay.Exercises == null)

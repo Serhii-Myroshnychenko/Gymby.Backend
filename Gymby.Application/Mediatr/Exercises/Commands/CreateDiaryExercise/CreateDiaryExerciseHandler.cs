@@ -145,7 +145,7 @@ public class CreateDiaryExerciseHandler
             var newExercise = new Exercise()
             {
                 Id = Guid.NewGuid().ToString(),
-                Date = request.Date,
+                Date = DateTime.Now,
                 DiaryDay = diaryDay,
                 DiaryDayId = diaryDay.Id,
                 ExercisePrototype = exercisePrototype,
