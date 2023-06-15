@@ -38,7 +38,12 @@ public class CreateProfileHandler
             Id = Guid.NewGuid().ToString(),
             UserId = createProfile.UserId,
             Email = createProfile.Email,
+            FirstName = "FirstName",
+            LastName = "LastName",
             Username = username,
+            InstagramUrl = string.Empty,
+            TelegramUsername = string.Empty,
+            Description = string.Empty,
             IsCoach = false
         };
 
