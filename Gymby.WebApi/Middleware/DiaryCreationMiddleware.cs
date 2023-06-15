@@ -7,6 +7,7 @@ namespace Gymby.WebApi.Middleware;
 public class DiaryCreationMiddleware
 {
     private readonly RequestDelegate _next;
+    private static SemaphoreSlim _diaryCreationSemaphore = new(1);
 
     public DiaryCreationMiddleware(RequestDelegate next) =>
         (_next) = (next);
@@ -14,16 +15,21 @@ public class DiaryCreationMiddleware
     public async Task InvokeAsync(HttpContext httpContext)
     {
         var mediator = httpContext.RequestServices.GetService<IMediator>()!;
-
-        if (httpContext?.User?.Identity?.IsAuthenticated == true)
+        await _diaryCreationSemaphore.WaitAsync();
+        try
         {
-            var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (!string.IsNullOrEmpty(userId))
+            if (httpContext?.User?.Identity?.IsAuthenticated == true)
             {
-                await mediator.Send(new CreateDiaryCommand() { UserId = userId });
+                var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    await mediator.Send(new CreateDiaryCommand() { UserId = userId });
+                }
             }
         }
+        finally { _diaryCreationSemaphore.Release(); }
+        
         await _next(httpContext!);
     }
 }

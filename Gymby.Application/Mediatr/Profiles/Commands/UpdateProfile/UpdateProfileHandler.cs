@@ -52,6 +52,7 @@ public class UpdateProfileHandler
             var entityWithGivenUsername = await _dbContext.Profiles
                 .Where(p => p.Username == updateProfile.Username && p.Id != updateProfile.ProfileId)
                 .FirstOrDefaultAsync(cancellationToken);
+
             if (entityWithGivenUsername == null)
             {
                 var diaryAccess = await _dbContext.DiaryAccess
