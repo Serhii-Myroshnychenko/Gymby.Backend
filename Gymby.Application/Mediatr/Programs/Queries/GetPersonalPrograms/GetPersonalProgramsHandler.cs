@@ -32,7 +32,10 @@ public class GetPersonalProgramsHandler
                     .ToListAsync(cancellationToken);
         var programs = await _dbContext.Programs
             .Where(p => programsId.Contains(p.Id))
-                .ToListAsync(cancellationToken);
+                .Include(d => d.ProgramDays)
+                    .ThenInclude(d => d.Exercises)!
+                        .ThenInclude(d => d.Approaches)
+                            .ToListAsync(cancellationToken);
 
         return _mapper.Map<List<ProgramVm>>(programs);
     }
