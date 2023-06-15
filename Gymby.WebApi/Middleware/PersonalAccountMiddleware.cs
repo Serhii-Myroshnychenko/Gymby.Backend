@@ -1,5 +1,6 @@
 ﻿using Gymby.Application.Mediatr.Profiles.Commands.CreateProfile;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace Gymby.WebApi.Middleware;
@@ -7,6 +8,7 @@ namespace Gymby.WebApi.Middleware;
 public class PersonalAccountMiddleware
 {
     private readonly RequestDelegate _next;
+    private static SemaphoreSlim _profileCreationSemaphore = new (1);
 
     public PersonalAccountMiddleware(RequestDelegate next) =>
         (_next) = (next);
@@ -14,17 +16,22 @@ public class PersonalAccountMiddleware
     public async Task InvokeAsync(HttpContext httpContext)
     {
         var mediator = httpContext.RequestServices.GetService<IMediator>()!;
-
-        if (httpContext?.User?.Identity?.IsAuthenticated == true)
+        await _profileCreationSemaphore.WaitAsync();
+        try
         {
-            var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var email = httpContext.User.FindFirst("name")!.Value;
-
-            if (!string.IsNullOrEmpty(userId) && !string.IsNullOrEmpty(email))
+            if (httpContext?.User?.Identity?.IsAuthenticated == true)
             {
-                await mediator.Send(new CreateProfileCommand() { UserId = userId, Email = email });
+                var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var email = httpContext.User.FindFirst("name")!.Value;
+
+                if (!string.IsNullOrEmpty(userId) && !string.IsNullOrEmpty(email))
+                {
+                    await mediator.Send(new CreateProfileCommand() { UserId = userId, Email = email });
+                }
             }
         }
+        finally { _profileCreationSemaphore.Release(); }
+        
         await _next(httpContext!);
     }
 }

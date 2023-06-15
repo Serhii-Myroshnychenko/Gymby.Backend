@@ -1,0 +1,50 @@
+2023-06-14 22:23:32.928 +03:00 [FTL] An error occurred while app initialization
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open server 'web-api-db' requested by the login. Client with IP address '212.86.122.192' is not allowed to access the server.  To enable access, use the Windows Azure Management Portal or run sp_set_firewall_rule on the master database to create a firewall rule for this IP address or address range.  It may take up to five minutes for this change to take effect.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CheckPoolBlockingPeriod(Exception e)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.Open(SqlConnectionOverrides overrides)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerDatabaseCreator.<>c__DisplayClass18_0.<Exists>b__0(DateTime giveUp)
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c__DisplayClass12_0`2.<Execute>b__0(DbContext _, TState s)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.Execute[TState,TResult](IExecutionStrategy strategy, TState state, Func`2 operation, Func`2 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreated()
+   at Gymby.Persistence.Data.DbInitializer.Initialize(ApplicationDbContext context) in C:\Users\Xiaomi\source\repos\Gymby.Backend\Gymby.Persistence\Data\DbInitializer.cs:line 7
+   at Program.<Main>$(String[] args) in C:\Users\Xiaomi\source\repos\Gymby.Backend\Gymby.WebApi\Program.cs:line 68
+ClientConnectionId:f478cd81-b642-4afd-997e-a402acda53d6
+Error Number:40615,State:1,Class:14
+2023-06-14 22:23:33.411 +03:00 [INF] User profile is available. Using 'C:\Users\Xiaomi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-06-14 22:23:33.865 +03:00 [INF] Now listening on: https://localhost:7120
+2023-06-14 22:23:33.865 +03:00 [INF] Now listening on: http://localhost:5120
+2023-06-14 22:23:33.869 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-06-14 22:23:33.870 +03:00 [INF] Hosting environment: Development
+2023-06-14 22:23:33.870 +03:00 [INF] Content root path: C:\Users\Xiaomi\source\repos\Gymby.Backend\Gymby.WebApi\
+2023-06-14 22:23:34.961 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/swagger - -
+2023-06-14 22:23:35.129 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/swagger - - - 301 0 - 171.0906ms
+2023-06-14 22:23:35.152 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/swagger/index.html - -
+2023-06-14 22:23:35.672 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/swagger/swagger-ui.css - -
+2023-06-14 22:23:35.672 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/swagger/swagger-ui-bundle.js - -
+2023-06-14 22:23:35.673 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/swagger/swagger-ui-standalone-preset.js - -
+2023-06-14 22:23:35.675 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/_framework/aspnetcore-browser-refresh.js - -
+2023-06-14 22:23:35.676 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/swagger/index.html - - - 200 - text/html;charset=utf-8 523.7737ms
+2023-06-14 22:23:35.683 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 8.6649ms
+2023-06-14 22:23:35.707 +03:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2023-06-14 22:23:35.711 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/swagger/swagger-ui.css - - - 200 143632 text/css 39.1068ms
+2023-06-14 22:23:35.734 +03:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2023-06-14 22:23:35.734 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/swagger/swagger-ui-standalone-preset.js - - - 200 337162 application/javascript 61.6473ms
+2023-06-14 22:23:35.739 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/_vs/browserLink - -
+2023-06-14 22:23:35.745 +03:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2023-06-14 22:23:35.745 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/swagger/swagger-ui-bundle.js - - - 200 1092889 application/javascript 72.6048ms
+2023-06-14 22:23:35.813 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 74.1888ms
+2023-06-14 22:23:37.309 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/swagger/v1/swagger.json - -
+2023-06-14 22:23:37.373 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7120/swagger/favicon-32x32.png - -
+2023-06-14 22:23:37.374 +03:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2023-06-14 22:23:37.374 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/swagger/favicon-32x32.png - - - 200 628 image/png 1.0687ms
+2023-06-14 22:23:37.602 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7120/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 293.1919ms
